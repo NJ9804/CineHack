@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, JSON, Float, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, Text, DateTime, JSON, Float, Boolean, ForeignKey, Enum
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from app.config.database import Base
@@ -278,59 +278,122 @@ class ScriptAnalysis(Base):
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
 
 
+class GlobalCost(Base):
+    __tablename__ = "global_costs"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String, nullable=False)
+    category = Column(String, nullable=False)  # actor/property/location
+    billing_cycle = Column(String, nullable=False)  # daily/weekly/monthly
+    cost = Column(Integer, nullable=False)
+    description = Column(Text)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+
+
+# Invoice Pydantic Models
+class InvoiceInput(BaseModel):
+    """Model for invoice input data"""
+    company_name: str = Field(..., description="Name of the company")
+    company_address: str = Field(..., description="Company address")
+    company_gstin: str = Field(..., description="Company GST identification number")
+    bank_name: str = Field(..., description="Bank name")
+    bank_ac: str = Field(..., description="Bank account number")
+    bank_ifsc: str = Field(..., description="Bank IFSC code")
+    invoice_date: str = Field(..., description="Invoice date")
+    actor_name: str = Field(..., description="Actor name")
+    actor_pan: str = Field(..., description="Actor PAN number")
+    actor_address: str = Field(..., description="Actor address")
+    acting_fee: float = Field(..., gt=0, description="Acting fee amount")
+    tds_percent: float = Field(..., ge=0, le=100, description="TDS percentage")
+
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "company_name": "Film Production House",
+                "company_address": "123 Film Street, Mumbai, Maharashtra",
+                "company_gstin": "27AAAAA0000A1Z5",
+                "bank_name": "HDFC Bank",
+                "bank_ac": "12345678901234",
+                "bank_ifsc": "HDFC0000123",
+                "invoice_date": "2024-01-15",
+                "actor_name": "John Doe",
+                "actor_pan": "ABCDE1234F",
+                "actor_address": "456 Actor Lane, Mumbai, Maharashtra",
+                "acting_fee": 100000.0,
+                "tds_percent": 10.0
+            }
+        }
+
+
+class InvoiceCalculation(BaseModel):
+    """Model for invoice calculations"""
+    acting_fee: float
+    tds_percent: float
+    tds_amount: float
+    net_amount: float
+    invoice_id: str
+
+
+class InvoiceResponse(BaseModel):
+    """Model for invoice generation response"""
+    success: bool
+    message: str
+    invoice_id: str
+    filename: Optional[str] = None
+    download_url: Optional[str] = None
+
+
+class ErrorResponse(BaseModel):
+    """Model for error responses"""
+    success: bool = False
+    message: str
+    error_code: Optional[str] = None
+
+
+# Production Stage Models
 class ProductionStage(Base):
     __tablename__ = "production_stages"
     
     id = Column(Integer, primary_key=True, index=True)
     project_id = Column(Integer, ForeignKey("projects.id"))
-    name = Column(String, nullable=False)  # Development, Pre-Production, Production, Post-Production, Distribution
+    name = Column(String, nullable=False)
     description = Column(Text)
-    order = Column(Integer, nullable=False)  # Display order
-    status = Column(String, default="not_started")  # not_started, in_progress, completed, on_hold
-    progress = Column(Integer, default=0)  # 0-100 percentage
+    stage_order = Column(Integer)
     start_date = Column(DateTime)
     end_date = Column(DateTime)
-    estimated_duration_days = Column(Integer)
-    actual_duration_days = Column(Integer)
-    budget_allocated = Column(Float, default=0.0)
-    budget_spent = Column(Float, default=0.0)
-    notes = Column(Text)
+    status = Column(String, default="not_started")  # not_started, in_progress, completed, delayed
+    progress_percentage = Column(Float, default=0.0)
     
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
     
     # Relationships
     project = relationship("Project")
-    sub_stages = relationship("ProductionSubStage", back_populates="stage", cascade="all, delete-orphan")
-    tasks = relationship("ProductionTask", back_populates="stage", cascade="all, delete-orphan")
+    sub_stages = relationship("ProductionSubStage", back_populates="stage")
+    tasks = relationship("ProductionTask", back_populates="stage")
 
 
 class ProductionSubStage(Base):
-    __tablename__ = "production_substages"
+    __tablename__ = "production_sub_stages"
     
     id = Column(Integer, primary_key=True, index=True)
     stage_id = Column(Integer, ForeignKey("production_stages.id"))
     name = Column(String, nullable=False)
     description = Column(Text)
-    order = Column(Integer, nullable=False)
-    status = Column(String, default="not_started")  # not_started, in_progress, completed, blocked
-    progress = Column(Integer, default=0)  # 0-100 percentage
-    priority = Column(String, default="medium")  # low, medium, high, critical
-    assigned_to = Column(String)  # Team member or department
+    sub_stage_order = Column(Integer)
     start_date = Column(DateTime)
     end_date = Column(DateTime)
-    estimated_hours = Column(Integer)
-    actual_hours = Column(Integer)
-    dependencies = Column(JSON)  # Array of substage IDs that must be completed first
-    deliverables = Column(JSON)  # Array of expected deliverables
-    notes = Column(Text)
+    status = Column(String, default="not_started")
+    progress_percentage = Column(Float, default=0.0)
     
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
     
     # Relationships
     stage = relationship("ProductionStage", back_populates="sub_stages")
-    tasks = relationship("ProductionTask", back_populates="sub_stage", cascade="all, delete-orphan")
+    tasks = relationship("ProductionTask", back_populates="sub_stage")
 
 
 class ProductionTask(Base):
@@ -338,17 +401,16 @@ class ProductionTask(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     stage_id = Column(Integer, ForeignKey("production_stages.id"))
-    sub_stage_id = Column(Integer, ForeignKey("production_substages.id"), nullable=True)
+    sub_stage_id = Column(Integer, ForeignKey("production_sub_stages.id"), nullable=True)
     title = Column(String, nullable=False)
     description = Column(Text)
-    status = Column(String, default="todo")  # todo, in_progress, review, completed, blocked
+    task_type = Column(String)  # creative, technical, administrative, logistics
     priority = Column(String, default="medium")  # low, medium, high, critical
     assigned_to = Column(Integer, ForeignKey("users.id"))  # Changed to Integer FK
     due_date = Column(DateTime)
-    completed_date = Column(DateTime)
     estimated_hours = Column(Float)
     actual_hours = Column(Float)
-    tags = Column(JSON)  # Array of tags
+    dependencies = Column(JSON)  # Array of task IDs this task depends on
     checklist = Column(JSON)  # Array of checklist items {item: str, completed: bool}
     attachments = Column(JSON)  # Array of file references
     notes = Column(Text)

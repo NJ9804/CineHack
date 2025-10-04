@@ -3,6 +3,9 @@ fastapi
 uvicorn
 python-multipart
 PyPDF2
+fpdf2
+pillow
+python-dateutil
 google-genai
 sqlalchemy
 psycopg2-binary

@@ -8,7 +8,9 @@ import {
   mockBudget 
 } from '../mock/data';
 import { 
-  GlobalCost, 
+  GlobalCost,
+  GlobalCostCreate,
+  GlobalCostUpdate,
   Project, 
   Character, 
   Scene, 
@@ -30,22 +32,51 @@ export const globalCostsApi = {
     return mockGlobalCosts;
   },
 
-  async updateCost(id: string, newCost: number): Promise<GlobalCost> {
+  async getByCategory(category: 'actor' | 'property' | 'location'): Promise<GlobalCost[]> {
     await delay(300);
-    const cost = mockGlobalCosts.find(c => c.id === id);
-    if (!cost) throw new Error('Cost not found');
-    cost.cost = newCost;
-    return cost;
+    return mockGlobalCosts.filter(c => c.category === category);
   },
 
-  async addCost(cost: Omit<GlobalCost, 'id'>): Promise<GlobalCost> {
+  async create(data: GlobalCostCreate): Promise<GlobalCost> {
     await delay(300);
-    const newCost = {
-      ...cost,
-      id: Date.now().toString()
+    const newCost: GlobalCost = {
+      ...data,
+      id: Date.now(),
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
     };
     mockGlobalCosts.push(newCost);
     return newCost;
+  },
+
+  async update(id: number, data: GlobalCostUpdate): Promise<GlobalCost> {
+    await delay(300);
+    const costIndex = mockGlobalCosts.findIndex(c => c.id === id);
+    if (costIndex === -1) throw new Error('Cost not found');
+    
+    const updatedCost = {
+      ...mockGlobalCosts[costIndex],
+      ...data,
+      updated_at: new Date().toISOString()
+    };
+    mockGlobalCosts[costIndex] = updatedCost;
+    return updatedCost;
+  },
+
+  async delete(id: number): Promise<{ message: string }> {
+    await delay(300);
+    const costIndex = mockGlobalCosts.findIndex(c => c.id === id);
+    if (costIndex === -1) throw new Error('Cost not found');
+    
+    mockGlobalCosts.splice(costIndex, 1);
+    return { message: `Global cost with ID ${id} has been deleted successfully` };
+  },
+
+  async getById(id: number): Promise<GlobalCost> {
+    await delay(300);
+    const cost = mockGlobalCosts.find(c => c.id === id);
+    if (!cost) throw new Error('Cost not found');
+    return cost;
   }
 };
 
@@ -231,6 +262,7 @@ export const apiClient = {
   updateScheduleItem: scheduleApi.updateScheduleItem,
   autoSchedule: scheduleApi.autoSchedule,
   getAlerts: alertsApi.getByProjectId,
+  globalCosts: globalCostsApi,
   uploadScript: async (projectId: string, file: File) => {
     await delay(2000); // Simulate script processing
     return {

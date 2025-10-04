@@ -2,16 +2,76 @@ import { GlobalCost, Actor, Property, Project, Character, Scene, Alert, Schedule
 
 // Mock Global Costs
 export const mockGlobalCosts: GlobalCost[] = [
-  { id: '1', name: 'Mohanlal', category: 'actors', cost: 5000000 },
-  { id: '2', name: 'Mammootty', category: 'actors', cost: 4500000 },
-  { id: '3', name: 'Prithviraj', category: 'actors', cost: 3000000 },
-  { id: '4', name: 'Manju Warrier', category: 'actresses', cost: 2500000 },
-  { id: '5', name: 'Nayanthara', category: 'actresses', cost: 3500000 },
-  { id: '6', name: 'Porsche 911', category: 'properties', cost: 150000 },
-  { id: '7', name: 'Toyota Innova', category: 'properties', cost: 25000 },
-  { id: '8', name: 'Maruti Omni', category: 'properties', cost: 15000 },
-  { id: '9', name: 'Vegetables (per day)', category: 'properties', cost: 5000 },
-  { id: '10', name: 'Wooden Sticks (props)', category: 'properties', cost: 2000 },
+  { 
+    id: 1, 
+    name: 'Mohanlal', 
+    category: 'actor', 
+    billing_cycle: 'monthly', 
+    cost: 5000000,
+    description: 'Lead actor with national acclaim',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  { 
+    id: 2, 
+    name: 'Mammootty', 
+    category: 'actor', 
+    billing_cycle: 'monthly', 
+    cost: 4500000,
+    description: 'Veteran Malayalam cinema actor',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  { 
+    id: 3, 
+    name: 'Prithviraj', 
+    category: 'actor', 
+    billing_cycle: 'monthly', 
+    cost: 3000000,
+    description: 'Popular contemporary actor',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  { 
+    id: 4, 
+    name: 'Porsche 911', 
+    category: 'property', 
+    billing_cycle: 'daily', 
+    cost: 150000,
+    description: 'Luxury sports car for shooting',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  { 
+    id: 5, 
+    name: 'Toyota Innova', 
+    category: 'property', 
+    billing_cycle: 'daily', 
+    cost: 25000,
+    description: 'Multi-purpose vehicle for crew transport',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  { 
+    id: 6, 
+    name: 'Film Studio A', 
+    category: 'location', 
+    billing_cycle: 'daily', 
+    cost: 200000,
+    description: 'Professional indoor shooting studio',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  },
+  { 
+    id: 7, 
+    name: 'Beach Location', 
+    category: 'location', 
+    billing_cycle: 'daily', 
+    cost: 50000,
+    description: 'Scenic coastal location with permit',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z'
+  }
 ];
 
 // Mock Actors
