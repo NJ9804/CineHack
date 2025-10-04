@@ -17,7 +17,11 @@ import {
   ExternalLink,
   Calendar,
   Award,
-  Users
+  Users,
+  Smile,
+  Frown,
+  Meh,
+  TrendingDown
 } from 'lucide-react';
 import { apiClient } from '@/services/api/client';
 import { Promotion, VideoAnalytics } from '@/lib/types';
@@ -284,6 +288,105 @@ export default function PromotionsTab({ projectId, projectName }: PromotionsTabP
                   </p>
                 </CardContent>
               </Card>
+
+              {/* Sentiment Analysis */}
+              {selectedPromotion.sentiment_analysis && (
+                <Card className="bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-rose-500/10 border-purple-500/20">
+                  <CardHeader>
+                    <CardTitle className="text-white flex items-center">
+                      <TrendingUp className="w-5 h-5 mr-2 text-purple-400" />
+                      AI Sentiment Analysis
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {/* Overall Sentiment */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          {selectedPromotion.sentiment_analysis.overall_sentiment === 'positive' && (
+                            <Smile className="w-8 h-8 text-green-400" />
+                          )}
+                          {selectedPromotion.sentiment_analysis.overall_sentiment === 'negative' && (
+                            <Frown className="w-8 h-8 text-red-400" />
+                          )}
+                          {(selectedPromotion.sentiment_analysis.overall_sentiment === 'neutral' || 
+                            selectedPromotion.sentiment_analysis.overall_sentiment === 'mixed') && (
+                            <Meh className="w-8 h-8 text-yellow-400" />
+                          )}
+                          <div>
+                            <p className="text-lg font-semibold text-white capitalize">
+                              {selectedPromotion.sentiment_analysis.overall_sentiment} Sentiment
+                            </p>
+                            <p className="text-sm text-gray-400">
+                              {selectedPromotion.sentiment_analysis.total_analyzed} comments analyzed
+                            </p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <p className="text-3xl font-bold text-purple-400">
+                            {selectedPromotion.sentiment_analysis.positive_percentage}%
+                          </p>
+                          <p className="text-xs text-gray-400">Positive</p>
+                        </div>
+                      </div>
+
+                      {/* Sentiment Summary */}
+                      <div className="bg-gray-800/50 rounded-lg p-4">
+                        <p className="text-sm text-gray-300 leading-relaxed">
+                          {selectedPromotion.sentiment_analysis.sentiment_summary}
+                        </p>
+                      </div>
+
+                      {/* Sentiment Distribution */}
+                      <div className="grid grid-cols-3 gap-3">
+                        <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-3 text-center">
+                          <Smile className="w-5 h-5 text-green-400 mx-auto mb-1" />
+                          <div className="text-xl font-bold text-green-400">
+                            {selectedPromotion.sentiment_analysis.positive_count}
+                          </div>
+                          <div className="text-xs text-gray-400">Positive</div>
+                        </div>
+                        <div className="bg-gray-500/10 border border-gray-500/20 rounded-lg p-3 text-center">
+                          <Meh className="w-5 h-5 text-gray-400 mx-auto mb-1" />
+                          <div className="text-xl font-bold text-gray-400">
+                            {selectedPromotion.sentiment_analysis.neutral_count}
+                          </div>
+                          <div className="text-xs text-gray-400">Neutral</div>
+                        </div>
+                        <div className="bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-center">
+                          <Frown className="w-5 h-5 text-red-400 mx-auto mb-1" />
+                          <div className="text-xl font-bold text-red-400">
+                            {selectedPromotion.sentiment_analysis.negative_count}
+                          </div>
+                          <div className="text-xs text-gray-400">Negative</div>
+                        </div>
+                      </div>
+
+                      {/* Sentiment Score Bar */}
+                      <div>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-sm text-gray-400">Average Sentiment Score</span>
+                          <span className="text-sm font-semibold text-white">
+                            {(selectedPromotion.sentiment_analysis.average_score * 100).toFixed(0)}%
+                          </span>
+                        </div>
+                        <div className="w-full bg-gray-700 rounded-full h-3">
+                          <div 
+                            className={`h-3 rounded-full transition-all ${
+                              selectedPromotion.sentiment_analysis.average_score > 0.6 
+                                ? 'bg-gradient-to-r from-green-400 to-emerald-500'
+                                : selectedPromotion.sentiment_analysis.average_score > 0.4
+                                ? 'bg-gradient-to-r from-yellow-400 to-amber-500'
+                                : 'bg-gradient-to-r from-red-400 to-rose-500'
+                            }`}
+                            style={{ width: `${selectedPromotion.sentiment_analysis.average_score * 100}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
 
               {/* Video Analytics */}
               <Card className="bg-gray-900/50 border-gray-700">

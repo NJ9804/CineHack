@@ -655,6 +655,31 @@ class ApiClient {
       method: 'DELETE',
     });
   }
+
+  // Promotions endpoints
+  async createPromotion(film: string, projectId?: string) {
+    return this.request<any>('/api/promotions', {
+      method: 'POST',
+      body: JSON.stringify({ 
+        film, 
+        project_id: projectId ? parseInt(projectId) : null 
+      }),
+    });
+  }
+
+  async getAllPromotions() {
+    const response = await this.request<any>('/api/promotions');
+    return response.promotions || [];
+  }
+
+  async getPromotion(promotionId: string) {
+    return this.request<any>(`/api/promotions/${promotionId}`);
+  }
+
+  async getPromotions(projectId: string) {
+    const response = await this.request<any>(`/api/promotions/projects/${projectId}`);
+    return response.promotions || [];
+  }
 }
 
 export const apiClient = new ApiClient();

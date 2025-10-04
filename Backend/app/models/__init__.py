@@ -309,3 +309,22 @@ class ProductionTask(Base):
     # Relationships
     stage = relationship("ProductionStage", back_populates="tasks")
     sub_stage = relationship("ProductionSubStage", back_populates="tasks")
+
+
+class Promotion(Base):
+    __tablename__ = "promotions"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("projects.id"), nullable=True)
+    film = Column(String, nullable=False)
+    total_views = Column(Integer, default=0)
+    total_likes = Column(Integer, default=0)
+    total_comments = Column(Integer, default=0)
+    videos = Column(JSON)  # Array of video analytics data
+    industry_progress = Column(Text)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    project = relationship("Project")
