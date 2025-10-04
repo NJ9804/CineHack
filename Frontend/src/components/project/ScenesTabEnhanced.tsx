@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { MapPin, Clock, AlertTriangle, Users, Upload, FileText, Edit, Calendar, Search, Filter, RefreshCw } from 'lucide-react';
 import api from '@/services/api/client';
 import ScriptUploadModal from './ScriptUploadModal';
@@ -54,7 +55,9 @@ export default function ScenesTab({ projectId, scenes: passedScenes }: ScenesTab
   const [loading, setLoading] = useState(true);
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
+  const [viewModalOpen, setViewModalOpen] = useState(false);
   const [selectedScene, setSelectedScene] = useState<Scene | null>(null);
+  const [viewScene, setViewScene] = useState<Scene | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [locationFilter, setLocationFilter] = useState('all');
   const [timeFilter, setTimeFilter] = useState('all');
@@ -121,6 +124,11 @@ export default function ScenesTab({ projectId, scenes: passedScenes }: ScenesTab
   const handleSceneEdit = (scene: Scene) => {
     setSelectedScene(scene);
     setEditModalOpen(true);
+  };
+
+  const handleSceneView = (scene: Scene) => {
+    setViewScene(scene);
+    setViewModalOpen(true);
   };
 
   const formatCurrency = (amount: number) => {
@@ -418,10 +426,7 @@ export default function ScenesTab({ projectId, scenes: passedScenes }: ScenesTab
                     variant="outline" 
                     size="sm" 
                     className="text-xs border-accent-secondary text-accent-secondary hover:bg-accent-secondary hover:text-primary-bg transition-colors"
-                    onClick={() => {
-                      // TODO: Implement view scene details modal
-                      console.log('View scene details:', scene.id);
-                    }}
+                    onClick={() => handleSceneView(scene)}
                   >
                     👁️ View Scene
                   </Button>
@@ -445,6 +450,194 @@ export default function ScenesTab({ projectId, scenes: passedScenes }: ScenesTab
             </Card>
           ))}
         </div>
+      )}
+
+      {/* Detailed Scene View Modal */}
+      {viewScene && (
+        <Dialog open={viewModalOpen} onOpenChange={setViewModalOpen}>
+          <DialogContent className="sm:max-w-[1000px] bg-gradient-to-br from-amber-950/90 to-accent-brown/85 border-accent-primary/30 shadow-2xl max-h-[90vh] overflow-hidden backdrop-blur-md">
+            <DialogHeader className="pb-4 border-b border-accent-primary/30">
+              <DialogTitle className="text-accent-primary text-2xl font-bold flex items-center gap-3">
+                🎬 Scene {viewScene.scene_number || viewScene.seq || viewScene.id}
+              </DialogTitle>
+              <DialogDescription className="text-accent-secondary text-base">
+                Complete scene breakdown and production details
+              </DialogDescription>
+            </DialogHeader>
+
+            <div className="overflow-y-auto max-h-[calc(90vh-120px)] py-6">
+              <div className="space-y-8">
+                {/* Essential Scene Info */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                  <div className="bg-gradient-to-r from-amber-700/40 to-accent-brown/30 border border-accent-primary/40 rounded-lg p-4 backdrop-blur-sm">
+                    <div className="text-accent-primary text-sm font-medium mb-1">Scene Number</div>
+                    <div className="text-white text-2xl font-bold">#{viewScene.scene_number || viewScene.seq || viewScene.id}</div>
+                  </div>
+                  <div className="bg-gradient-to-r from-amber-800/40 to-accent-brown/30 border border-accent-secondary/40 rounded-lg p-4 backdrop-blur-sm">
+                    <div className="text-accent-secondary text-sm font-medium mb-1">Time of Day</div>
+                    <div className="text-white text-lg font-semibold">
+                      {viewScene.time_of_day === 'day' ? '☀️ Day' : 
+                       viewScene.time_of_day === 'night' ? '🌙 Night' : 
+                       viewScene.time_of_day === 'morning' ? '🌅 Morning' : 
+                       viewScene.time_of_day === 'evening' ? '🌇 Evening' : '🕐 Day'}
+                    </div>
+                  </div>
+                  <div className="bg-gradient-to-r from-amber-800/40 to-accent-brown/30 border border-accent-brown/40 rounded-lg p-4 backdrop-blur-sm">
+                    <div className="text-accent-brown text-sm font-medium mb-1">Location</div>
+                    <div className="text-white text-lg font-semibold">
+                      {viewScene.location_type === 'indoor' ? '🏠' : '🌅'} {viewScene.location_name || viewScene.location || 'Unknown'}
+                    </div>
+                  </div>
+                  <div className="bg-gradient-to-r from-amber-800/40 to-accent-brown/30 border border-green-500/40 rounded-lg p-4 backdrop-blur-sm">
+                    <div className="text-green-400 text-sm font-medium mb-1">Status</div>
+                    <div className="text-white text-lg font-semibold">
+                      {viewScene.status === 'completed' ? '✅ Complete' :
+                       viewScene.status === 'shooting' ? '🎬 Filming' :
+                       viewScene.status === 'planned' ? '📋 Planned' : '📌 Not Started'}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Scene Heading */}
+                <div className="bg-gradient-to-r from-amber-900/60 to-accent-brown/50 border border-accent-primary/40 rounded-lg p-6 mb-6 backdrop-blur-sm">
+                  <h3 className="text-accent-primary text-lg font-semibold mb-3 flex items-center gap-2">
+                    🎞️ Scene Heading
+                  </h3>
+                  <div className="text-white text-2xl font-bold leading-tight">
+                    {viewScene.scene_heading || 
+                     `${(viewScene.location_type === 'indoor' || viewScene.interior) ? 'INT.' : 'EXT.'} ${viewScene.location_name || viewScene.location || 'Unknown Location'}`}
+                  </div>
+                </div>
+
+                {/* Main Content Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                  {/* Left Column */}
+                  <div className="space-y-6">
+                    {/* Scene Notes */}
+                    {(viewScene.technical_notes || viewScene.notes) && (
+                      <div className="bg-gradient-to-r from-amber-900/50 to-accent-brown/40 border border-accent-primary/40 rounded-lg p-6 backdrop-blur-sm">
+                        <h3 className="text-accent-primary text-lg font-semibold mb-4 flex items-center gap-2">
+                          📝 Scene Notes
+                        </h3>
+                        <div className="text-amber-100 leading-relaxed text-base">
+                          {viewScene.technical_notes || viewScene.notes}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Cast Section */}
+                    {viewScene.actors_data && viewScene.actors_data.length > 0 && (
+                      <div className="bg-gradient-to-r from-amber-900/50 to-accent-brown/40 border border-accent-secondary/40 rounded-lg p-6 backdrop-blur-sm">
+                        <h3 className="text-accent-secondary text-lg font-semibold mb-4 flex items-center gap-2">
+                          🎭 Cast ({viewScene.actors_data.length})
+                        </h3>
+                        <div className="grid grid-cols-1 gap-4">
+                          {viewScene.actors_data.map((actor: any, idx: number) => (
+                            <div key={idx} className="bg-amber-800/40 p-4 rounded-lg border border-accent-brown/30 backdrop-blur-sm">
+                              <div className="flex items-center justify-between">
+                                <div className="flex-1">
+                                  <div className="text-white font-semibold text-base">
+                                    🎭 {typeof actor === 'string' ? actor : actor.name || 'Unknown Actor'}
+                                  </div>
+                                  {typeof actor === 'object' && actor.description && (
+                                    <div className="text-amber-200 text-sm mt-2">
+                                      {actor.description}
+                                    </div>
+                                  )}
+                                </div>
+                                {typeof actor === 'object' && actor.role && (
+                                  <Badge className="ml-3 bg-accent-primary/20 text-accent-primary border-accent-primary/30">
+                                    {actor.role}
+                                  </Badge>
+                                )}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Right Column */}
+                  <div className="space-y-6">
+
+                    {/* Props Section */}
+                    {viewScene.props_data && viewScene.props_data.length > 0 && (
+                      <div className="bg-gradient-to-r from-amber-900/50 to-accent-brown/40 border border-accent-secondary/40 rounded-lg p-6 backdrop-blur-sm">
+                        <h3 className="text-accent-secondary text-lg font-semibold mb-4 flex items-center gap-2">
+                          🎪 Props ({viewScene.props_data.length})
+                        </h3>
+                        <div className="flex flex-wrap gap-2">
+                          {viewScene.props_data.map((prop: any, idx: number) => (
+                            <Badge key={idx} variant="secondary" className="bg-accent-secondary/30 text-accent-secondary border-accent-secondary/40">
+                              🎪 {typeof prop === 'string' ? prop : prop.name || prop}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Additional Details */}
+                    {(viewScene.location_data || viewScene.time_data || viewScene.crowd_data) && (
+                      <div className="bg-gradient-to-r from-amber-900/50 to-accent-brown/40 border border-accent-brown/40 rounded-lg p-6 backdrop-blur-sm">
+                        <h3 className="text-accent-brown text-lg font-semibold mb-4 flex items-center gap-2">
+                          📋 Additional Details
+                        </h3>
+                        <div className="space-y-4">
+                          {viewScene.location_data?.specific_details && (
+                            <div>
+                              <div className="text-amber-200 text-sm mb-1">Location Details</div>
+                              <div className="text-white">{viewScene.location_data.specific_details}</div>
+                            </div>
+                          )}
+                          {viewScene.time_data?.weather && (
+                            <div>
+                              <div className="text-amber-200 text-sm mb-1">Weather</div>
+                              <div className="text-white">{viewScene.time_data.weather}</div>
+                            </div>
+                          )}
+                          {viewScene.crowd_data?.people_needed && (
+                            <div>
+                              <div className="text-amber-200 text-sm mb-1">Crowd Requirements</div>
+                              <div className="text-white">{viewScene.crowd_data.people_needed} people needed</div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3 pt-6 border-t border-accent-primary/20 mt-8">
+                  <Button 
+                    onClick={() => {
+                      setViewModalOpen(false);
+                      handleSceneEdit(viewScene);
+                    }}
+                    className="bg-accent-primary text-primary-bg hover:bg-accent-primary/80 font-medium transition-colors"
+                  >
+                    ✏️ Edit Scene
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    className="border-accent-secondary text-accent-secondary hover:bg-accent-secondary hover:text-primary-bg transition-colors"
+                  >
+                    📅 Schedule Scene
+                  </Button>
+                  <Button 
+                    variant="outline"
+                    onClick={() => setViewModalOpen(false)}
+                    className="border-accent-brown text-accent-brown hover:bg-accent-brown hover:text-primary-bg transition-colors"
+                  >
+                    ❌ Close
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
       )}
 
       {/* Modals */}
