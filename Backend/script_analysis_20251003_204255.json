@@ -1,0 +1,3593 @@
+{
+  "filename": "MA_FINAL_DRAFT.pdf",
+  "total_scenes": 39,
+  "scenes": [
+    {
+      "scene_number": 1,
+      "scene_heading": "EXT. DAY. CAR SHOWROOM - Kozhikode",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "27-year-old lawyer, wearing a white shirt, white pants, glasses, and carrying a laptop bag."
+        },
+        {
+          "name": "Jyothi",
+          "role": "supporting",
+          "description": "Speaking on the phone, in a hurry."
+        },
+        {
+          "name": "Background people/vehicles",
+          "role": "background",
+          "description": "On the road outside the showroom."
+        }
+      ],
+      "props": [
+        "Expensive car",
+        "Glass windows (of showroom)",
+        "Laptop bag",
+        "Mobile phone"
+      ],
+      "location": {
+        "name": "Car Showroom",
+        "type": "outdoor",
+        "specific_details": "Exterior of an expensive car showroom in Kozhikode. View through glass showing the road and vehicles outside. Water collected on the road."
+      },
+      "crowd": {
+        "people_needed": "2-5",
+        "crowd_type": "Background pedestrians and vehicles"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "monsoon (Thulaavarsha samayam)",
+        "weather": "cloudy, some sunlight, water logged roads",
+        "specific_time": "not specified"
+      },
+      "scene_type": "action/dialogue",
+      "duration_estimate": "short",
+      "technical_notes": "Road sounds fade in. Unni's reflection is seen in the glass."
+    },
+    {
+      "scene_number": 2,
+      "scene_heading": "EXT. DAY. MLA’S HOUSE",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, arriving at the MLA's house."
+        },
+        {
+          "name": "MAN 1",
+          "role": "background",
+          "description": "Politician, discussing legal matters."
+        },
+        {
+          "name": "MAN 2",
+          "role": "background",
+          "description": "Politician, discussing weather and legal matters."
+        },
+        {
+          "name": "Jyothi",
+          "role": "supporting",
+          "description": "Lawyer, wearing advocate's attire, around 25 years old."
+        }
+      ],
+      "props": [
+        "Bike",
+        "Mobile phone",
+        "Whatsapp message",
+        "Board 'Reshma George, MLA'",
+        "Bag",
+        "Cover with documents"
+      ],
+      "location": {
+        "name": "MLA's House",
+        "type": "outdoor",
+        "specific_details": "In front of a large house, identified as 'Reshma George, MLA'. Gate, entrance area."
+      },
+      "crowd": {
+        "people_needed": "2-3",
+        "crowd_type": "Politicians (background extras)"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "overcast, possibility of rain",
+        "specific_time": "not specified"
+      },
+      "scene_type": "action/dialogue",
+      "duration_estimate": "short",
+      "technical_notes": "None"
+    },
+    {
+      "scene_number": 2,
+      "sub_scene_letter": "A",
+      "scene_heading": "INT. DAY. MLA’S HOUSE/LIVING ROOM/OFFICE",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, observing the situation."
+        },
+        {
+          "name": "MLA Reshma George",
+          "role": "supporting",
+          "description": "Politician, facing legal issues."
+        },
+        {
+          "name": "George",
+          "role": "supporting",
+          "description": "MLA's husband."
+        },
+        {
+          "name": "Chaakkappan",
+          "role": "supporting",
+          "description": "Senior politician, reading news."
+        },
+        {
+          "name": "Jyothi",
+          "role": "supporting",
+          "description": "Lawyer, presenting legal documents."
+        }
+      ],
+      "props": [
+        "Newspaper (front page with headlines)",
+        "Legal documents",
+        "Pen (implied for signing)"
+      ],
+      "location": {
+        "name": "MLA's House",
+        "type": "indoor",
+        "specific_details": "Living room or office area within the MLA's house. Contains people seated and discussing."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "not specified"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "not specified",
+        "specific_time": "not specified"
+      },
+      "scene_type": "dialogue",
+      "duration_estimate": "medium",
+      "technical_notes": "None"
+    },
+    {
+      "scene_number": 2,
+      "sub_scene_letter": "B",
+      "scene_heading": "EXT. DAY. MLA’S HOUSE/GATE",
+      "actors": [
+        {
+          "name": "Jyothi",
+          "role": "supporting",
+          "description": "Lawyer, instructing Unni."
+        },
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, taking instructions."
+        },
+        {
+          "name": "MLA (implied)",
+          "role": "background",
+          "description": "Leaving in her car."
+        }
+      ],
+      "props": [
+        "Scooty",
+        "Bike",
+        "MLA's car"
+      ],
+      "location": {
+        "name": "MLA's House Gate",
+        "type": "outdoor",
+        "specific_details": "The gate area of the MLA's house, where vehicles are parked."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "not specified"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "not specified",
+        "specific_time": "not specified"
+      },
+      "scene_type": "action/dialogue",
+      "duration_estimate": "short",
+      "technical_notes": "None"
+    },
+    {
+      "scene_number": 2,
+      "sub_scene_letter": "C",
+      "scene_heading": "INT. DAY. MLA’S HOUSE/OFFICE",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, trying to get involved in the case."
+        },
+        {
+          "name": "George",
+          "role": "supporting",
+          "description": "MLA's husband, dismissing Unni's offer."
+        },
+        {
+          "name": "Chaakkappan",
+          "role": "supporting",
+          "description": "Politician, accompanying George."
+        }
+      ],
+      "props": [
+        "Mobile phone",
+        "Pen"
+      ],
+      "location": {
+        "name": "MLA's House Office",
+        "type": "indoor",
+        "specific_details": "The office room within the MLA's house."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "not specified"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "not specified",
+        "specific_time": "not specified"
+      },
+      "scene_type": "dialogue",
+      "duration_estimate": "medium",
+      "technical_notes": "None"
+    },
+    {
+      "scene_number": 2,
+      "sub_scene_letter": "D",
+      "scene_heading": "EXT. DAY. MLA’S HOUSE/VERANDAH/CAR PARKING",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, persistent in his efforts to join the case."
+        },
+        {
+          "name": "George",
+          "role": "supporting",
+          "description": "MLA's husband, uninterested in Unni's offer."
+        },
+        {
+          "name": "Chaakkappan",
+          "role": "supporting",
+          "description": "Politician, mocking Unni's inexperience."
+        }
+      ],
+      "props": [
+        "Bag",
+        "Car (door)"
+      ],
+      "location": {
+        "name": "MLA's House Verandah/Car Parking",
+        "type": "outdoor",
+        "specific_details": "The verandah and car parking area outside the MLA's house."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "not specified"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "not specified",
+        "specific_time": "not specified"
+      },
+      "scene_type": "dialogue/action",
+      "duration_estimate": "medium",
+      "technical_notes": "None"
+    },
+    {
+      "scene_number": 3,
+      "scene_heading": "EXT. DAY. EMERALD TOWERS",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, parking his bike."
+        }
+      ],
+      "props": [
+        "Bike"
+      ],
+      "location": {
+        "name": "Emerald Towers",
+        "type": "outdoor",
+        "specific_details": "Parking area of a new eight-story building called 'Emerald Towers' located on Mavoor Road."
+      },
+      "crowd": {
+        "people_needed": "1-2",
+        "crowd_type": "Background people in a parking lot"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "not specified",
+        "specific_time": "not specified"
+      },
+      "scene_type": "action",
+      "duration_estimate": "very short",
+      "technical_notes": "None"
+    },
+    {
+      "scene_number": 3,
+      "sub_scene_letter": "A",
+      "scene_heading": "INT. DAY. GANGA ASSOCIATES",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, entering the office."
+        },
+        {
+          "name": "Jyothi",
+          "role": "supporting",
+          "description": "Lawyer, in a hurry."
+        }
+      ],
+      "props": [],
+      "location": {
+        "name": "Ganga Associates Office",
+        "type": "indoor",
+        "specific_details": "The office of 'Ganga Associates' located on the 3rd floor of Emerald Towers."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "not specified"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "not specified",
+        "specific_time": "not specified"
+      },
+      "scene_type": "action/dialogue",
+      "duration_estimate": "very short",
+      "technical_notes": "None"
+    },
+    {
+      "scene_number": 3,
+      "sub_scene_letter": "B",
+      "scene_heading": "INT. DAY. GANGA ASSOCIATES",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, facing his senior."
+        },
+        {
+          "name": "Gangaadharan",
+          "role": "supporting",
+          "description": "Senior advocate, Unni's boss, thoughtful and firm."
+        },
+        {
+          "name": "JUNIOR",
+          "role": "background",
+          "description": "A junior lawyer reporting to Gangaadharan."
+        },
+        {
+          "name": "Mathews",
+          "role": "supporting",
+          "description": "Clerk in the office."
+        }
+      ],
+      "props": [
+        "Bag",
+        "Documents (affidavit)",
+        "Files",
+        "Law book",
+        "Chair with wheels"
+      ],
+      "location": {
+        "name": "Gangaadharan's Office Room",
+        "type": "indoor",
+        "specific_details": "Gangaadharan vakkeel's private office room within Ganga Associates."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "not specified"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "not specified",
+        "specific_time": "not specified"
+      },
+      "scene_type": "dialogue",
+      "duration_estimate": "long",
+      "technical_notes": "Muffled thunder sound (mangiya idi vettunna shabdham)."
+    },
+    {
+      "scene_number": 4,
+      "scene_heading": "EXT/INT. DAY. NAME BOARD SHOP",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, drenched in rain, entering the shop."
+        },
+        {
+          "name": "Shopkeeper (implied)",
+          "role": "background",
+          "description": "Owner of the name board shop."
+        }
+      ],
+      "props": [
+        "Paper",
+        "Pen"
+      ],
+      "location": {
+        "name": "Name Board Shop",
+        "type": "ext/int",
+        "specific_details": "A shop that makes name boards, located below Paragon hotel. Unni enters from outside."
+      },
+      "crowd": {
+        "people_needed": "1-2",
+        "crowd_type": "Shop staff"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "heavy rain",
+        "specific_time": "not specified"
+      },
+      "scene_type": "action",
+      "duration_estimate": "short",
+      "technical_notes": "None"
+    },
+    {
+      "scene_number": 4,
+      "sub_scene_letter": "A",
+      "scene_heading": "INT. DAY. NAME BOARD SHOP",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, watching his name being engraved."
+        }
+      ],
+      "props": [
+        "Engraving machine",
+        "Shiny metal board"
+      ],
+      "location": {
+        "name": "Name Board Shop (Engraving Area)",
+        "type": "indoor",
+        "specific_details": "A room within the name board shop with an engraving machine."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "not specified"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "not specified",
+        "specific_time": "not specified"
+      },
+      "scene_type": "montage",
+      "duration_estimate": "very short",
+      "technical_notes": "Engraving machine turns ON. Music cue. Text 'ADVOCATE MUKUNDAN UNNI - M.COM LLB' being engraved."
+    },
+    {
+      "scene_number": 4,
+      "sub_scene_letter": "B",
+      "scene_heading": "EXT. DAY. WAYANAD HAIRPIN",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, riding his bike in the rain."
+        }
+      ],
+      "props": [
+        "Bike"
+      ],
+      "location": {
+        "name": "Wayanad Hairpin",
+        "type": "outdoor",
+        "specific_details": "The Wayanad mountain pass (churam), specifically a hairpin bend."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "not specified"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "rainy",
+        "specific_time": "not specified"
+      },
+      "scene_type": "montage",
+      "duration_estimate": "very short",
+      "technical_notes": "Slow fade to black. Slow scrolling title: --CAST LIST--"
+    },
+    {
+      "scene_number": 5,
+      "scene_heading": "INT. DAY. COURT CANTEEN",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, studying a case file seriously."
+        },
+        {
+          "name": "Lady Client",
+          "role": "supporting",
+          "description": "A Muslim woman, about 50 years old, hesitant about Unni's experience."
+        },
+        {
+          "name": "Robin",
+          "role": "supporting",
+          "description": "Lawyer, approaching Unni."
+        },
+        {
+          "name": "Jyothi",
+          "role": "supporting",
+          "description": "Lawyer, sending a voice note."
+        }
+      ],
+      "props": [
+        "Case file",
+        "Bag",
+        "Vakkaalath (power of attorney document)",
+        "Table",
+        "Mobile phone (for notification)"
+      ],
+      "location": {
+        "name": "Wayanad District Court Canteen",
+        "type": "indoor",
+        "specific_details": "A canteen within the Wayanad district court."
+      },
+      "crowd": {
+        "people_needed": "5-10",
+        "crowd_type": "Court-goers, other lawyers, canteen staff"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "not specified",
+        "specific_time": "One month later"
+      },
+      "scene_type": "dialogue",
+      "duration_estimate": "medium",
+      "technical_notes": "Black screen with 'ONE MONTH LATER'. Slow fade in ambience & crowd sounds. Slow fade in visual."
+    },
+    {
+      "scene_number": 5,
+      "sub_scene_letter": "A",
+      "scene_heading": "EXT. DAY. COURT TEA STALL",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, walking with Robin and then sitting with Jyothi."
+        },
+        {
+          "name": "Robin",
+          "role": "supporting",
+          "description": "Lawyer, questioning Unni's lack of cases, later showing disheveled appearance."
+        },
+        {
+          "name": "Jyothi",
+          "role": "supporting",
+          "description": "Lawyer, cynical about winnable cases, later challenging Unni's methods."
+        },
+        {
+          "name": "Tea stall boy",
+          "role": "background",
+          "description": "Serving tea."
+        },
+        {
+          "name": "Driver",
+          "role": "background",
+          "description": "Robin's client, wearing a khaki shirt and checked lungi."
+        }
+      ],
+      "props": [
+        "Lawyer gowns",
+        "Bags",
+        "Tea cup",
+        "Waste bin",
+        "Bench",
+        "Coat",
+        "Shoes (dirty)",
+        "Case files",
+        "Money (being counted)"
+      ],
+      "location": {
+        "name": "Court Tea Stall",
+        "type": "outdoor",
+        "specific_details": "A tea stall located outside the court."
+      },
+      "crowd": {
+        "people_needed": "2-5",
+        "crowd_type": "Tea stall customers, court-goers"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "not specified",
+        "specific_time": "not specified"
+      },
+      "scene_type": "dialogue",
+      "duration_estimate": "long",
+      "technical_notes": "None"
+    },
+    {
+      "scene_number": 6,
+      "sub_scene_letter": "6A",
+      "scene_heading": "INT/EXT. DAY. UNNI’S HOME/NEWS STUDIO",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, performing his morning routine with discipline, reacting to news and a domestic emergency."
+        },
+        {
+          "name": "Unni’s Amma",
+          "role": "supporting",
+          "description": "Unni's mother, working in the kitchen, falls."
+        },
+        {
+          "name": "News Anchor",
+          "role": "background",
+          "description": "Moderating a discussion on TV."
+        },
+        {
+          "name": "Participant",
+          "role": "background",
+          "description": "Discussing medical negligence on TV."
+        },
+        {
+          "name": "Moorkhan Paambu (Cobra)",
+          "role": "background",
+          "description": "A venomous snake."
+        }
+      ],
+      "props": [
+        "Alarm clock",
+        "Clothes",
+        "Iron",
+        "Wardrobe",
+        "Name board (inside wardrobe)",
+        "Bed sheet",
+        "Photos (father, childhood, sister's wedding)",
+        "Hero cycle (rusty, outside)",
+        "Mirror",
+        "Comb",
+        "Banyan (vest)",
+        "Specs",
+        "TV",
+        "Dining table",
+        "Food (implied)",
+        "Stool",
+        "Snake (cobra)"
+      ],
+      "location": {
+        "name": "Unni's Home / News Studio (TV)",
+        "type": "int/ext",
+        "specific_details": "Unni's disciplined bedroom, kitchen, dining area, and the verandah/chaayippu outside his house. A news channel broadcast is visible on TV."
+      },
+      "crowd": {
+        "people_needed": "none (at home), 3 (on TV)",
+        "crowd_type": "News debate panelists"
+      },
+      "time": {
+        "time_of_day": "morning",
+        "season": "unspecified",
+        "weather": "not specified",
+        "specific_time": "5 AM (alarm)"
+      },
+      "scene_type": "montage/action/dialogue",
+      "duration_estimate": "long",
+      "technical_notes": "Music cue. TV show (news debate) playing in the background."
+    },
+    {
+      "scene_number": 7,
+      "scene_heading": "INT. DAY. MERCURY HOSPITAL/BILLING SECTION",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, waiting at the hospital, concerned about payment."
+        },
+        {
+          "name": "Robin",
+          "role": "supporting",
+          "description": "Unni's friend, asking about the accident."
+        },
+        {
+          "name": "Cashier",
+          "role": "supporting",
+          "description": "Hospital staff, explaining payment policy."
+        },
+        {
+          "name": "Meenakshi",
+          "role": "supporting",
+          "description": "Hospital staff, smiling/laughing."
+        },
+        {
+          "name": "Patient (Token 39)",
+          "role": "background",
+          "description": "A person called for billing."
+        }
+      ],
+      "props": [
+        "Waiting seats",
+        "Token display",
+        "Slip (for cashier)"
+      ],
+      "location": {
+        "name": "Mercury Trauma Care Hospital",
+        "type": "indoor",
+        "specific_details": "Waiting area adjacent to the billing section of Mercury Trauma Care Hospital."
+      },
+      "crowd": {
+        "people_needed": "5-10",
+        "crowd_type": "Patients, hospital staff, visitors"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "not specified",
+        "specific_time": "not specified"
+      },
+      "scene_type": "dialogue/action",
+      "duration_estimate": "medium",
+      "technical_notes": "Mechanical voice announcing token numbers."
+    },
+    {
+      "scene_number": 8,
+      "scene_heading": "EXT. DAY. ATM",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, waiting in the ATM queue."
+        },
+        {
+          "name": "Robin",
+          "role": "supporting",
+          "description": "Unni's friend, explaining his recent income source."
+        }
+      ],
+      "props": [],
+      "location": {
+        "name": "ATM Queue",
+        "type": "outdoor",
+        "specific_details": "Outside an ATM, with people waiting in a queue."
+      },
+      "crowd": {
+        "people_needed": "2-3",
+        "crowd_type": "People waiting for ATM"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "not specified",
+        "specific_time": "not specified"
+      },
+      "scene_type": "dialogue",
+      "duration_estimate": "short",
+      "technical_notes": "None"
+    },
+    {
+      "scene_number": 8,
+      "sub_scene_letter": "A",
+      "scene_heading": "INT. DAY. ATM",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, withdrawing all available money."
+        }
+      ],
+      "props": [
+        "ATM machine",
+        "Money (7500 rupees)"
+      ],
+      "location": {
+        "name": "ATM Booth",
+        "type": "indoor",
+        "specific_details": "Inside the ATM booth, interacting with the machine."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "not specified"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "not specified",
+        "specific_time": "not specified"
+      },
+      "scene_type": "action",
+      "duration_estimate": "very short",
+      "technical_notes": "None"
+    },
+    {
+      "scene_number": 9,
+      "scene_heading": "INT. DAY. MERCURY HOSPITAL/BILLING SECTION",
+      "actors": [
+        {
+          "name": "Mukundan Unni",
+          "role": "main",
+          "description": "Lawyer, attempting to pay with insufficient funds."
+        },
+        {
+          "name": "Meenakshi",
+          "role": "supporting",
+          "description": "Hospital staff, rejecting the partial payment."
+        },
+        {
+          "name": "Cashier",
+          "role": "supporting",
+          "description": "Hospital staff, checking patient slips."
+        },
+        {
+          "name": "Robin",
+          "role": "supporting",
+          "description": "Unni's friend, waiting in the background."
+        },
+        {
+          "name": "Mani",
+          "role": "background",
+          "description": "Patient, interacting with the cashier."
+        }
+      ],
+      "props": [
+        "Money (7500 rupees)",
+        "Patient slips",
+        "Computer"
+      ],
+      "location": {
+        "name": "Mercury Trauma Care Hospital",
+        "type": "indoor",
+        "specific_details": "Billing counter area of Mercury Trauma Care Hospital."
+      },
+      "crowd": {
+        "people_needed": "2-5",
+        "crowd_type": "Other patients/visitors, hospital staff"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "not specified",
+        "specific_time": "not specified"
+      },
+      "scene_type": "dialogue/action",
+      "duration_estimate": "short",
+      "technical_notes": "Mechanical voice announcing token numbers."
+    },
+    {
+      "scene_number": 1,
+      "scene_heading": "INT. DAY. MERCURY HOSPITAL/BILLING SECTION",
+      "actors": [
+        {
+          "name": "CASHIER Johnson",
+          "role": "supporting",
+          "description": "45 years old, one of the cashiers."
+        },
+        {
+          "name": "Mani",
+          "role": "main",
+          "description": "Pays large sums of cash, observed by Unni, later revealed as an agent."
+        },
+        {
+          "name": "Unni",
+          "role": "main",
+          "description": "Observant, curious about discounts and Mani's activities."
+        },
+        {
+          "name": "Meenakshi",
+          "role": "main",
+          "description": "Billing section staff, handles receipts, initially stoic, shows empathy for Unni's mother, has a PSC exam."
+        },
+        {
+          "name": "Vincent Doctor",
+          "role": "supporting",
+          "description": "Caring doctor, asks Meenakshi about her leave and PSC exam, gives instructions over the phone about a logo."
+        },
+        {
+          "name": "CASHIER Sethulakshmi",
+          "role": "supporting",
+          "description": "65 years old, another cashier."
+        },
+        {
+          "name": "CASHIER Chacko",
+          "role": "supporting",
+          "description": "40 years old, another cashier."
+        }
+      ],
+      "props": [
+        "Cash bundles",
+        "Bag",
+        "Receipts",
+        "Seal",
+        "Meenakshi's badge",
+        "Patient file (given to Meenakshi)",
+        "Phone (Vincent Doctor's)",
+        "Token number screen"
+      ],
+      "location": {
+        "name": "Mercury Hospital",
+        "type": "indoor",
+        "specific_details": "Billing Section, busy counter with multiple cashiers and a token display. People waiting in line."
+      },
+      "crowd": {
+        "people_needed": "5-10",
+        "crowd_type": "Background hospital staff, patients/attendees in line."
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "dialogue, action, exposition",
+      "duration_estimate": "not specified",
+      "technical_notes": "Close-ups on cash bundles, Meenakshi's badge, token number screen (54, 55)."
+    },
+    {
+      "scene_number": 2,
+      "scene_heading": "INT. DAY. MERCURY HOSPITAL/CORRIDOR",
+      "actors": [
+        {
+          "name": "Mani",
+          "role": "main",
+          "description": "Walking, asking for room directions."
+        },
+        {
+          "name": "Attender",
+          "role": "supporting",
+          "description": "Hospital staff, guides Mani to the correct room."
+        },
+        {
+          "name": "Unni",
+          "role": "main",
+          "description": "Following and observing Mani's actions."
+        }
+      ],
+      "props": [],
+      "location": {
+        "name": "Mercury Hospital",
+        "type": "indoor",
+        "specific_details": "Corridor with numbered patient rooms (e.g., 105, 115)."
+      },
+      "crowd": {
+        "people_needed": "1-2",
+        "crowd_type": "Background hospital visitors/staff passing by."
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "dialogue, action",
+      "duration_estimate": "not specified",
+      "technical_notes": "not specified"
+    },
+    {
+      "scene_number": 3,
+      "scene_heading": "INT. DAY. MERCURY HOSPITAL/CORRIDOR/ROOM113, 114, 115",
+      "actors": [
+        {
+          "name": "Unni",
+          "role": "main",
+          "description": "Observing the scene from a partially open doorway."
+        },
+        {
+          "name": "Mani",
+          "role": "main",
+          "description": "Arranging for a patient to sign documents."
+        },
+        {
+          "name": "Patient",
+          "role": "supporting",
+          "description": "A man lying in a hospital bed, has a fracture."
+        },
+        {
+          "name": "Patient's Wife",
+          "role": "supporting",
+          "description": "Explains the patient's injury."
+        }
+      ],
+      "props": [
+        "Vakkaalath (power of attorney document)",
+        "Pen"
+      ],
+      "location": {
+        "name": "Mercury Hospital",
+        "type": "indoor",
+        "specific_details": "Patient Room 115, seen through a partially open door. Contains a hospital bed."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "none"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "dialogue, action, exposition",
+      "duration_estimate": "not specified",
+      "technical_notes": "Shot through a partially open door to show Unni observing. Close-up on the patient signing the document."
+    },
+    {
+      "scene_number": 4,
+      "scene_heading": "INT. DAY. MERCURY HOSPITAL/BILLING SECTION/TEA COUNTER",
+      "actors": [
+        {
+          "name": "Unni",
+          "role": "main",
+          "description": "Initiates conversation with Mani, trying to understand his actions."
+        },
+        {
+          "name": "Mani",
+          "role": "main",
+          "description": "Buys tea after paying a bill, looks surprised by Unni's interaction."
+        }
+      ],
+      "props": [
+        "Receipt",
+        "Purse",
+        "Tea",
+        "Tea counter"
+      ],
+      "location": {
+        "name": "Mercury Hospital",
+        "type": "indoor",
+        "specific_details": "Area near the cash counter and a tea counter within the hospital."
+      },
+      "crowd": {
+        "people_needed": "1-2",
+        "crowd_type": "Background hospital staff/visitors."
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "dialogue, action",
+      "duration_estimate": "not specified",
+      "technical_notes": "not specified"
+    },
+    {
+      "scene_number": 5,
+      "scene_heading": "INT. DAY. MERCURY HOSPITAL/WARD",
+      "actors": [
+        {
+          "name": "Unni's Amma (Jaanakiyaara)",
+          "role": "supporting",
+          "description": "Lying in a hospital ward bed, signs a document."
+        },
+        {
+          "name": "Mani",
+          "role": "main",
+          "description": "Gets Unni's mother to sign a document."
+        },
+        {
+          "name": "Robin",
+          "role": "supporting",
+          "description": "Present with Unni."
+        },
+        {
+          "name": "Unni",
+          "role": "main",
+          "description": "Observing Mani's actions with his mother."
+        }
+      ],
+      "props": [
+        "Vakkaalath (power of attorney document)",
+        "Pen",
+        "Stamp",
+        "Tray"
+      ],
+      "location": {
+        "name": "Mercury Hospital",
+        "type": "indoor",
+        "specific_details": "Hospital ward room with patient beds."
+      },
+      "crowd": {
+        "people_needed": "2-5",
+        "crowd_type": "Other patients/visitors in the ward (background)."
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "action, exposition",
+      "duration_estimate": "not specified",
+      "technical_notes": "Close-up on Vakkaalath signing and stamping, revealing 'Advocate Venu AV'."
+    },
+    {
+      "scene_number": 6,
+      "scene_heading": "INT. DAY. MERCURY HOSPITAL/BILLING SECTION",
+      "actors": [
+        {
+          "name": "Mani",
+          "role": "main",
+          "description": "Paying a bill, making a call to Venu Vakkeel."
+        },
+        {
+          "name": "Venu Vakkeel",
+          "role": "supporting",
+          "description": "Advocate, on speaker phone, initially sounds less interested in a 'hairline' case."
+        }
+      ],
+      "props": [
+        "Bill",
+        "Speaker phone"
+      ],
+      "location": {
+        "name": "Mercury Hospital",
+        "type": "indoor",
+        "specific_details": "Billing Section (implied, as Mani pays a bill)."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "none"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "dialogue",
+      "duration_estimate": "not specified",
+      "technical_notes": "Speaker phone conversation."
+    },
+    {
+      "scene_number": 7,
+      "scene_heading": "INT. DAY. MERCURY HOSPITAL/ADMIN SEBATTI DOCTOR ROOM",
+      "actors": [
+        {
+          "name": "Sebatti Doctor",
+          "role": "supporting",
+          "description": "Doctor, writes prescriptions, later involved in manipulating medical reports."
+        },
+        {
+          "name": "Mani",
+          "role": "main",
+          "description": "Enters doctor's room with Unni, hands over phone to doctor."
+        },
+        {
+          "name": "Unni",
+          "role": "main",
+          "description": "Observing the conversation and manipulation unfold."
+        },
+        {
+          "name": "Venu Vakkeel",
+          "role": "supporting",
+          "description": "Advocate, on speaker phone, instructs the doctor to exaggerate the injury for insurance claims."
+        },
+        {
+          "name": "Rogi (Patient)",
+          "role": "background",
+          "description": "Patient receiving a prescription from the doctor."
+        }
+      ],
+      "props": [
+        "Door",
+        "Prescription",
+        "Speaker phone"
+      ],
+      "location": {
+        "name": "Mercury Hospital",
+        "type": "indoor",
+        "specific_details": "Sebatti Doctor's private room/admin office."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "none"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "dialogue, action, exposition",
+      "duration_estimate": "not specified",
+      "technical_notes": "Speaker phone conversation, Unni observing the manipulation."
+    },
+    {
+      "scene_number": 8,
+      "scene_heading": "INT. DAY. MERCURY HOSPITAL/CORRIDOR",
+      "actors": [
+        {
+          "name": "Robin",
+          "role": "supporting",
+          "description": "Joins Unni and Mani after coming out of a toilet."
+        },
+        {
+          "name": "Mani",
+          "role": "main",
+          "description": "Shows Unni a photo of the car and gives instructions."
+        },
+        {
+          "name": "Unni",
+          "role": "main",
+          "description": "Receives instructions from Mani regarding the accident vehicle."
+        }
+      ],
+      "props": [
+        "Mobile phone (showing car photo)"
+      ],
+      "location": {
+        "name": "Mercury Hospital",
+        "type": "indoor",
+        "specific_details": "Corridor, near a toilet."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "none"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "dialogue, action",
+      "duration_estimate": "not specified",
+      "technical_notes": "Close-up on phone screen showing car photo (KL 12 F 3102)."
+    },
+    {
+      "scene_number": 9,
+      "scene_heading": "INT/EXT. DAY. POLICE STATION",
+      "actors": [
+        {
+          "name": "Unni",
+          "role": "main",
+          "description": "The montage implies Unni is the one visiting the police station to file the complaint."
+        }
+      ],
+      "props": [
+        "Computer screen (showing FIR online registration)"
+      ],
+      "location": {
+        "name": "Police Station",
+        "type": "indoor/outdoor",
+        "specific_details": "A montage sequence showing the general police station environment."
+      },
+      "crowd": {
+        "people_needed": "2-5",
+        "crowd_type": "Police staff, visitors."
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "montage, action",
+      "duration_estimate": "not specified",
+      "technical_notes": "Screen grab visual of FIR online registration and case number generation."
+    },
+    {
+      "scene_number": 10,
+      "scene_heading": "EXT. DAY. POLICE STATION/GARAGE",
+      "actors": [
+        {
+          "name": "Unni",
+          "role": "main",
+          "description": "Observing the manipulation of evidence without reaction."
+        },
+        {
+          "name": "Robin",
+          "role": "supporting",
+          "description": "Shocked by the manipulation of evidence."
+        },
+        {
+          "name": "Mani",
+          "role": "main",
+          "description": "Present during the scene mahasar, having instructed Unni to file a complaint."
+        },
+        {
+          "name": "ASI",
+          "role": "supporting",
+          "description": "Police officer, actively manipulates the car's damage to fit the narrative."
+        },
+        {
+          "name": "Constable Joseph",
+          "role": "supporting",
+          "description": "Records the scene mahasar with photos."
+        },
+        {
+          "name": "3 perum",
+          "role": "background",
+          "description": "Other people present at the garage."
+        }
+      ],
+      "props": [
+        "Car (Alto KL 12 F 3102)",
+        "Iron rod (used by ASI)",
+        "Scene mahasar document",
+        "Camera (implied for Joseph's photos)"
+      ],
+      "location": {
+        "name": "Police Station Garage",
+        "type": "outdoor",
+        "specific_details": "Area where accident vehicles are kept, a wall is mentioned as the point of impact."
+      },
+      "crowd": {
+        "people_needed": "3",
+        "crowd_type": "Background police staff/bystanders."
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "FIR registered at 16-10-2021 2:30 PM, accident at 16-10-2021 10:45 AM."
+      },
+      "scene_type": "dialogue, action, exposition",
+      "duration_estimate": "not specified",
+      "technical_notes": "ASI physically damaging the car's left side lamp with an iron rod. Robin's shocked reaction vs. Unni's neutral reaction."
+    },
+    {
+      "scene_number": 11,
+      "scene_heading": "INT. DAY. MERCURY HOSPITAL/ADMIN SEBATTI DOCTOR ROOM",
+      "actors": [
+        {
+          "name": "Mani",
+          "role": "main",
+          "description": "Reminds the doctor about the 'ookku' (force) to be added to the report."
+        },
+        {
+          "name": "Unni",
+          "role": "main",
+          "description": "Present with Mani."
+        },
+        {
+          "name": "Sebatti Doctor",
+          "role": "supporting",
+          "description": "Signs the wound certificate after adding 'Robust health' to exaggerate the patient's prior condition."
+        }
+      ],
+      "props": [
+        "Wound certificate",
+        "Pen",
+        "Paper (Mani points to a part of the document)"
+      ],
+      "location": {
+        "name": "Mercury Hospital",
+        "type": "indoor",
+        "specific_details": "Doctor's office."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "none"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "dialogue, action",
+      "duration_estimate": "not specified",
+      "technical_notes": "Doctor adding 'Robust health' and signing. Close-up on the document."
+    },
+    {
+      "scene_number": 12,
+      "scene_heading": "INT. DAY. MACT COURT/CLOSEUPS",
+      "actors": [],
+      "props": [
+        "Computer/typewriter",
+        "Documents (mentioning transportation charge, hospital charge, pain and suffering)"
+      ],
+      "location": {
+        "name": "MACT Court",
+        "type": "indoor",
+        "specific_details": "A desk or workstation within the court where documents are prepared."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "none"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "action, montage",
+      "duration_estimate": "not specified",
+      "technical_notes": "Close-up on typing action, showing the different charges being included in the claim file."
+    },
+    {
+      "scene_number": 13,
+      "scene_heading": "INT/EXT. DAY. COURT/CORRIDOR",
+      "actors": [
+        {
+          "name": "Unni",
+          "role": "main",
+          "description": "Present during Mani's explanation of the process."
+        },
+        {
+          "name": "Robin",
+          "role": "supporting",
+          "description": "Questions the need for a blank check, shows an 'Okay' expression later."
+        },
+        {
+          "name": "Mani",
+          "role": "main",
+          "description": "Explains the process of claim payout and distribution to Unni and Robin."
+        }
+      ],
+      "props": [
+        "Aadhar card copy (mentioned)",
+        "Pan card copy (mentioned)",
+        "Blank check (mentioned)"
+      ],
+      "location": {
+        "name": "Court",
+        "type": "indoor/outdoor",
+        "specific_details": "Corridor within the court complex, where legal discussions take place."
+      },
+      "crowd": {
+        "people_needed": "2-5",
+        "crowd_type": "Lawyers, court staff, public passing by."
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "dialogue, exposition",
+      "duration_estimate": "not specified",
+      "technical_notes": "Robin's questioning look, Unni's lack of a specific reaction."
+    },
+    {
+      "scene_number": 14,
+      "scene_heading": "INT. DAY. MACT COURT/CLOSEUP",
+      "actors": [
+        {
+          "name": "Kodathi staff",
+          "role": "background",
+          "description": "Court staff member registering a case."
+        }
+      ],
+      "props": [
+        "Book",
+        "Pen"
+      ],
+      "location": {
+        "name": "MACT Court",
+        "type": "indoor",
+        "specific_details": "Court registry or a clerk's desk."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "none"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "action",
+      "duration_estimate": "not specified",
+      "technical_notes": "Close-up on a staff member writing case number 831/2021 in a book."
+    },
+    {
+      "scene_number": 15,
+      "scene_heading": "EXT. DAY. COURT/CORRIDOR",
+      "actors": [
+        {
+          "name": "Unni",
+          "role": "main",
+          "description": "Present, observes the manipulation of evidence."
+        },
+        {
+          "name": "Unni's Amma (Jaanakiyaara)",
+          "role": "supporting",
+          "description": "Has a hand plaster, wears a watch and glasses, gives them to Venu Vakkeel."
+        },
+        {
+          "name": "Venu Vakkeel",
+          "role": "main",
+          "description": "40 years old, advocate, actively breaks watch and glasses to inflate claim value."
+        },
+        {
+          "name": "Junior (Jancy)",
+          "role": "supporting",
+          "description": "Venu Vakkeel's junior, instructed to add costs to the description."
+        }
+      ],
+      "props": [
+        "Aadhar card copy",
+        "Pan card copy",
+        "Blank check",
+        "Court aramathil (deposit box)",
+        "Watch",
+        "Glasses",
+        "Cloth",
+        "Small hammer"
+      ],
+      "location": {
+        "name": "Court",
+        "type": "outdoor",
+        "specific_details": "Court corridor, near a court deposit/evidence collection point. The heading says EXT, but descriptions often imply indoors for corridors."
+      },
+      "crowd": {
+        "people_needed": "2-5",
+        "crowd_type": "Lawyers, court staff, public."
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "dialogue, action, exposition",
+      "duration_estimate": "not specified",
+      "technical_notes": "Venu Vakkeel intentionally breaking the watch and glasses with a hammer, Unni's mother's injured hand with plaster. Close-up on the broken items."
+    },
+    {
+      "scene_number": 16,
+      "scene_heading": "INT. DAY. MACT COURT/CLOSEUP",
+      "actors": [],
+      "props": [
+        "Computer/typewriter",
+        "Documents (adding specs and watch cost)"
+      ],
+      "location": {
+        "name": "MACT Court",
+        "type": "indoor",
+        "specific_details": "A desk or workstation within the court where documents are prepared."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "none"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "action, montage",
+      "duration_estimate": "not specified",
+      "technical_notes": "Close-up on typing action, showing the costs for glasses and watch being added to the MACT description."
+    },
+    {
+      "scene_number": 17,
+      "scene_heading": "INT. DAY. MACT COURT ROOM",
+      "actors": [
+        {
+          "name": "Bench clerk",
+          "role": "supporting",
+          "description": "Calls out the case details."
+        },
+        {
+          "name": "Venu Vakkeel",
+          "role": "main",
+          "description": "Stands up to present the case, calls witnesses."
+        },
+        {
+          "name": "Car driver (Ratheesh Kumar)",
+          "role": "supporting",
+          "description": "Driver of the accident vehicle, called as a witness."
+        },
+        {
+          "name": "Binu Somashekharan",
+          "role": "supporting",
+          "description": "First witness in the case."
+        },
+        {
+          "name": "Jayanth Vijaykumar",
+          "role": "supporting",
+          "description": "Second witness in the case."
+        },
+        {
+          "name": "Advocate Vishaalakshi",
+          "role": "supporting",
+          "description": "Opposition party's lawyer, representing Venus Insurance."
+        },
+        {
+          "name": "Judge",
+          "role": "background",
+          "description": "Presiding over the court (implied)."
+        }
+      ],
+      "props": [
+        "File"
+      ],
+      "location": {
+        "name": "MACT Court Room",
+        "type": "indoor",
+        "specific_details": "Formal courtroom setting with a bench, lawyers' tables, and witness stand."
+      },
+      "crowd": {
+        "people_needed": "5-10",
+        "crowd_type": "Court staff, public, other lawyers."
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "dialogue, action, legal proceedings",
+      "duration_estimate": "not specified",
+      "technical_notes": "Courtroom drama, showcasing the legal process."
+    },
+    {
+      "scene_number": 18,
+      "scene_heading": "INT. DAY. MACT COURT/JUDGE CHAMBER",
+      "actors": [
+        {
+          "name": "Judge",
+          "role": "supporting",
+          "description": "Presides over the signing of the document."
+        },
+        {
+          "name": "Jaanaki Amma",
+          "role": "supporting",
+          "description": "Signs the document."
+        },
+        {
+          "name": "Venu Vakkeel",
+          "role": "main",
+          "description": "Present during the signing."
+        },
+        {
+          "name": "Unni",
+          "role": "main",
+          "description": "Present in the chamber."
+        },
+        {
+          "name": "Clerk",
+          "role": "supporting",
+          "description": "Court clerk, present during the signing."
+        }
+      ],
+      "props": [
+        "Document for signing"
+      ],
+      "location": {
+        "name": "MACT Court",
+        "type": "indoor",
+        "specific_details": "Judge's private chamber."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "none"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "action, legal proceedings",
+      "duration_estimate": "not specified",
+      "technical_notes": "Close-up on Jaanaki Amma and Venu Vakkeel signing a document in the judge's presence."
+    },
+    {
+      "scene_number": 19,
+      "scene_heading": "EXT. DAY. UNNI’S HOME/BACKYARD",
+      "actors": [
+        {
+          "name": "Unni",
+          "role": "main",
+          "description": "Receives a bank credit notification on his mobile."
+        }
+      ],
+      "props": [
+        "Mobile phone (showing credit message)"
+      ],
+      "location": {
+        "name": "Unni's Home",
+        "type": "outdoor",
+        "specific_details": "Backyard of a house."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "none"
+      },
+      "time": {
+        "time_of_day": "day",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "action",
+      "duration_estimate": "not specified",
+      "technical_notes": "Close-up on mobile screen showing a credit of 4,25,000 rupees."
+    },
+    {
+      "scene_number": 20,
+      "scene_heading": "INT. EVENING. UNNI’S HOME/BATHROOM",
+      "actors": [
+        {
+          "name": "Unni",
+          "role": "main",
+          "description": "Receives a bank debit notification on his mobile while in the bathroom."
+        }
+      ],
+      "props": [
+        "Mobile phone (showing debit message)"
+      ],
+      "location": {
+        "name": "Unni's Home",
+        "type": "indoor",
+        "specific_details": "Bathroom."
+      },
+      "crowd": {
+        "people_needed": "none",
+        "crowd_type": "none"
+      },
+      "time": {
+        "time_of_day": "evening",
+        "season": "unspecified",
+        "weather": "unspecified",
+        "specific_time": "unspecified"
+      },
+      "scene_type": "action",
+      "duration_estimate": "not specified",
+      "technical_notes": "Close-up on mobile screen showing a debit of 4,25,000 rupees."
+    }
+  ],
+  "processing_info": {
+    "total_chunks_processed": 2,
+    "total_words_in_script": 3081,
+    "chunk_responses": [
+      {
+        "chunk_number": 1,
+        "response": {
+          "scenes": [
+            {
+              "scene_number": 1,
+              "scene_heading": "EXT. DAY. CAR SHOWROOM - Kozhikode",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "27-year-old lawyer, wearing a white shirt, white pants, glasses, and carrying a laptop bag."
+                },
+                {
+                  "name": "Jyothi",
+                  "role": "supporting",
+                  "description": "Speaking on the phone, in a hurry."
+                },
+                {
+                  "name": "Background people/vehicles",
+                  "role": "background",
+                  "description": "On the road outside the showroom."
+                }
+              ],
+              "props": [
+                "Expensive car",
+                "Glass windows (of showroom)",
+                "Laptop bag",
+                "Mobile phone"
+              ],
+              "location": {
+                "name": "Car Showroom",
+                "type": "outdoor",
+                "specific_details": "Exterior of an expensive car showroom in Kozhikode. View through glass showing the road and vehicles outside. Water collected on the road."
+              },
+              "crowd": {
+                "people_needed": "2-5",
+                "crowd_type": "Background pedestrians and vehicles"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "monsoon (Thulaavarsha samayam)",
+                "weather": "cloudy, some sunlight, water logged roads",
+                "specific_time": "not specified"
+              },
+              "scene_type": "action/dialogue",
+              "duration_estimate": "short",
+              "technical_notes": "Road sounds fade in. Unni's reflection is seen in the glass."
+            },
+            {
+              "scene_number": 2,
+              "scene_heading": "EXT. DAY. MLA’S HOUSE",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, arriving at the MLA's house."
+                },
+                {
+                  "name": "MAN 1",
+                  "role": "background",
+                  "description": "Politician, discussing legal matters."
+                },
+                {
+                  "name": "MAN 2",
+                  "role": "background",
+                  "description": "Politician, discussing weather and legal matters."
+                },
+                {
+                  "name": "Jyothi",
+                  "role": "supporting",
+                  "description": "Lawyer, wearing advocate's attire, around 25 years old."
+                }
+              ],
+              "props": [
+                "Bike",
+                "Mobile phone",
+                "Whatsapp message",
+                "Board 'Reshma George, MLA'",
+                "Bag",
+                "Cover with documents"
+              ],
+              "location": {
+                "name": "MLA's House",
+                "type": "outdoor",
+                "specific_details": "In front of a large house, identified as 'Reshma George, MLA'. Gate, entrance area."
+              },
+              "crowd": {
+                "people_needed": "2-3",
+                "crowd_type": "Politicians (background extras)"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "overcast, possibility of rain",
+                "specific_time": "not specified"
+              },
+              "scene_type": "action/dialogue",
+              "duration_estimate": "short",
+              "technical_notes": "None"
+            },
+            {
+              "scene_number": 2,
+              "sub_scene_letter": "A",
+              "scene_heading": "INT. DAY. MLA’S HOUSE/LIVING ROOM/OFFICE",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, observing the situation."
+                },
+                {
+                  "name": "MLA Reshma George",
+                  "role": "supporting",
+                  "description": "Politician, facing legal issues."
+                },
+                {
+                  "name": "George",
+                  "role": "supporting",
+                  "description": "MLA's husband."
+                },
+                {
+                  "name": "Chaakkappan",
+                  "role": "supporting",
+                  "description": "Senior politician, reading news."
+                },
+                {
+                  "name": "Jyothi",
+                  "role": "supporting",
+                  "description": "Lawyer, presenting legal documents."
+                }
+              ],
+              "props": [
+                "Newspaper (front page with headlines)",
+                "Legal documents",
+                "Pen (implied for signing)"
+              ],
+              "location": {
+                "name": "MLA's House",
+                "type": "indoor",
+                "specific_details": "Living room or office area within the MLA's house. Contains people seated and discussing."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "not specified"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "not specified",
+                "specific_time": "not specified"
+              },
+              "scene_type": "dialogue",
+              "duration_estimate": "medium",
+              "technical_notes": "None"
+            },
+            {
+              "scene_number": 2,
+              "sub_scene_letter": "B",
+              "scene_heading": "EXT. DAY. MLA’S HOUSE/GATE",
+              "actors": [
+                {
+                  "name": "Jyothi",
+                  "role": "supporting",
+                  "description": "Lawyer, instructing Unni."
+                },
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, taking instructions."
+                },
+                {
+                  "name": "MLA (implied)",
+                  "role": "background",
+                  "description": "Leaving in her car."
+                }
+              ],
+              "props": [
+                "Scooty",
+                "Bike",
+                "MLA's car"
+              ],
+              "location": {
+                "name": "MLA's House Gate",
+                "type": "outdoor",
+                "specific_details": "The gate area of the MLA's house, where vehicles are parked."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "not specified"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "not specified",
+                "specific_time": "not specified"
+              },
+              "scene_type": "action/dialogue",
+              "duration_estimate": "short",
+              "technical_notes": "None"
+            },
+            {
+              "scene_number": 2,
+              "sub_scene_letter": "C",
+              "scene_heading": "INT. DAY. MLA’S HOUSE/OFFICE",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, trying to get involved in the case."
+                },
+                {
+                  "name": "George",
+                  "role": "supporting",
+                  "description": "MLA's husband, dismissing Unni's offer."
+                },
+                {
+                  "name": "Chaakkappan",
+                  "role": "supporting",
+                  "description": "Politician, accompanying George."
+                }
+              ],
+              "props": [
+                "Mobile phone",
+                "Pen"
+              ],
+              "location": {
+                "name": "MLA's House Office",
+                "type": "indoor",
+                "specific_details": "The office room within the MLA's house."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "not specified"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "not specified",
+                "specific_time": "not specified"
+              },
+              "scene_type": "dialogue",
+              "duration_estimate": "medium",
+              "technical_notes": "None"
+            },
+            {
+              "scene_number": 2,
+              "sub_scene_letter": "D",
+              "scene_heading": "EXT. DAY. MLA’S HOUSE/VERANDAH/CAR PARKING",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, persistent in his efforts to join the case."
+                },
+                {
+                  "name": "George",
+                  "role": "supporting",
+                  "description": "MLA's husband, uninterested in Unni's offer."
+                },
+                {
+                  "name": "Chaakkappan",
+                  "role": "supporting",
+                  "description": "Politician, mocking Unni's inexperience."
+                }
+              ],
+              "props": [
+                "Bag",
+                "Car (door)"
+              ],
+              "location": {
+                "name": "MLA's House Verandah/Car Parking",
+                "type": "outdoor",
+                "specific_details": "The verandah and car parking area outside the MLA's house."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "not specified"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "not specified",
+                "specific_time": "not specified"
+              },
+              "scene_type": "dialogue/action",
+              "duration_estimate": "medium",
+              "technical_notes": "None"
+            },
+            {
+              "scene_number": 3,
+              "scene_heading": "EXT. DAY. EMERALD TOWERS",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, parking his bike."
+                }
+              ],
+              "props": [
+                "Bike"
+              ],
+              "location": {
+                "name": "Emerald Towers",
+                "type": "outdoor",
+                "specific_details": "Parking area of a new eight-story building called 'Emerald Towers' located on Mavoor Road."
+              },
+              "crowd": {
+                "people_needed": "1-2",
+                "crowd_type": "Background people in a parking lot"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "not specified",
+                "specific_time": "not specified"
+              },
+              "scene_type": "action",
+              "duration_estimate": "very short",
+              "technical_notes": "None"
+            },
+            {
+              "scene_number": 3,
+              "sub_scene_letter": "A",
+              "scene_heading": "INT. DAY. GANGA ASSOCIATES",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, entering the office."
+                },
+                {
+                  "name": "Jyothi",
+                  "role": "supporting",
+                  "description": "Lawyer, in a hurry."
+                }
+              ],
+              "props": [],
+              "location": {
+                "name": "Ganga Associates Office",
+                "type": "indoor",
+                "specific_details": "The office of 'Ganga Associates' located on the 3rd floor of Emerald Towers."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "not specified"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "not specified",
+                "specific_time": "not specified"
+              },
+              "scene_type": "action/dialogue",
+              "duration_estimate": "very short",
+              "technical_notes": "None"
+            },
+            {
+              "scene_number": 3,
+              "sub_scene_letter": "B",
+              "scene_heading": "INT. DAY. GANGA ASSOCIATES",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, facing his senior."
+                },
+                {
+                  "name": "Gangaadharan",
+                  "role": "supporting",
+                  "description": "Senior advocate, Unni's boss, thoughtful and firm."
+                },
+                {
+                  "name": "JUNIOR",
+                  "role": "background",
+                  "description": "A junior lawyer reporting to Gangaadharan."
+                },
+                {
+                  "name": "Mathews",
+                  "role": "supporting",
+                  "description": "Clerk in the office."
+                }
+              ],
+              "props": [
+                "Bag",
+                "Documents (affidavit)",
+                "Files",
+                "Law book",
+                "Chair with wheels"
+              ],
+              "location": {
+                "name": "Gangaadharan's Office Room",
+                "type": "indoor",
+                "specific_details": "Gangaadharan vakkeel's private office room within Ganga Associates."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "not specified"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "not specified",
+                "specific_time": "not specified"
+              },
+              "scene_type": "dialogue",
+              "duration_estimate": "long",
+              "technical_notes": "Muffled thunder sound (mangiya idi vettunna shabdham)."
+            },
+            {
+              "scene_number": 4,
+              "scene_heading": "EXT/INT. DAY. NAME BOARD SHOP",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, drenched in rain, entering the shop."
+                },
+                {
+                  "name": "Shopkeeper (implied)",
+                  "role": "background",
+                  "description": "Owner of the name board shop."
+                }
+              ],
+              "props": [
+                "Paper",
+                "Pen"
+              ],
+              "location": {
+                "name": "Name Board Shop",
+                "type": "ext/int",
+                "specific_details": "A shop that makes name boards, located below Paragon hotel. Unni enters from outside."
+              },
+              "crowd": {
+                "people_needed": "1-2",
+                "crowd_type": "Shop staff"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "heavy rain",
+                "specific_time": "not specified"
+              },
+              "scene_type": "action",
+              "duration_estimate": "short",
+              "technical_notes": "None"
+            },
+            {
+              "scene_number": 4,
+              "sub_scene_letter": "A",
+              "scene_heading": "INT. DAY. NAME BOARD SHOP",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, watching his name being engraved."
+                }
+              ],
+              "props": [
+                "Engraving machine",
+                "Shiny metal board"
+              ],
+              "location": {
+                "name": "Name Board Shop (Engraving Area)",
+                "type": "indoor",
+                "specific_details": "A room within the name board shop with an engraving machine."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "not specified"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "not specified",
+                "specific_time": "not specified"
+              },
+              "scene_type": "montage",
+              "duration_estimate": "very short",
+              "technical_notes": "Engraving machine turns ON. Music cue. Text 'ADVOCATE MUKUNDAN UNNI - M.COM LLB' being engraved."
+            },
+            {
+              "scene_number": 4,
+              "sub_scene_letter": "B",
+              "scene_heading": "EXT. DAY. WAYANAD HAIRPIN",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, riding his bike in the rain."
+                }
+              ],
+              "props": [
+                "Bike"
+              ],
+              "location": {
+                "name": "Wayanad Hairpin",
+                "type": "outdoor",
+                "specific_details": "The Wayanad mountain pass (churam), specifically a hairpin bend."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "not specified"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "rainy",
+                "specific_time": "not specified"
+              },
+              "scene_type": "montage",
+              "duration_estimate": "very short",
+              "technical_notes": "Slow fade to black. Slow scrolling title: --CAST LIST--"
+            },
+            {
+              "scene_number": 5,
+              "scene_heading": "INT. DAY. COURT CANTEEN",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, studying a case file seriously."
+                },
+                {
+                  "name": "Lady Client",
+                  "role": "supporting",
+                  "description": "A Muslim woman, about 50 years old, hesitant about Unni's experience."
+                },
+                {
+                  "name": "Robin",
+                  "role": "supporting",
+                  "description": "Lawyer, approaching Unni."
+                },
+                {
+                  "name": "Jyothi",
+                  "role": "supporting",
+                  "description": "Lawyer, sending a voice note."
+                }
+              ],
+              "props": [
+                "Case file",
+                "Bag",
+                "Vakkaalath (power of attorney document)",
+                "Table",
+                "Mobile phone (for notification)"
+              ],
+              "location": {
+                "name": "Wayanad District Court Canteen",
+                "type": "indoor",
+                "specific_details": "A canteen within the Wayanad district court."
+              },
+              "crowd": {
+                "people_needed": "5-10",
+                "crowd_type": "Court-goers, other lawyers, canteen staff"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "not specified",
+                "specific_time": "One month later"
+              },
+              "scene_type": "dialogue",
+              "duration_estimate": "medium",
+              "technical_notes": "Black screen with 'ONE MONTH LATER'. Slow fade in ambience & crowd sounds. Slow fade in visual."
+            },
+            {
+              "scene_number": 5,
+              "sub_scene_letter": "A",
+              "scene_heading": "EXT. DAY. COURT TEA STALL",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, walking with Robin and then sitting with Jyothi."
+                },
+                {
+                  "name": "Robin",
+                  "role": "supporting",
+                  "description": "Lawyer, questioning Unni's lack of cases, later showing disheveled appearance."
+                },
+                {
+                  "name": "Jyothi",
+                  "role": "supporting",
+                  "description": "Lawyer, cynical about winnable cases, later challenging Unni's methods."
+                },
+                {
+                  "name": "Tea stall boy",
+                  "role": "background",
+                  "description": "Serving tea."
+                },
+                {
+                  "name": "Driver",
+                  "role": "background",
+                  "description": "Robin's client, wearing a khaki shirt and checked lungi."
+                }
+              ],
+              "props": [
+                "Lawyer gowns",
+                "Bags",
+                "Tea cup",
+                "Waste bin",
+                "Bench",
+                "Coat",
+                "Shoes (dirty)",
+                "Case files",
+                "Money (being counted)"
+              ],
+              "location": {
+                "name": "Court Tea Stall",
+                "type": "outdoor",
+                "specific_details": "A tea stall located outside the court."
+              },
+              "crowd": {
+                "people_needed": "2-5",
+                "crowd_type": "Tea stall customers, court-goers"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "not specified",
+                "specific_time": "not specified"
+              },
+              "scene_type": "dialogue",
+              "duration_estimate": "long",
+              "technical_notes": "None"
+            },
+            {
+              "scene_number": 6,
+              "sub_scene_letter": "6A",
+              "scene_heading": "INT/EXT. DAY. UNNI’S HOME/NEWS STUDIO",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, performing his morning routine with discipline, reacting to news and a domestic emergency."
+                },
+                {
+                  "name": "Unni’s Amma",
+                  "role": "supporting",
+                  "description": "Unni's mother, working in the kitchen, falls."
+                },
+                {
+                  "name": "News Anchor",
+                  "role": "background",
+                  "description": "Moderating a discussion on TV."
+                },
+                {
+                  "name": "Participant",
+                  "role": "background",
+                  "description": "Discussing medical negligence on TV."
+                },
+                {
+                  "name": "Moorkhan Paambu (Cobra)",
+                  "role": "background",
+                  "description": "A venomous snake."
+                }
+              ],
+              "props": [
+                "Alarm clock",
+                "Clothes",
+                "Iron",
+                "Wardrobe",
+                "Name board (inside wardrobe)",
+                "Bed sheet",
+                "Photos (father, childhood, sister's wedding)",
+                "Hero cycle (rusty, outside)",
+                "Mirror",
+                "Comb",
+                "Banyan (vest)",
+                "Specs",
+                "TV",
+                "Dining table",
+                "Food (implied)",
+                "Stool",
+                "Snake (cobra)"
+              ],
+              "location": {
+                "name": "Unni's Home / News Studio (TV)",
+                "type": "int/ext",
+                "specific_details": "Unni's disciplined bedroom, kitchen, dining area, and the verandah/chaayippu outside his house. A news channel broadcast is visible on TV."
+              },
+              "crowd": {
+                "people_needed": "none (at home), 3 (on TV)",
+                "crowd_type": "News debate panelists"
+              },
+              "time": {
+                "time_of_day": "morning",
+                "season": "unspecified",
+                "weather": "not specified",
+                "specific_time": "5 AM (alarm)"
+              },
+              "scene_type": "montage/action/dialogue",
+              "duration_estimate": "long",
+              "technical_notes": "Music cue. TV show (news debate) playing in the background."
+            },
+            {
+              "scene_number": 7,
+              "scene_heading": "INT. DAY. MERCURY HOSPITAL/BILLING SECTION",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, waiting at the hospital, concerned about payment."
+                },
+                {
+                  "name": "Robin",
+                  "role": "supporting",
+                  "description": "Unni's friend, asking about the accident."
+                },
+                {
+                  "name": "Cashier",
+                  "role": "supporting",
+                  "description": "Hospital staff, explaining payment policy."
+                },
+                {
+                  "name": "Meenakshi",
+                  "role": "supporting",
+                  "description": "Hospital staff, smiling/laughing."
+                },
+                {
+                  "name": "Patient (Token 39)",
+                  "role": "background",
+                  "description": "A person called for billing."
+                }
+              ],
+              "props": [
+                "Waiting seats",
+                "Token display",
+                "Slip (for cashier)"
+              ],
+              "location": {
+                "name": "Mercury Trauma Care Hospital",
+                "type": "indoor",
+                "specific_details": "Waiting area adjacent to the billing section of Mercury Trauma Care Hospital."
+              },
+              "crowd": {
+                "people_needed": "5-10",
+                "crowd_type": "Patients, hospital staff, visitors"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "not specified",
+                "specific_time": "not specified"
+              },
+              "scene_type": "dialogue/action",
+              "duration_estimate": "medium",
+              "technical_notes": "Mechanical voice announcing token numbers."
+            },
+            {
+              "scene_number": 8,
+              "scene_heading": "EXT. DAY. ATM",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, waiting in the ATM queue."
+                },
+                {
+                  "name": "Robin",
+                  "role": "supporting",
+                  "description": "Unni's friend, explaining his recent income source."
+                }
+              ],
+              "props": [],
+              "location": {
+                "name": "ATM Queue",
+                "type": "outdoor",
+                "specific_details": "Outside an ATM, with people waiting in a queue."
+              },
+              "crowd": {
+                "people_needed": "2-3",
+                "crowd_type": "People waiting for ATM"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "not specified",
+                "specific_time": "not specified"
+              },
+              "scene_type": "dialogue",
+              "duration_estimate": "short",
+              "technical_notes": "None"
+            },
+            {
+              "scene_number": 8,
+              "sub_scene_letter": "A",
+              "scene_heading": "INT. DAY. ATM",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, withdrawing all available money."
+                }
+              ],
+              "props": [
+                "ATM machine",
+                "Money (7500 rupees)"
+              ],
+              "location": {
+                "name": "ATM Booth",
+                "type": "indoor",
+                "specific_details": "Inside the ATM booth, interacting with the machine."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "not specified"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "not specified",
+                "specific_time": "not specified"
+              },
+              "scene_type": "action",
+              "duration_estimate": "very short",
+              "technical_notes": "None"
+            },
+            {
+              "scene_number": 9,
+              "scene_heading": "INT. DAY. MERCURY HOSPITAL/BILLING SECTION",
+              "actors": [
+                {
+                  "name": "Mukundan Unni",
+                  "role": "main",
+                  "description": "Lawyer, attempting to pay with insufficient funds."
+                },
+                {
+                  "name": "Meenakshi",
+                  "role": "supporting",
+                  "description": "Hospital staff, rejecting the partial payment."
+                },
+                {
+                  "name": "Cashier",
+                  "role": "supporting",
+                  "description": "Hospital staff, checking patient slips."
+                },
+                {
+                  "name": "Robin",
+                  "role": "supporting",
+                  "description": "Unni's friend, waiting in the background."
+                },
+                {
+                  "name": "Mani",
+                  "role": "background",
+                  "description": "Patient, interacting with the cashier."
+                }
+              ],
+              "props": [
+                "Money (7500 rupees)",
+                "Patient slips",
+                "Computer"
+              ],
+              "location": {
+                "name": "Mercury Trauma Care Hospital",
+                "type": "indoor",
+                "specific_details": "Billing counter area of Mercury Trauma Care Hospital."
+              },
+              "crowd": {
+                "people_needed": "2-5",
+                "crowd_type": "Other patients/visitors, hospital staff"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "not specified",
+                "specific_time": "not specified"
+              },
+              "scene_type": "dialogue/action",
+              "duration_estimate": "short",
+              "technical_notes": "Mechanical voice announcing token numbers."
+            }
+          ],
+          "summary": {
+            "total_scenes": 15,
+            "main_characters": [
+              "Mukundan Unni"
+            ],
+            "primary_locations": [
+              "MLA's House",
+              "Ganga Associates Office",
+              "Court Canteen/Tea Stall",
+              "Unni's Home",
+              "Mercury Trauma Care Hospital",
+              "ATM"
+            ],
+            "production_complexity": "medium"
+          }
+        },
+        "raw_response": "```json\n{\n    \"scenes\": [\n        {\n            \"scene_number\": 1,\n            \"scene_heading\": \"EXT. DAY. CAR SHOWROOM - Kozhikode\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"27-year-old lawyer, wearing a white shirt, white pants, glasses, and carrying a laptop bag.\"\n                },\n                {\n                    \"name\": \"Jyothi\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Speaking on the phone, in a hurry.\"\n                },\n                {\n                    \"name\": \"Background people/vehicles\",\n                    \"role\": \"background\",\n                    \"description\": \"On the road outside the showroom.\"\n                }\n            ],\n            \"props\": [\n                \"Expensive car\",\n                \"Glass windows (of showroom)\",\n                \"Laptop bag\",\n                \"Mobile phone\"\n            ],\n            \"location\": {\n                \"name\": \"Car Showroom\",\n                \"type\": \"outdoor\",\n                \"specific_details\": \"Exterior of an expensive car showroom in Kozhikode. View through glass showing the road and vehicles outside. Water collected on the road.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"2-5\",\n                \"crowd_type\": \"Background pedestrians and vehicles\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"monsoon (Thulaavarsha samayam)\",\n                \"weather\": \"cloudy, some sunlight, water logged roads\",\n                \"specific_time\": \"not specified\"\n            },\n            \"scene_type\": \"action/dialogue\",\n            \"duration_estimate\": \"short\",\n            \"technical_notes\": \"Road sounds fade in. Unni's reflection is seen in the glass.\"\n        },\n        {\n            \"scene_number\": 2,\n            \"scene_heading\": \"EXT. DAY. MLA’S HOUSE\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, arriving at the MLA's house.\"\n                },\n                {\n                    \"name\": \"MAN 1\",\n                    \"role\": \"background\",\n                    \"description\": \"Politician, discussing legal matters.\"\n                },\n                {\n                    \"name\": \"MAN 2\",\n                    \"role\": \"background\",\n                    \"description\": \"Politician, discussing weather and legal matters.\"\n                },\n                {\n                    \"name\": \"Jyothi\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Lawyer, wearing advocate's attire, around 25 years old.\"\n                }\n            ],\n            \"props\": [\n                \"Bike\",\n                \"Mobile phone\",\n                \"Whatsapp message\",\n                \"Board 'Reshma George, MLA'\",\n                \"Bag\",\n                \"Cover with documents\"\n            ],\n            \"location\": {\n                \"name\": \"MLA's House\",\n                \"type\": \"outdoor\",\n                \"specific_details\": \"In front of a large house, identified as 'Reshma George, MLA'. Gate, entrance area.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"2-3\",\n                \"crowd_type\": \"Politicians (background extras)\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"overcast, possibility of rain\",\n                \"specific_time\": \"not specified\"\n            },\n            \"scene_type\": \"action/dialogue\",\n            \"duration_estimate\": \"short\",\n            \"technical_notes\": \"None\"\n        },\n        {\n            \"scene_number\": 2,\n            \"sub_scene_letter\": \"A\",\n            \"scene_heading\": \"INT. DAY. MLA’S HOUSE/LIVING ROOM/OFFICE\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, observing the situation.\"\n                },\n                {\n                    \"name\": \"MLA Reshma George\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Politician, facing legal issues.\"\n                },\n                {\n                    \"name\": \"George\",\n                    \"role\": \"supporting\",\n                    \"description\": \"MLA's husband.\"\n                },\n                {\n                    \"name\": \"Chaakkappan\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Senior politician, reading news.\"\n                },\n                {\n                    \"name\": \"Jyothi\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Lawyer, presenting legal documents.\"\n                }\n            ],\n            \"props\": [\n                \"Newspaper (front page with headlines)\",\n                \"Legal documents\",\n                \"Pen (implied for signing)\"\n            ],\n            \"location\": {\n                \"name\": \"MLA's House\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Living room or office area within the MLA's house. Contains people seated and discussing.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"not specified\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"not specified\",\n                \"specific_time\": \"not specified\"\n            },\n            \"scene_type\": \"dialogue\",\n            \"duration_estimate\": \"medium\",\n            \"technical_notes\": \"None\"\n        },\n        {\n            \"scene_number\": 2,\n            \"sub_scene_letter\": \"B\",\n            \"scene_heading\": \"EXT. DAY. MLA’S HOUSE/GATE\",\n            \"actors\": [\n                {\n                    \"name\": \"Jyothi\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Lawyer, instructing Unni.\"\n                },\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, taking instructions.\"\n                },\n                {\n                    \"name\": \"MLA (implied)\",\n                    \"role\": \"background\",\n                    \"description\": \"Leaving in her car.\"\n                }\n            ],\n            \"props\": [\n                \"Scooty\",\n                \"Bike\",\n                \"MLA's car\"\n            ],\n            \"location\": {\n                \"name\": \"MLA's House Gate\",\n                \"type\": \"outdoor\",\n                \"specific_details\": \"The gate area of the MLA's house, where vehicles are parked.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"not specified\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"not specified\",\n                \"specific_time\": \"not specified\"\n            },\n            \"scene_type\": \"action/dialogue\",\n            \"duration_estimate\": \"short\",\n            \"technical_notes\": \"None\"\n        },\n        {\n            \"scene_number\": 2,\n            \"sub_scene_letter\": \"C\",\n            \"scene_heading\": \"INT. DAY. MLA’S HOUSE/OFFICE\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, trying to get involved in the case.\"\n                },\n                {\n                    \"name\": \"George\",\n                    \"role\": \"supporting\",\n                    \"description\": \"MLA's husband, dismissing Unni's offer.\"\n                },\n                {\n                    \"name\": \"Chaakkappan\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Politician, accompanying George.\"\n                }\n            ],\n            \"props\": [\n                \"Mobile phone\",\n                \"Pen\"\n            ],\n            \"location\": {\n                \"name\": \"MLA's House Office\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"The office room within the MLA's house.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"not specified\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"not specified\",\n                \"specific_time\": \"not specified\"\n            },\n            \"scene_type\": \"dialogue\",\n            \"duration_estimate\": \"medium\",\n            \"technical_notes\": \"None\"\n        },\n        {\n            \"scene_number\": 2,\n            \"sub_scene_letter\": \"D\",\n            \"scene_heading\": \"EXT. DAY. MLA’S HOUSE/VERANDAH/CAR PARKING\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, persistent in his efforts to join the case.\"\n                },\n                {\n                    \"name\": \"George\",\n                    \"role\": \"supporting\",\n                    \"description\": \"MLA's husband, uninterested in Unni's offer.\"\n                },\n                {\n                    \"name\": \"Chaakkappan\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Politician, mocking Unni's inexperience.\"\n                }\n            ],\n            \"props\": [\n                \"Bag\",\n                \"Car (door)\"\n            ],\n            \"location\": {\n                \"name\": \"MLA's House Verandah/Car Parking\",\n                \"type\": \"outdoor\",\n                \"specific_details\": \"The verandah and car parking area outside the MLA's house.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"not specified\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"not specified\",\n                \"specific_time\": \"not specified\"\n            },\n            \"scene_type\": \"dialogue/action\",\n            \"duration_estimate\": \"medium\",\n            \"technical_notes\": \"None\"\n        },\n        {\n            \"scene_number\": 3,\n            \"scene_heading\": \"EXT. DAY. EMERALD TOWERS\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, parking his bike.\"\n                }\n            ],\n            \"props\": [\n                \"Bike\"\n            ],\n            \"location\": {\n                \"name\": \"Emerald Towers\",\n                \"type\": \"outdoor\",\n                \"specific_details\": \"Parking area of a new eight-story building called 'Emerald Towers' located on Mavoor Road.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"1-2\",\n                \"crowd_type\": \"Background people in a parking lot\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"not specified\",\n                \"specific_time\": \"not specified\"\n            },\n            \"scene_type\": \"action\",\n            \"duration_estimate\": \"very short\",\n            \"technical_notes\": \"None\"\n        },\n        {\n            \"scene_number\": 3,\n            \"sub_scene_letter\": \"A\",\n            \"scene_heading\": \"INT. DAY. GANGA ASSOCIATES\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, entering the office.\"\n                },\n                {\n                    \"name\": \"Jyothi\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Lawyer, in a hurry.\"\n                }\n            ],\n            \"props\": [],\n            \"location\": {\n                \"name\": \"Ganga Associates Office\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"The office of 'Ganga Associates' located on the 3rd floor of Emerald Towers.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"not specified\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"not specified\",\n                \"specific_time\": \"not specified\"\n            },\n            \"scene_type\": \"action/dialogue\",\n            \"duration_estimate\": \"very short\",\n            \"technical_notes\": \"None\"\n        },\n        {\n            \"scene_number\": 3,\n            \"sub_scene_letter\": \"B\",\n            \"scene_heading\": \"INT. DAY. GANGA ASSOCIATES\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, facing his senior.\"\n                },\n                {\n                    \"name\": \"Gangaadharan\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Senior advocate, Unni's boss, thoughtful and firm.\"\n                },\n                {\n                    \"name\": \"JUNIOR\",\n                    \"role\": \"background\",\n                    \"description\": \"A junior lawyer reporting to Gangaadharan.\"\n                },\n                {\n                    \"name\": \"Mathews\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Clerk in the office.\"\n                }\n            ],\n            \"props\": [\n                \"Bag\",\n                \"Documents (affidavit)\",\n                \"Files\",\n                \"Law book\",\n                \"Chair with wheels\"\n            ],\n            \"location\": {\n                \"name\": \"Gangaadharan's Office Room\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Gangaadharan vakkeel's private office room within Ganga Associates.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"not specified\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"not specified\",\n                \"specific_time\": \"not specified\"\n            },\n            \"scene_type\": \"dialogue\",\n            \"duration_estimate\": \"long\",\n            \"technical_notes\": \"Muffled thunder sound (mangiya idi vettunna shabdham).\"\n        },\n        {\n            \"scene_number\": 4,\n            \"scene_heading\": \"EXT/INT. DAY. NAME BOARD SHOP\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, drenched in rain, entering the shop.\"\n                },\n                {\n                    \"name\": \"Shopkeeper (implied)\",\n                    \"role\": \"background\",\n                    \"description\": \"Owner of the name board shop.\"\n                }\n            ],\n            \"props\": [\n                \"Paper\",\n                \"Pen\"\n            ],\n            \"location\": {\n                \"name\": \"Name Board Shop\",\n                \"type\": \"ext/int\",\n                \"specific_details\": \"A shop that makes name boards, located below Paragon hotel. Unni enters from outside.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"1-2\",\n                \"crowd_type\": \"Shop staff\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"heavy rain\",\n                \"specific_time\": \"not specified\"\n            },\n            \"scene_type\": \"action\",\n            \"duration_estimate\": \"short\",\n            \"technical_notes\": \"None\"\n        },\n        {\n            \"scene_number\": 4,\n            \"sub_scene_letter\": \"A\",\n            \"scene_heading\": \"INT. DAY. NAME BOARD SHOP\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, watching his name being engraved.\"\n                }\n            ],\n            \"props\": [\n                \"Engraving machine\",\n                \"Shiny metal board\"\n            ],\n            \"location\": {\n                \"name\": \"Name Board Shop (Engraving Area)\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"A room within the name board shop with an engraving machine.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"not specified\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"not specified\",\n                \"specific_time\": \"not specified\"\n            },\n            \"scene_type\": \"montage\",\n            \"duration_estimate\": \"very short\",\n            \"technical_notes\": \"Engraving machine turns ON. Music cue. Text 'ADVOCATE MUKUNDAN UNNI - M.COM LLB' being engraved.\"\n        },\n        {\n            \"scene_number\": 4,\n            \"sub_scene_letter\": \"B\",\n            \"scene_heading\": \"EXT. DAY. WAYANAD HAIRPIN\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, riding his bike in the rain.\"\n                }\n            ],\n            \"props\": [\n                \"Bike\"\n            ],\n            \"location\": {\n                \"name\": \"Wayanad Hairpin\",\n                \"type\": \"outdoor\",\n                \"specific_details\": \"The Wayanad mountain pass (churam), specifically a hairpin bend.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"not specified\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"rainy\",\n                \"specific_time\": \"not specified\"\n            },\n            \"scene_type\": \"montage\",\n            \"duration_estimate\": \"very short\",\n            \"technical_notes\": \"Slow fade to black. Slow scrolling title: --CAST LIST--\"\n        },\n        {\n            \"scene_number\": 5,\n            \"scene_heading\": \"INT. DAY. COURT CANTEEN\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, studying a case file seriously.\"\n                },\n                {\n                    \"name\": \"Lady Client\",\n                    \"role\": \"supporting\",\n                    \"description\": \"A Muslim woman, about 50 years old, hesitant about Unni's experience.\"\n                },\n                {\n                    \"name\": \"Robin\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Lawyer, approaching Unni.\"\n                },\n                {\n                    \"name\": \"Jyothi\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Lawyer, sending a voice note.\"\n                }\n            ],\n            \"props\": [\n                \"Case file\",\n                \"Bag\",\n                \"Vakkaalath (power of attorney document)\",\n                \"Table\",\n                \"Mobile phone (for notification)\"\n            ],\n            \"location\": {\n                \"name\": \"Wayanad District Court Canteen\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"A canteen within the Wayanad district court.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"5-10\",\n                \"crowd_type\": \"Court-goers, other lawyers, canteen staff\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"not specified\",\n                \"specific_time\": \"One month later\"\n            },\n            \"scene_type\": \"dialogue\",\n            \"duration_estimate\": \"medium\",\n            \"technical_notes\": \"Black screen with 'ONE MONTH LATER'. Slow fade in ambience & crowd sounds. Slow fade in visual.\"\n        },\n        {\n            \"scene_number\": 5,\n            \"sub_scene_letter\": \"A\",\n            \"scene_heading\": \"EXT. DAY. COURT TEA STALL\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, walking with Robin and then sitting with Jyothi.\"\n                },\n                {\n                    \"name\": \"Robin\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Lawyer, questioning Unni's lack of cases, later showing disheveled appearance.\"\n                },\n                {\n                    \"name\": \"Jyothi\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Lawyer, cynical about winnable cases, later challenging Unni's methods.\"\n                },\n                {\n                    \"name\": \"Tea stall boy\",\n                    \"role\": \"background\",\n                    \"description\": \"Serving tea.\"\n                },\n                {\n                    \"name\": \"Driver\",\n                    \"role\": \"background\",\n                    \"description\": \"Robin's client, wearing a khaki shirt and checked lungi.\"\n                }\n            ],\n            \"props\": [\n                \"Lawyer gowns\",\n                \"Bags\",\n                \"Tea cup\",\n                \"Waste bin\",\n                \"Bench\",\n                \"Coat\",\n                \"Shoes (dirty)\",\n                \"Case files\",\n                \"Money (being counted)\"\n            ],\n            \"location\": {\n                \"name\": \"Court Tea Stall\",\n                \"type\": \"outdoor\",\n                \"specific_details\": \"A tea stall located outside the court.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"2-5\",\n                \"crowd_type\": \"Tea stall customers, court-goers\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"not specified\",\n                \"specific_time\": \"not specified\"\n            },\n            \"scene_type\": \"dialogue\",\n            \"duration_estimate\": \"long\",\n            \"technical_notes\": \"None\"\n        },\n        {\n            \"scene_number\": 6,\n            \"sub_scene_letter\": \"6A\",\n            \"scene_heading\": \"INT/EXT. DAY. UNNI’S HOME/NEWS STUDIO\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, performing his morning routine with discipline, reacting to news and a domestic emergency.\"\n                },\n                {\n                    \"name\": \"Unni’s Amma\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Unni's mother, working in the kitchen, falls.\"\n                },\n                {\n                    \"name\": \"News Anchor\",\n                    \"role\": \"background\",\n                    \"description\": \"Moderating a discussion on TV.\"\n                },\n                {\n                    \"name\": \"Participant\",\n                    \"role\": \"background\",\n                    \"description\": \"Discussing medical negligence on TV.\"\n                },\n                {\n                    \"name\": \"Moorkhan Paambu (Cobra)\",\n                    \"role\": \"background\",\n                    \"description\": \"A venomous snake.\"\n                }\n            ],\n            \"props\": [\n                \"Alarm clock\",\n                \"Clothes\",\n                \"Iron\",\n                \"Wardrobe\",\n                \"Name board (inside wardrobe)\",\n                \"Bed sheet\",\n                \"Photos (father, childhood, sister's wedding)\",\n                \"Hero cycle (rusty, outside)\",\n                \"Mirror\",\n                \"Comb\",\n                \"Banyan (vest)\",\n                \"Specs\",\n                \"TV\",\n                \"Dining table\",\n                \"Food (implied)\",\n                \"Stool\",\n                \"Snake (cobra)\"\n            ],\n            \"location\": {\n                \"name\": \"Unni's Home / News Studio (TV)\",\n                \"type\": \"int/ext\",\n                \"specific_details\": \"Unni's disciplined bedroom, kitchen, dining area, and the verandah/chaayippu outside his house. A news channel broadcast is visible on TV.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none (at home), 3 (on TV)\",\n                \"crowd_type\": \"News debate panelists\"\n            },\n            \"time\": {\n                \"time_of_day\": \"morning\",\n                \"season\": \"unspecified\",\n                \"weather\": \"not specified\",\n                \"specific_time\": \"5 AM (alarm)\"\n            },\n            \"scene_type\": \"montage/action/dialogue\",\n            \"duration_estimate\": \"long\",\n            \"technical_notes\": \"Music cue. TV show (news debate) playing in the background.\"\n        },\n        {\n            \"scene_number\": 7,\n            \"scene_heading\": \"INT. DAY. MERCURY HOSPITAL/BILLING SECTION\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, waiting at the hospital, concerned about payment.\"\n                },\n                {\n                    \"name\": \"Robin\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Unni's friend, asking about the accident.\"\n                },\n                {\n                    \"name\": \"Cashier\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Hospital staff, explaining payment policy.\"\n                },\n                {\n                    \"name\": \"Meenakshi\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Hospital staff, smiling/laughing.\"\n                },\n                {\n                    \"name\": \"Patient (Token 39)\",\n                    \"role\": \"background\",\n                    \"description\": \"A person called for billing.\"\n                }\n            ],\n            \"props\": [\n                \"Waiting seats\",\n                \"Token display\",\n                \"Slip (for cashier)\"\n            ],\n            \"location\": {\n                \"name\": \"Mercury Trauma Care Hospital\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Waiting area adjacent to the billing section of Mercury Trauma Care Hospital.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"5-10\",\n                \"crowd_type\": \"Patients, hospital staff, visitors\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"not specified\",\n                \"specific_time\": \"not specified\"\n            },\n            \"scene_type\": \"dialogue/action\",\n            \"duration_estimate\": \"medium\",\n            \"technical_notes\": \"Mechanical voice announcing token numbers.\"\n        },\n        {\n            \"scene_number\": 8,\n            \"scene_heading\": \"EXT. DAY. ATM\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, waiting in the ATM queue.\"\n                },\n                {\n                    \"name\": \"Robin\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Unni's friend, explaining his recent income source.\"\n                }\n            ],\n            \"props\": [],\n            \"location\": {\n                \"name\": \"ATM Queue\",\n                \"type\": \"outdoor\",\n                \"specific_details\": \"Outside an ATM, with people waiting in a queue.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"2-3\",\n                \"crowd_type\": \"People waiting for ATM\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"not specified\",\n                \"specific_time\": \"not specified\"\n            },\n            \"scene_type\": \"dialogue\",\n            \"duration_estimate\": \"short\",\n            \"technical_notes\": \"None\"\n        },\n        {\n            \"scene_number\": 8,\n            \"sub_scene_letter\": \"A\",\n            \"scene_heading\": \"INT. DAY. ATM\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, withdrawing all available money.\"\n                }\n            ],\n            \"props\": [\n                \"ATM machine\",\n                \"Money (7500 rupees)\"\n            ],\n            \"location\": {\n                \"name\": \"ATM Booth\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Inside the ATM booth, interacting with the machine.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"not specified\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"not specified\",\n                \"specific_time\": \"not specified\"\n            },\n            \"scene_type\": \"action\",\n            \"duration_estimate\": \"very short\",\n            \"technical_notes\": \"None\"\n        },\n        {\n            \"scene_number\": 9,\n            \"scene_heading\": \"INT. DAY. MERCURY HOSPITAL/BILLING SECTION\",\n            \"actors\": [\n                {\n                    \"name\": \"Mukundan Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Lawyer, attempting to pay with insufficient funds.\"\n                },\n                {\n                    \"name\": \"Meenakshi\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Hospital staff, rejecting the partial payment.\"\n                },\n                {\n                    \"name\": \"Cashier\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Hospital staff, checking patient slips.\"\n                },\n                {\n                    \"name\": \"Robin\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Unni's friend, waiting in the background.\"\n                },\n                {\n                    \"name\": \"Mani\",\n                    \"role\": \"background\",\n                    \"description\": \"Patient, interacting with the cashier.\"\n                }\n            ],\n            \"props\": [\n                \"Money (7500 rupees)\",\n                \"Patient slips\",\n                \"Computer\"\n            ],\n            \"location\": {\n                \"name\": \"Mercury Trauma Care Hospital\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Billing counter area of Mercury Trauma Care Hospital.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"2-5\",\n                \"crowd_type\": \"Other patients/visitors, hospital staff\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"not specified\",\n                \"specific_time\": \"not specified\"\n            },\n            \"scene_type\": \"dialogue/action\",\n            \"duration_estimate\": \"short\",\n            \"technical_notes\": \"Mechanical voice announcing token numbers.\"\n        }\n    ],\n    \"summary\": {\n        \"total_scenes\": 15,\n        \"main_characters\": [\n            \"Mukundan Unni\"\n        ],\n        \"primary_locations\": [\n            \"MLA's House\",\n            \"Ganga Associates Office\",\n            \"Court Canteen/Tea Stall\",\n            \"Unni's Home\",\n            \"Mercury Trauma Care Hospital\",\n            \"ATM\"\n        ],\n        \"production_complexity\": \"medium\"\n    }\n}\n```"
+      },
+      {
+        "chunk_number": 2,
+        "response": {
+          "scenes": [
+            {
+              "scene_number": 1,
+              "scene_heading": "INT. DAY. MERCURY HOSPITAL/BILLING SECTION",
+              "actors": [
+                {
+                  "name": "CASHIER Johnson",
+                  "role": "supporting",
+                  "description": "45 years old, one of the cashiers."
+                },
+                {
+                  "name": "Mani",
+                  "role": "main",
+                  "description": "Pays large sums of cash, observed by Unni, later revealed as an agent."
+                },
+                {
+                  "name": "Unni",
+                  "role": "main",
+                  "description": "Observant, curious about discounts and Mani's activities."
+                },
+                {
+                  "name": "Meenakshi",
+                  "role": "main",
+                  "description": "Billing section staff, handles receipts, initially stoic, shows empathy for Unni's mother, has a PSC exam."
+                },
+                {
+                  "name": "Vincent Doctor",
+                  "role": "supporting",
+                  "description": "Caring doctor, asks Meenakshi about her leave and PSC exam, gives instructions over the phone about a logo."
+                },
+                {
+                  "name": "CASHIER Sethulakshmi",
+                  "role": "supporting",
+                  "description": "65 years old, another cashier."
+                },
+                {
+                  "name": "CASHIER Chacko",
+                  "role": "supporting",
+                  "description": "40 years old, another cashier."
+                }
+              ],
+              "props": [
+                "Cash bundles",
+                "Bag",
+                "Receipts",
+                "Seal",
+                "Meenakshi's badge",
+                "Patient file (given to Meenakshi)",
+                "Phone (Vincent Doctor's)",
+                "Token number screen"
+              ],
+              "location": {
+                "name": "Mercury Hospital",
+                "type": "indoor",
+                "specific_details": "Billing Section, busy counter with multiple cashiers and a token display. People waiting in line."
+              },
+              "crowd": {
+                "people_needed": "5-10",
+                "crowd_type": "Background hospital staff, patients/attendees in line."
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "dialogue, action, exposition",
+              "duration_estimate": "not specified",
+              "technical_notes": "Close-ups on cash bundles, Meenakshi's badge, token number screen (54, 55)."
+            },
+            {
+              "scene_number": 2,
+              "scene_heading": "INT. DAY. MERCURY HOSPITAL/CORRIDOR",
+              "actors": [
+                {
+                  "name": "Mani",
+                  "role": "main",
+                  "description": "Walking, asking for room directions."
+                },
+                {
+                  "name": "Attender",
+                  "role": "supporting",
+                  "description": "Hospital staff, guides Mani to the correct room."
+                },
+                {
+                  "name": "Unni",
+                  "role": "main",
+                  "description": "Following and observing Mani's actions."
+                }
+              ],
+              "props": [],
+              "location": {
+                "name": "Mercury Hospital",
+                "type": "indoor",
+                "specific_details": "Corridor with numbered patient rooms (e.g., 105, 115)."
+              },
+              "crowd": {
+                "people_needed": "1-2",
+                "crowd_type": "Background hospital visitors/staff passing by."
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "dialogue, action",
+              "duration_estimate": "not specified",
+              "technical_notes": "not specified"
+            },
+            {
+              "scene_number": 3,
+              "scene_heading": "INT. DAY. MERCURY HOSPITAL/CORRIDOR/ROOM113, 114, 115",
+              "actors": [
+                {
+                  "name": "Unni",
+                  "role": "main",
+                  "description": "Observing the scene from a partially open doorway."
+                },
+                {
+                  "name": "Mani",
+                  "role": "main",
+                  "description": "Arranging for a patient to sign documents."
+                },
+                {
+                  "name": "Patient",
+                  "role": "supporting",
+                  "description": "A man lying in a hospital bed, has a fracture."
+                },
+                {
+                  "name": "Patient's Wife",
+                  "role": "supporting",
+                  "description": "Explains the patient's injury."
+                }
+              ],
+              "props": [
+                "Vakkaalath (power of attorney document)",
+                "Pen"
+              ],
+              "location": {
+                "name": "Mercury Hospital",
+                "type": "indoor",
+                "specific_details": "Patient Room 115, seen through a partially open door. Contains a hospital bed."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "none"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "dialogue, action, exposition",
+              "duration_estimate": "not specified",
+              "technical_notes": "Shot through a partially open door to show Unni observing. Close-up on the patient signing the document."
+            },
+            {
+              "scene_number": 4,
+              "scene_heading": "INT. DAY. MERCURY HOSPITAL/BILLING SECTION/TEA COUNTER",
+              "actors": [
+                {
+                  "name": "Unni",
+                  "role": "main",
+                  "description": "Initiates conversation with Mani, trying to understand his actions."
+                },
+                {
+                  "name": "Mani",
+                  "role": "main",
+                  "description": "Buys tea after paying a bill, looks surprised by Unni's interaction."
+                }
+              ],
+              "props": [
+                "Receipt",
+                "Purse",
+                "Tea",
+                "Tea counter"
+              ],
+              "location": {
+                "name": "Mercury Hospital",
+                "type": "indoor",
+                "specific_details": "Area near the cash counter and a tea counter within the hospital."
+              },
+              "crowd": {
+                "people_needed": "1-2",
+                "crowd_type": "Background hospital staff/visitors."
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "dialogue, action",
+              "duration_estimate": "not specified",
+              "technical_notes": "not specified"
+            },
+            {
+              "scene_number": 5,
+              "scene_heading": "INT. DAY. MERCURY HOSPITAL/WARD",
+              "actors": [
+                {
+                  "name": "Unni's Amma (Jaanakiyaara)",
+                  "role": "supporting",
+                  "description": "Lying in a hospital ward bed, signs a document."
+                },
+                {
+                  "name": "Mani",
+                  "role": "main",
+                  "description": "Gets Unni's mother to sign a document."
+                },
+                {
+                  "name": "Robin",
+                  "role": "supporting",
+                  "description": "Present with Unni."
+                },
+                {
+                  "name": "Unni",
+                  "role": "main",
+                  "description": "Observing Mani's actions with his mother."
+                }
+              ],
+              "props": [
+                "Vakkaalath (power of attorney document)",
+                "Pen",
+                "Stamp",
+                "Tray"
+              ],
+              "location": {
+                "name": "Mercury Hospital",
+                "type": "indoor",
+                "specific_details": "Hospital ward room with patient beds."
+              },
+              "crowd": {
+                "people_needed": "2-5",
+                "crowd_type": "Other patients/visitors in the ward (background)."
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "action, exposition",
+              "duration_estimate": "not specified",
+              "technical_notes": "Close-up on Vakkaalath signing and stamping, revealing 'Advocate Venu AV'."
+            },
+            {
+              "scene_number": 6,
+              "scene_heading": "INT. DAY. MERCURY HOSPITAL/BILLING SECTION",
+              "actors": [
+                {
+                  "name": "Mani",
+                  "role": "main",
+                  "description": "Paying a bill, making a call to Venu Vakkeel."
+                },
+                {
+                  "name": "Venu Vakkeel",
+                  "role": "supporting",
+                  "description": "Advocate, on speaker phone, initially sounds less interested in a 'hairline' case."
+                }
+              ],
+              "props": [
+                "Bill",
+                "Speaker phone"
+              ],
+              "location": {
+                "name": "Mercury Hospital",
+                "type": "indoor",
+                "specific_details": "Billing Section (implied, as Mani pays a bill)."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "none"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "dialogue",
+              "duration_estimate": "not specified",
+              "technical_notes": "Speaker phone conversation."
+            },
+            {
+              "scene_number": 7,
+              "scene_heading": "INT. DAY. MERCURY HOSPITAL/ADMIN SEBATTI DOCTOR ROOM",
+              "actors": [
+                {
+                  "name": "Sebatti Doctor",
+                  "role": "supporting",
+                  "description": "Doctor, writes prescriptions, later involved in manipulating medical reports."
+                },
+                {
+                  "name": "Mani",
+                  "role": "main",
+                  "description": "Enters doctor's room with Unni, hands over phone to doctor."
+                },
+                {
+                  "name": "Unni",
+                  "role": "main",
+                  "description": "Observing the conversation and manipulation unfold."
+                },
+                {
+                  "name": "Venu Vakkeel",
+                  "role": "supporting",
+                  "description": "Advocate, on speaker phone, instructs the doctor to exaggerate the injury for insurance claims."
+                },
+                {
+                  "name": "Rogi (Patient)",
+                  "role": "background",
+                  "description": "Patient receiving a prescription from the doctor."
+                }
+              ],
+              "props": [
+                "Door",
+                "Prescription",
+                "Speaker phone"
+              ],
+              "location": {
+                "name": "Mercury Hospital",
+                "type": "indoor",
+                "specific_details": "Sebatti Doctor's private room/admin office."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "none"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "dialogue, action, exposition",
+              "duration_estimate": "not specified",
+              "technical_notes": "Speaker phone conversation, Unni observing the manipulation."
+            },
+            {
+              "scene_number": 8,
+              "scene_heading": "INT. DAY. MERCURY HOSPITAL/CORRIDOR",
+              "actors": [
+                {
+                  "name": "Robin",
+                  "role": "supporting",
+                  "description": "Joins Unni and Mani after coming out of a toilet."
+                },
+                {
+                  "name": "Mani",
+                  "role": "main",
+                  "description": "Shows Unni a photo of the car and gives instructions."
+                },
+                {
+                  "name": "Unni",
+                  "role": "main",
+                  "description": "Receives instructions from Mani regarding the accident vehicle."
+                }
+              ],
+              "props": [
+                "Mobile phone (showing car photo)"
+              ],
+              "location": {
+                "name": "Mercury Hospital",
+                "type": "indoor",
+                "specific_details": "Corridor, near a toilet."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "none"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "dialogue, action",
+              "duration_estimate": "not specified",
+              "technical_notes": "Close-up on phone screen showing car photo (KL 12 F 3102)."
+            },
+            {
+              "scene_number": 9,
+              "scene_heading": "INT/EXT. DAY. POLICE STATION",
+              "actors": [
+                {
+                  "name": "Unni",
+                  "role": "main",
+                  "description": "The montage implies Unni is the one visiting the police station to file the complaint."
+                }
+              ],
+              "props": [
+                "Computer screen (showing FIR online registration)"
+              ],
+              "location": {
+                "name": "Police Station",
+                "type": "indoor/outdoor",
+                "specific_details": "A montage sequence showing the general police station environment."
+              },
+              "crowd": {
+                "people_needed": "2-5",
+                "crowd_type": "Police staff, visitors."
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "montage, action",
+              "duration_estimate": "not specified",
+              "technical_notes": "Screen grab visual of FIR online registration and case number generation."
+            },
+            {
+              "scene_number": 10,
+              "scene_heading": "EXT. DAY. POLICE STATION/GARAGE",
+              "actors": [
+                {
+                  "name": "Unni",
+                  "role": "main",
+                  "description": "Observing the manipulation of evidence without reaction."
+                },
+                {
+                  "name": "Robin",
+                  "role": "supporting",
+                  "description": "Shocked by the manipulation of evidence."
+                },
+                {
+                  "name": "Mani",
+                  "role": "main",
+                  "description": "Present during the scene mahasar, having instructed Unni to file a complaint."
+                },
+                {
+                  "name": "ASI",
+                  "role": "supporting",
+                  "description": "Police officer, actively manipulates the car's damage to fit the narrative."
+                },
+                {
+                  "name": "Constable Joseph",
+                  "role": "supporting",
+                  "description": "Records the scene mahasar with photos."
+                },
+                {
+                  "name": "3 perum",
+                  "role": "background",
+                  "description": "Other people present at the garage."
+                }
+              ],
+              "props": [
+                "Car (Alto KL 12 F 3102)",
+                "Iron rod (used by ASI)",
+                "Scene mahasar document",
+                "Camera (implied for Joseph's photos)"
+              ],
+              "location": {
+                "name": "Police Station Garage",
+                "type": "outdoor",
+                "specific_details": "Area where accident vehicles are kept, a wall is mentioned as the point of impact."
+              },
+              "crowd": {
+                "people_needed": "3",
+                "crowd_type": "Background police staff/bystanders."
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "FIR registered at 16-10-2021 2:30 PM, accident at 16-10-2021 10:45 AM."
+              },
+              "scene_type": "dialogue, action, exposition",
+              "duration_estimate": "not specified",
+              "technical_notes": "ASI physically damaging the car's left side lamp with an iron rod. Robin's shocked reaction vs. Unni's neutral reaction."
+            },
+            {
+              "scene_number": 11,
+              "scene_heading": "INT. DAY. MERCURY HOSPITAL/ADMIN SEBATTI DOCTOR ROOM",
+              "actors": [
+                {
+                  "name": "Mani",
+                  "role": "main",
+                  "description": "Reminds the doctor about the 'ookku' (force) to be added to the report."
+                },
+                {
+                  "name": "Unni",
+                  "role": "main",
+                  "description": "Present with Mani."
+                },
+                {
+                  "name": "Sebatti Doctor",
+                  "role": "supporting",
+                  "description": "Signs the wound certificate after adding 'Robust health' to exaggerate the patient's prior condition."
+                }
+              ],
+              "props": [
+                "Wound certificate",
+                "Pen",
+                "Paper (Mani points to a part of the document)"
+              ],
+              "location": {
+                "name": "Mercury Hospital",
+                "type": "indoor",
+                "specific_details": "Doctor's office."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "none"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "dialogue, action",
+              "duration_estimate": "not specified",
+              "technical_notes": "Doctor adding 'Robust health' and signing. Close-up on the document."
+            },
+            {
+              "scene_number": 12,
+              "scene_heading": "INT. DAY. MACT COURT/CLOSEUPS",
+              "actors": [],
+              "props": [
+                "Computer/typewriter",
+                "Documents (mentioning transportation charge, hospital charge, pain and suffering)"
+              ],
+              "location": {
+                "name": "MACT Court",
+                "type": "indoor",
+                "specific_details": "A desk or workstation within the court where documents are prepared."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "none"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "action, montage",
+              "duration_estimate": "not specified",
+              "technical_notes": "Close-up on typing action, showing the different charges being included in the claim file."
+            },
+            {
+              "scene_number": 13,
+              "scene_heading": "INT/EXT. DAY. COURT/CORRIDOR",
+              "actors": [
+                {
+                  "name": "Unni",
+                  "role": "main",
+                  "description": "Present during Mani's explanation of the process."
+                },
+                {
+                  "name": "Robin",
+                  "role": "supporting",
+                  "description": "Questions the need for a blank check, shows an 'Okay' expression later."
+                },
+                {
+                  "name": "Mani",
+                  "role": "main",
+                  "description": "Explains the process of claim payout and distribution to Unni and Robin."
+                }
+              ],
+              "props": [
+                "Aadhar card copy (mentioned)",
+                "Pan card copy (mentioned)",
+                "Blank check (mentioned)"
+              ],
+              "location": {
+                "name": "Court",
+                "type": "indoor/outdoor",
+                "specific_details": "Corridor within the court complex, where legal discussions take place."
+              },
+              "crowd": {
+                "people_needed": "2-5",
+                "crowd_type": "Lawyers, court staff, public passing by."
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "dialogue, exposition",
+              "duration_estimate": "not specified",
+              "technical_notes": "Robin's questioning look, Unni's lack of a specific reaction."
+            },
+            {
+              "scene_number": 14,
+              "scene_heading": "INT. DAY. MACT COURT/CLOSEUP",
+              "actors": [
+                {
+                  "name": "Kodathi staff",
+                  "role": "background",
+                  "description": "Court staff member registering a case."
+                }
+              ],
+              "props": [
+                "Book",
+                "Pen"
+              ],
+              "location": {
+                "name": "MACT Court",
+                "type": "indoor",
+                "specific_details": "Court registry or a clerk's desk."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "none"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "action",
+              "duration_estimate": "not specified",
+              "technical_notes": "Close-up on a staff member writing case number 831/2021 in a book."
+            },
+            {
+              "scene_number": 15,
+              "scene_heading": "EXT. DAY. COURT/CORRIDOR",
+              "actors": [
+                {
+                  "name": "Unni",
+                  "role": "main",
+                  "description": "Present, observes the manipulation of evidence."
+                },
+                {
+                  "name": "Unni's Amma (Jaanakiyaara)",
+                  "role": "supporting",
+                  "description": "Has a hand plaster, wears a watch and glasses, gives them to Venu Vakkeel."
+                },
+                {
+                  "name": "Venu Vakkeel",
+                  "role": "main",
+                  "description": "40 years old, advocate, actively breaks watch and glasses to inflate claim value."
+                },
+                {
+                  "name": "Junior (Jancy)",
+                  "role": "supporting",
+                  "description": "Venu Vakkeel's junior, instructed to add costs to the description."
+                }
+              ],
+              "props": [
+                "Aadhar card copy",
+                "Pan card copy",
+                "Blank check",
+                "Court aramathil (deposit box)",
+                "Watch",
+                "Glasses",
+                "Cloth",
+                "Small hammer"
+              ],
+              "location": {
+                "name": "Court",
+                "type": "outdoor",
+                "specific_details": "Court corridor, near a court deposit/evidence collection point. The heading says EXT, but descriptions often imply indoors for corridors."
+              },
+              "crowd": {
+                "people_needed": "2-5",
+                "crowd_type": "Lawyers, court staff, public."
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "dialogue, action, exposition",
+              "duration_estimate": "not specified",
+              "technical_notes": "Venu Vakkeel intentionally breaking the watch and glasses with a hammer, Unni's mother's injured hand with plaster. Close-up on the broken items."
+            },
+            {
+              "scene_number": 16,
+              "scene_heading": "INT. DAY. MACT COURT/CLOSEUP",
+              "actors": [],
+              "props": [
+                "Computer/typewriter",
+                "Documents (adding specs and watch cost)"
+              ],
+              "location": {
+                "name": "MACT Court",
+                "type": "indoor",
+                "specific_details": "A desk or workstation within the court where documents are prepared."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "none"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "action, montage",
+              "duration_estimate": "not specified",
+              "technical_notes": "Close-up on typing action, showing the costs for glasses and watch being added to the MACT description."
+            },
+            {
+              "scene_number": 17,
+              "scene_heading": "INT. DAY. MACT COURT ROOM",
+              "actors": [
+                {
+                  "name": "Bench clerk",
+                  "role": "supporting",
+                  "description": "Calls out the case details."
+                },
+                {
+                  "name": "Venu Vakkeel",
+                  "role": "main",
+                  "description": "Stands up to present the case, calls witnesses."
+                },
+                {
+                  "name": "Car driver (Ratheesh Kumar)",
+                  "role": "supporting",
+                  "description": "Driver of the accident vehicle, called as a witness."
+                },
+                {
+                  "name": "Binu Somashekharan",
+                  "role": "supporting",
+                  "description": "First witness in the case."
+                },
+                {
+                  "name": "Jayanth Vijaykumar",
+                  "role": "supporting",
+                  "description": "Second witness in the case."
+                },
+                {
+                  "name": "Advocate Vishaalakshi",
+                  "role": "supporting",
+                  "description": "Opposition party's lawyer, representing Venus Insurance."
+                },
+                {
+                  "name": "Judge",
+                  "role": "background",
+                  "description": "Presiding over the court (implied)."
+                }
+              ],
+              "props": [
+                "File"
+              ],
+              "location": {
+                "name": "MACT Court Room",
+                "type": "indoor",
+                "specific_details": "Formal courtroom setting with a bench, lawyers' tables, and witness stand."
+              },
+              "crowd": {
+                "people_needed": "5-10",
+                "crowd_type": "Court staff, public, other lawyers."
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "dialogue, action, legal proceedings",
+              "duration_estimate": "not specified",
+              "technical_notes": "Courtroom drama, showcasing the legal process."
+            },
+            {
+              "scene_number": 18,
+              "scene_heading": "INT. DAY. MACT COURT/JUDGE CHAMBER",
+              "actors": [
+                {
+                  "name": "Judge",
+                  "role": "supporting",
+                  "description": "Presides over the signing of the document."
+                },
+                {
+                  "name": "Jaanaki Amma",
+                  "role": "supporting",
+                  "description": "Signs the document."
+                },
+                {
+                  "name": "Venu Vakkeel",
+                  "role": "main",
+                  "description": "Present during the signing."
+                },
+                {
+                  "name": "Unni",
+                  "role": "main",
+                  "description": "Present in the chamber."
+                },
+                {
+                  "name": "Clerk",
+                  "role": "supporting",
+                  "description": "Court clerk, present during the signing."
+                }
+              ],
+              "props": [
+                "Document for signing"
+              ],
+              "location": {
+                "name": "MACT Court",
+                "type": "indoor",
+                "specific_details": "Judge's private chamber."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "none"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "action, legal proceedings",
+              "duration_estimate": "not specified",
+              "technical_notes": "Close-up on Jaanaki Amma and Venu Vakkeel signing a document in the judge's presence."
+            },
+            {
+              "scene_number": 19,
+              "scene_heading": "EXT. DAY. UNNI’S HOME/BACKYARD",
+              "actors": [
+                {
+                  "name": "Unni",
+                  "role": "main",
+                  "description": "Receives a bank credit notification on his mobile."
+                }
+              ],
+              "props": [
+                "Mobile phone (showing credit message)"
+              ],
+              "location": {
+                "name": "Unni's Home",
+                "type": "outdoor",
+                "specific_details": "Backyard of a house."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "none"
+              },
+              "time": {
+                "time_of_day": "day",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "action",
+              "duration_estimate": "not specified",
+              "technical_notes": "Close-up on mobile screen showing a credit of 4,25,000 rupees."
+            },
+            {
+              "scene_number": 20,
+              "scene_heading": "INT. EVENING. UNNI’S HOME/BATHROOM",
+              "actors": [
+                {
+                  "name": "Unni",
+                  "role": "main",
+                  "description": "Receives a bank debit notification on his mobile while in the bathroom."
+                }
+              ],
+              "props": [
+                "Mobile phone (showing debit message)"
+              ],
+              "location": {
+                "name": "Unni's Home",
+                "type": "indoor",
+                "specific_details": "Bathroom."
+              },
+              "crowd": {
+                "people_needed": "none",
+                "crowd_type": "none"
+              },
+              "time": {
+                "time_of_day": "evening",
+                "season": "unspecified",
+                "weather": "unspecified",
+                "specific_time": "unspecified"
+              },
+              "scene_type": "action",
+              "duration_estimate": "not specified",
+              "technical_notes": "Close-up on mobile screen showing a debit of 4,25,000 rupees."
+            }
+          ],
+          "summary": {
+            "total_scenes": 20,
+            "main_characters": [
+              "Unni",
+              "Mani",
+              "Meenakshi",
+              "Venu Vakkeel"
+            ],
+            "primary_locations": [
+              "Mercury Hospital (Billing Section, Corridor, Ward, Doctor's Room)",
+              "Police Station (Station, Garage)",
+              "MACT Court (Courtroom, Corridor, Judge's Chamber, Typing Area)",
+              "Unni's Home (Backyard, Bathroom)"
+            ],
+            "production_complexity": "high"
+          }
+        },
+        "raw_response": "```json\n{\n    \"scenes\": [\n        {\n            \"scene_number\": 1,\n            \"scene_heading\": \"INT. DAY. MERCURY HOSPITAL/BILLING SECTION\",\n            \"actors\": [\n                {\n                    \"name\": \"CASHIER Johnson\",\n                    \"role\": \"supporting\",\n                    \"description\": \"45 years old, one of the cashiers.\"\n                },\n                {\n                    \"name\": \"Mani\",\n                    \"role\": \"main\",\n                    \"description\": \"Pays large sums of cash, observed by Unni, later revealed as an agent.\"\n                },\n                {\n                    \"name\": \"Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Observant, curious about discounts and Mani's activities.\"\n                },\n                {\n                    \"name\": \"Meenakshi\",\n                    \"role\": \"main\",\n                    \"description\": \"Billing section staff, handles receipts, initially stoic, shows empathy for Unni's mother, has a PSC exam.\"\n                },\n                {\n                    \"name\": \"Vincent Doctor\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Caring doctor, asks Meenakshi about her leave and PSC exam, gives instructions over the phone about a logo.\"\n                },\n                {\n                    \"name\": \"CASHIER Sethulakshmi\",\n                    \"role\": \"supporting\",\n                    \"description\": \"65 years old, another cashier.\"\n                },\n                {\n                    \"name\": \"CASHIER Chacko\",\n                    \"role\": \"supporting\",\n                    \"description\": \"40 years old, another cashier.\"\n                }\n            ],\n            \"props\": [\n                \"Cash bundles\",\n                \"Bag\",\n                \"Receipts\",\n                \"Seal\",\n                \"Meenakshi's badge\",\n                \"Patient file (given to Meenakshi)\",\n                \"Phone (Vincent Doctor's)\",\n                \"Token number screen\"\n            ],\n            \"location\": {\n                \"name\": \"Mercury Hospital\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Billing Section, busy counter with multiple cashiers and a token display. People waiting in line.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"5-10\",\n                \"crowd_type\": \"Background hospital staff, patients/attendees in line.\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"dialogue, action, exposition\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"Close-ups on cash bundles, Meenakshi's badge, token number screen (54, 55).\"\n        },\n        {\n            \"scene_number\": 2,\n            \"scene_heading\": \"INT. DAY. MERCURY HOSPITAL/CORRIDOR\",\n            \"actors\": [\n                {\n                    \"name\": \"Mani\",\n                    \"role\": \"main\",\n                    \"description\": \"Walking, asking for room directions.\"\n                },\n                {\n                    \"name\": \"Attender\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Hospital staff, guides Mani to the correct room.\"\n                },\n                {\n                    \"name\": \"Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Following and observing Mani's actions.\"\n                }\n            ],\n            \"props\": [],\n            \"location\": {\n                \"name\": \"Mercury Hospital\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Corridor with numbered patient rooms (e.g., 105, 115).\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"1-2\",\n                \"crowd_type\": \"Background hospital visitors/staff passing by.\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"dialogue, action\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"not specified\"\n        },\n        {\n            \"scene_number\": 3,\n            \"scene_heading\": \"INT. DAY. MERCURY HOSPITAL/CORRIDOR/ROOM113, 114, 115\",\n            \"actors\": [\n                {\n                    \"name\": \"Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Observing the scene from a partially open doorway.\"\n                },\n                {\n                    \"name\": \"Mani\",\n                    \"role\": \"main\",\n                    \"description\": \"Arranging for a patient to sign documents.\"\n                },\n                {\n                    \"name\": \"Patient\",\n                    \"role\": \"supporting\",\n                    \"description\": \"A man lying in a hospital bed, has a fracture.\"\n                },\n                {\n                    \"name\": \"Patient's Wife\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Explains the patient's injury.\"\n                }\n            ],\n            \"props\": [\n                \"Vakkaalath (power of attorney document)\",\n                \"Pen\"\n            ],\n            \"location\": {\n                \"name\": \"Mercury Hospital\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Patient Room 115, seen through a partially open door. Contains a hospital bed.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"none\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"dialogue, action, exposition\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"Shot through a partially open door to show Unni observing. Close-up on the patient signing the document.\"\n        },\n        {\n            \"scene_number\": 4,\n            \"scene_heading\": \"INT. DAY. MERCURY HOSPITAL/BILLING SECTION/TEA COUNTER\",\n            \"actors\": [\n                {\n                    \"name\": \"Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Initiates conversation with Mani, trying to understand his actions.\"\n                },\n                {\n                    \"name\": \"Mani\",\n                    \"role\": \"main\",\n                    \"description\": \"Buys tea after paying a bill, looks surprised by Unni's interaction.\"\n                }\n            ],\n            \"props\": [\n                \"Receipt\",\n                \"Purse\",\n                \"Tea\",\n                \"Tea counter\"\n            ],\n            \"location\": {\n                \"name\": \"Mercury Hospital\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Area near the cash counter and a tea counter within the hospital.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"1-2\",\n                \"crowd_type\": \"Background hospital staff/visitors.\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"dialogue, action\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"not specified\"\n        },\n        {\n            \"scene_number\": 5,\n            \"scene_heading\": \"INT. DAY. MERCURY HOSPITAL/WARD\",\n            \"actors\": [\n                {\n                    \"name\": \"Unni's Amma (Jaanakiyaara)\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Lying in a hospital ward bed, signs a document.\"\n                },\n                {\n                    \"name\": \"Mani\",\n                    \"role\": \"main\",\n                    \"description\": \"Gets Unni's mother to sign a document.\"\n                },\n                {\n                    \"name\": \"Robin\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Present with Unni.\"\n                },\n                {\n                    \"name\": \"Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Observing Mani's actions with his mother.\"\n                }\n            ],\n            \"props\": [\n                \"Vakkaalath (power of attorney document)\",\n                \"Pen\",\n                \"Stamp\",\n                \"Tray\"\n            ],\n            \"location\": {\n                \"name\": \"Mercury Hospital\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Hospital ward room with patient beds.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"2-5\",\n                \"crowd_type\": \"Other patients/visitors in the ward (background).\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"action, exposition\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"Close-up on Vakkaalath signing and stamping, revealing 'Advocate Venu AV'.\"\n        },\n        {\n            \"scene_number\": 6,\n            \"scene_heading\": \"INT. DAY. MERCURY HOSPITAL/BILLING SECTION\",\n            \"actors\": [\n                {\n                    \"name\": \"Mani\",\n                    \"role\": \"main\",\n                    \"description\": \"Paying a bill, making a call to Venu Vakkeel.\"\n                },\n                {\n                    \"name\": \"Venu Vakkeel\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Advocate, on speaker phone, initially sounds less interested in a 'hairline' case.\"\n                }\n            ],\n            \"props\": [\n                \"Bill\",\n                \"Speaker phone\"\n            ],\n            \"location\": {\n                \"name\": \"Mercury Hospital\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Billing Section (implied, as Mani pays a bill).\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"none\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"dialogue\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"Speaker phone conversation.\"\n        },\n        {\n            \"scene_number\": 7,\n            \"scene_heading\": \"INT. DAY. MERCURY HOSPITAL/ADMIN SEBATTI DOCTOR ROOM\",\n            \"actors\": [\n                {\n                    \"name\": \"Sebatti Doctor\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Doctor, writes prescriptions, later involved in manipulating medical reports.\"\n                },\n                {\n                    \"name\": \"Mani\",\n                    \"role\": \"main\",\n                    \"description\": \"Enters doctor's room with Unni, hands over phone to doctor.\"\n                },\n                {\n                    \"name\": \"Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Observing the conversation and manipulation unfold.\"\n                },\n                {\n                    \"name\": \"Venu Vakkeel\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Advocate, on speaker phone, instructs the doctor to exaggerate the injury for insurance claims.\"\n                },\n                {\n                    \"name\": \"Rogi (Patient)\",\n                    \"role\": \"background\",\n                    \"description\": \"Patient receiving a prescription from the doctor.\"\n                }\n            ],\n            \"props\": [\n                \"Door\",\n                \"Prescription\",\n                \"Speaker phone\"\n            ],\n            \"location\": {\n                \"name\": \"Mercury Hospital\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Sebatti Doctor's private room/admin office.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"none\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"dialogue, action, exposition\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"Speaker phone conversation, Unni observing the manipulation.\"\n        },\n        {\n            \"scene_number\": 8,\n            \"scene_heading\": \"INT. DAY. MERCURY HOSPITAL/CORRIDOR\",\n            \"actors\": [\n                {\n                    \"name\": \"Robin\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Joins Unni and Mani after coming out of a toilet.\"\n                },\n                {\n                    \"name\": \"Mani\",\n                    \"role\": \"main\",\n                    \"description\": \"Shows Unni a photo of the car and gives instructions.\"\n                },\n                {\n                    \"name\": \"Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Receives instructions from Mani regarding the accident vehicle.\"\n                }\n            ],\n            \"props\": [\n                \"Mobile phone (showing car photo)\"\n            ],\n            \"location\": {\n                \"name\": \"Mercury Hospital\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Corridor, near a toilet.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"none\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"dialogue, action\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"Close-up on phone screen showing car photo (KL 12 F 3102).\"\n        },\n        {\n            \"scene_number\": 9,\n            \"scene_heading\": \"INT/EXT. DAY. POLICE STATION\",\n            \"actors\": [\n                {\n                    \"name\": \"Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"The montage implies Unni is the one visiting the police station to file the complaint.\"\n                }\n            ],\n            \"props\": [\n                \"Computer screen (showing FIR online registration)\"\n            ],\n            \"location\": {\n                \"name\": \"Police Station\",\n                \"type\": \"indoor/outdoor\",\n                \"specific_details\": \"A montage sequence showing the general police station environment.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"2-5\",\n                \"crowd_type\": \"Police staff, visitors.\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"montage, action\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"Screen grab visual of FIR online registration and case number generation.\"\n        },\n        {\n            \"scene_number\": 10,\n            \"scene_heading\": \"EXT. DAY. POLICE STATION/GARAGE\",\n            \"actors\": [\n                {\n                    \"name\": \"Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Observing the manipulation of evidence without reaction.\"\n                },\n                {\n                    \"name\": \"Robin\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Shocked by the manipulation of evidence.\"\n                },\n                {\n                    \"name\": \"Mani\",\n                    \"role\": \"main\",\n                    \"description\": \"Present during the scene mahasar, having instructed Unni to file a complaint.\"\n                },\n                {\n                    \"name\": \"ASI\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Police officer, actively manipulates the car's damage to fit the narrative.\"\n                },\n                {\n                    \"name\": \"Constable Joseph\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Records the scene mahasar with photos.\"\n                },\n                {\n                    \"name\": \"3 perum\",\n                    \"role\": \"background\",\n                    \"description\": \"Other people present at the garage.\"\n                }\n            ],\n            \"props\": [\n                \"Car (Alto KL 12 F 3102)\",\n                \"Iron rod (used by ASI)\",\n                \"Scene mahasar document\",\n                \"Camera (implied for Joseph's photos)\"\n            ],\n            \"location\": {\n                \"name\": \"Police Station Garage\",\n                \"type\": \"outdoor\",\n                \"specific_details\": \"Area where accident vehicles are kept, a wall is mentioned as the point of impact.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"3\",\n                \"crowd_type\": \"Background police staff/bystanders.\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"FIR registered at 16-10-2021 2:30 PM, accident at 16-10-2021 10:45 AM.\"\n            },\n            \"scene_type\": \"dialogue, action, exposition\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"ASI physically damaging the car's left side lamp with an iron rod. Robin's shocked reaction vs. Unni's neutral reaction.\"\n        },\n        {\n            \"scene_number\": 11,\n            \"scene_heading\": \"INT. DAY. MERCURY HOSPITAL/ADMIN SEBATTI DOCTOR ROOM\",\n            \"actors\": [\n                {\n                    \"name\": \"Mani\",\n                    \"role\": \"main\",\n                    \"description\": \"Reminds the doctor about the 'ookku' (force) to be added to the report.\"\n                },\n                {\n                    \"name\": \"Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Present with Mani.\"\n                },\n                {\n                    \"name\": \"Sebatti Doctor\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Signs the wound certificate after adding 'Robust health' to exaggerate the patient's prior condition.\"\n                }\n            ],\n            \"props\": [\n                \"Wound certificate\",\n                \"Pen\",\n                \"Paper (Mani points to a part of the document)\"\n            ],\n            \"location\": {\n                \"name\": \"Mercury Hospital\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Doctor's office.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"none\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"dialogue, action\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"Doctor adding 'Robust health' and signing. Close-up on the document.\"\n        },\n        {\n            \"scene_number\": 12,\n            \"scene_heading\": \"INT. DAY. MACT COURT/CLOSEUPS\",\n            \"actors\": [],\n            \"props\": [\n                \"Computer/typewriter\",\n                \"Documents (mentioning transportation charge, hospital charge, pain and suffering)\"\n            ],\n            \"location\": {\n                \"name\": \"MACT Court\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"A desk or workstation within the court where documents are prepared.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"none\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"action, montage\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"Close-up on typing action, showing the different charges being included in the claim file.\"\n        },\n        {\n            \"scene_number\": 13,\n            \"scene_heading\": \"INT/EXT. DAY. COURT/CORRIDOR\",\n            \"actors\": [\n                {\n                    \"name\": \"Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Present during Mani's explanation of the process.\"\n                },\n                {\n                    \"name\": \"Robin\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Questions the need for a blank check, shows an 'Okay' expression later.\"\n                },\n                {\n                    \"name\": \"Mani\",\n                    \"role\": \"main\",\n                    \"description\": \"Explains the process of claim payout and distribution to Unni and Robin.\"\n                }\n            ],\n            \"props\": [\n                \"Aadhar card copy (mentioned)\",\n                \"Pan card copy (mentioned)\",\n                \"Blank check (mentioned)\"\n            ],\n            \"location\": {\n                \"name\": \"Court\",\n                \"type\": \"indoor/outdoor\",\n                \"specific_details\": \"Corridor within the court complex, where legal discussions take place.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"2-5\",\n                \"crowd_type\": \"Lawyers, court staff, public passing by.\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"dialogue, exposition\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"Robin's questioning look, Unni's lack of a specific reaction.\"\n        },\n        {\n            \"scene_number\": 14,\n            \"scene_heading\": \"INT. DAY. MACT COURT/CLOSEUP\",\n            \"actors\": [\n                {\n                    \"name\": \"Kodathi staff\",\n                    \"role\": \"background\",\n                    \"description\": \"Court staff member registering a case.\"\n                }\n            ],\n            \"props\": [\n                \"Book\",\n                \"Pen\"\n            ],\n            \"location\": {\n                \"name\": \"MACT Court\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Court registry or a clerk's desk.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"none\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"action\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"Close-up on a staff member writing case number 831/2021 in a book.\"\n        },\n        {\n            \"scene_number\": 15,\n            \"scene_heading\": \"EXT. DAY. COURT/CORRIDOR\",\n            \"actors\": [\n                {\n                    \"name\": \"Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Present, observes the manipulation of evidence.\"\n                },\n                {\n                    \"name\": \"Unni's Amma (Jaanakiyaara)\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Has a hand plaster, wears a watch and glasses, gives them to Venu Vakkeel.\"\n                },\n                {\n                    \"name\": \"Venu Vakkeel\",\n                    \"role\": \"main\",\n                    \"description\": \"40 years old, advocate, actively breaks watch and glasses to inflate claim value.\"\n                },\n                {\n                    \"name\": \"Junior (Jancy)\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Venu Vakkeel's junior, instructed to add costs to the description.\"\n                }\n            ],\n            \"props\": [\n                \"Aadhar card copy\",\n                \"Pan card copy\",\n                \"Blank check\",\n                \"Court aramathil (deposit box)\",\n                \"Watch\",\n                \"Glasses\",\n                \"Cloth\",\n                \"Small hammer\"\n            ],\n            \"location\": {\n                \"name\": \"Court\",\n                \"type\": \"outdoor\",\n                \"specific_details\": \"Court corridor, near a court deposit/evidence collection point. The heading says EXT, but descriptions often imply indoors for corridors.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"2-5\",\n                \"crowd_type\": \"Lawyers, court staff, public.\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"dialogue, action, exposition\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"Venu Vakkeel intentionally breaking the watch and glasses with a hammer, Unni's mother's injured hand with plaster. Close-up on the broken items.\"\n        },\n        {\n            \"scene_number\": 16,\n            \"scene_heading\": \"INT. DAY. MACT COURT/CLOSEUP\",\n            \"actors\": [],\n            \"props\": [\n                \"Computer/typewriter\",\n                \"Documents (adding specs and watch cost)\"\n            ],\n            \"location\": {\n                \"name\": \"MACT Court\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"A desk or workstation within the court where documents are prepared.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"none\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"action, montage\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"Close-up on typing action, showing the costs for glasses and watch being added to the MACT description.\"\n        },\n        {\n            \"scene_number\": 17,\n            \"scene_heading\": \"INT. DAY. MACT COURT ROOM\",\n            \"actors\": [\n                {\n                    \"name\": \"Bench clerk\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Calls out the case details.\"\n                },\n                {\n                    \"name\": \"Venu Vakkeel\",\n                    \"role\": \"main\",\n                    \"description\": \"Stands up to present the case, calls witnesses.\"\n                },\n                {\n                    \"name\": \"Car driver (Ratheesh Kumar)\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Driver of the accident vehicle, called as a witness.\"\n                },\n                {\n                    \"name\": \"Binu Somashekharan\",\n                    \"role\": \"supporting\",\n                    \"description\": \"First witness in the case.\"\n                },\n                {\n                    \"name\": \"Jayanth Vijaykumar\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Second witness in the case.\"\n                },\n                {\n                    \"name\": \"Advocate Vishaalakshi\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Opposition party's lawyer, representing Venus Insurance.\"\n                },\n                {\n                    \"name\": \"Judge\",\n                    \"role\": \"background\",\n                    \"description\": \"Presiding over the court (implied).\"\n                }\n            ],\n            \"props\": [\n                \"File\"\n            ],\n            \"location\": {\n                \"name\": \"MACT Court Room\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Formal courtroom setting with a bench, lawyers' tables, and witness stand.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"5-10\",\n                \"crowd_type\": \"Court staff, public, other lawyers.\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"dialogue, action, legal proceedings\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"Courtroom drama, showcasing the legal process.\"\n        },\n        {\n            \"scene_number\": 18,\n            \"scene_heading\": \"INT. DAY. MACT COURT/JUDGE CHAMBER\",\n            \"actors\": [\n                {\n                    \"name\": \"Judge\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Presides over the signing of the document.\"\n                },\n                {\n                    \"name\": \"Jaanaki Amma\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Signs the document.\"\n                },\n                {\n                    \"name\": \"Venu Vakkeel\",\n                    \"role\": \"main\",\n                    \"description\": \"Present during the signing.\"\n                },\n                {\n                    \"name\": \"Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Present in the chamber.\"\n                },\n                {\n                    \"name\": \"Clerk\",\n                    \"role\": \"supporting\",\n                    \"description\": \"Court clerk, present during the signing.\"\n                }\n            ],\n            \"props\": [\n                \"Document for signing\"\n            ],\n            \"location\": {\n                \"name\": \"MACT Court\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Judge's private chamber.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"none\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"action, legal proceedings\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"Close-up on Jaanaki Amma and Venu Vakkeel signing a document in the judge's presence.\"\n        },\n        {\n            \"scene_number\": 19,\n            \"scene_heading\": \"EXT. DAY. UNNI’S HOME/BACKYARD\",\n            \"actors\": [\n                {\n                    \"name\": \"Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Receives a bank credit notification on his mobile.\"\n                }\n            ],\n            \"props\": [\n                \"Mobile phone (showing credit message)\"\n            ],\n            \"location\": {\n                \"name\": \"Unni's Home\",\n                \"type\": \"outdoor\",\n                \"specific_details\": \"Backyard of a house.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"none\"\n            },\n            \"time\": {\n                \"time_of_day\": \"day\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"action\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"Close-up on mobile screen showing a credit of 4,25,000 rupees.\"\n        },\n        {\n            \"scene_number\": 20,\n            \"scene_heading\": \"INT. EVENING. UNNI’S HOME/BATHROOM\",\n            \"actors\": [\n                {\n                    \"name\": \"Unni\",\n                    \"role\": \"main\",\n                    \"description\": \"Receives a bank debit notification on his mobile while in the bathroom.\"\n                }\n            ],\n            \"props\": [\n                \"Mobile phone (showing debit message)\"\n            ],\n            \"location\": {\n                \"name\": \"Unni's Home\",\n                \"type\": \"indoor\",\n                \"specific_details\": \"Bathroom.\"\n            },\n            \"crowd\": {\n                \"people_needed\": \"none\",\n                \"crowd_type\": \"none\"\n            },\n            \"time\": {\n                \"time_of_day\": \"evening\",\n                \"season\": \"unspecified\",\n                \"weather\": \"unspecified\",\n                \"specific_time\": \"unspecified\"\n            },\n            \"scene_type\": \"action\",\n            \"duration_estimate\": \"not specified\",\n            \"technical_notes\": \"Close-up on mobile screen showing a debit of 4,25,000 rupees.\"\n        }\n    ],\n    \"summary\": {\n        \"total_scenes\": 20,\n        \"main_characters\": [\n            \"Unni\",\n            \"Mani\",\n            \"Meenakshi\",\n            \"Venu Vakkeel\"\n        ],\n        \"primary_locations\": [\n            \"Mercury Hospital (Billing Section, Corridor, Ward, Doctor's Room)\",\n            \"Police Station (Station, Garage)\",\n            \"MACT Court (Courtroom, Corridor, Judge's Chamber, Typing Area)\",\n            \"Unni's Home (Backyard, Bathroom)\"\n        ],\n        \"production_complexity\": \"high\"\n    }\n}\n```"
+      }
+    ]
+  },
+  "summary": {
+    "total_scenes": 39,
+    "main_characters": [
+      "Mukundan Unni",
+      "Meenakshi",
+      "Unni",
+      "Venu Vakkeel",
+      "Mani"
+    ],
+    "primary_locations": [
+      "Unni's Home",
+      "MLA's House Gate",
+      "MLA's House Verandah/Car Parking",
+      "Unni's Home / News Studio (TV)",
+      "Police Station",
+      "Name Board Shop (Engraving Area)",
+      "Wayanad Hairpin",
+      "MACT Court",
+      "Mercury Hospital",
+      "ATM Queue",
+      "Mercury Trauma Care Hospital",
+      "ATM Booth",
+      "MLA's House",
+      "Emerald Towers",
+      "Ganga Associates Office",
+      "Court Tea Stall",
+      "Police Station Garage",
+      "MACT Court Room",
+      "Court",
+      "Name Board Shop",
+      "Wayanad District Court Canteen",
+      "MLA's House Office",
+      "Gangaadharan's Office Room",
+      "Car Showroom"
+    ],
+    "indoor_scenes": 24,
+    "outdoor_scenes": 11
+  }
+}

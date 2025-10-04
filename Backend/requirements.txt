@@ -1,0 +1,9 @@
+fastapi[standard]
+fastapi
+uvicorn
+python-multipart
+PyPDF2
+google-genai
+sqlalchemy
+psycopg2-binary
+pydantic
