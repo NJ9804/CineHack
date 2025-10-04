@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { mockApiClient } from './mockClient';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
@@ -94,7 +95,7 @@ class ApiClient {
       }
 
       const url = `${this.baseUrl}${endpoint}`;
-      console.log(`API Request: ${options.method || 'GET'} ${url}`);
+      console.log(`🌐 [HTTP] ${options.method || 'GET'} ${url}`);
 
       // Check if fetch is available
       if (typeof fetch === 'undefined') {
@@ -124,7 +125,7 @@ class ApiClient {
         try {
           const errorData = await response.json();
           errorMessage = errorData.detail || errorData.message || `HTTP ${response.status}: ${response.statusText}`;
-        } catch (parseError) {
+        } catch {
           errorMessage = `HTTP ${response.status}: ${response.statusText}`;
         }
         
@@ -281,6 +282,15 @@ class ApiClient {
 
   async getScripts(projectId: string) {
     return this.request<any[]>(`/api/projects/${projectId}/scripts`);
+  }
+
+  async getMainCharacters() {
+    try {
+      return await this.request<any>('/api/scripts/main-characters');
+    } catch (error) {
+      console.warn('Failed to fetch main characters:', error);
+      return { success: false, characters: [] };
+    }
   }
 
   async getParseStatus(projectId: string, scriptId: string) {
@@ -522,7 +532,39 @@ class ApiClient {
     const params = new URLSearchParams();
     if (from) params.append('from', from);
     if (to) params.append('to', to);
-    return this.request<any>(`/api/projects/${projectId}/schedule/calendar?${params}`);
+    return this.request<any>(`/api/scheduling/projects/${projectId}/schedule/calendar?${params}`);
+  }
+
+  async getScheduleItems(projectId: string) {
+    return this.request<any[]>(`/api/scheduling/projects/${projectId}/schedule`);
+  }
+
+  async createScheduleItem(projectId: string, sceneId: string, data: any) {
+    return this.request<any>(`/api/scheduling/projects/${projectId}/schedule`, {
+      method: 'POST',
+      body: JSON.stringify({ ...data, scene_id: parseInt(sceneId) })
+    });
+  }
+
+  async updateScheduleItem(projectId: string, scheduleId: string, data: any) {
+    return this.request<any>(`/api/scheduling/projects/${projectId}/schedule/${scheduleId}`, {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    });
+  }
+
+  async getScheduleConflicts(projectId: string) {
+    return this.request<any[]>(`/api/scheduling/projects/${projectId}/conflicts`);
+  }
+
+  async getScheduleStats(projectId: string) {
+    return this.request<any>(`/api/scheduling/projects/${projectId}/schedule/stats`);
+  }
+
+  async autoSchedule(projectId: string) {
+    return this.request<any>(`/api/scheduling/projects/${projectId}/auto-schedule`, {
+      method: 'POST'
+    });
   }
 
   // VFX endpoints
