@@ -215,14 +215,14 @@ def get_production_stages(project_id: int, db: Session = Depends(get_db)):
     
     stages = db.query(ProductionStage).filter(
         ProductionStage.project_id == project_id
-    ).order_by(ProductionStage.order).all()
+    ).order_by(ProductionStage.stage_order).all()
     
     result = []
     for stage in stages:
         # Get sub-stages
         sub_stages = db.query(ProductionSubStage).filter(
             ProductionSubStage.stage_id == stage.id
-        ).order_by(ProductionSubStage.order).all()
+        ).order_by(ProductionSubStage.sub_stage_order).all()
         
         # Get tasks
         tasks = db.query(ProductionTask).filter(
@@ -234,16 +234,16 @@ def get_production_stages(project_id: int, db: Session = Depends(get_db)):
             "project_id": stage.project_id,
             "name": stage.name,
             "description": stage.description,
-            "order": stage.order,
+            "order": stage.stage_order if hasattr(stage, 'stage_order') else 0,
             "status": stage.status,
-            "progress": stage.progress,
+            "progress": stage.progress_percentage if hasattr(stage, 'progress_percentage') else 0,
             "start_date": stage.start_date,
             "end_date": stage.end_date,
-            "estimated_duration_days": stage.estimated_duration_days,
-            "actual_duration_days": stage.actual_duration_days,
-            "budget_allocated": stage.budget_allocated,
-            "budget_spent": stage.budget_spent,
-            "notes": stage.notes,
+            "estimated_duration_days": getattr(stage, 'estimated_duration_days', None),
+            "actual_duration_days": getattr(stage, 'actual_duration_days', None),
+            "budget_allocated": getattr(stage, 'budget_allocated', 0.0),
+            "budget_spent": getattr(stage, 'budget_spent', 0.0),
+            "notes": getattr(stage, 'notes', None),
             "created_at": stage.created_at,
             "updated_at": stage.updated_at,
             "sub_stages": [
@@ -252,18 +252,18 @@ def get_production_stages(project_id: int, db: Session = Depends(get_db)):
                     "stage_id": ss.stage_id,
                     "name": ss.name,
                     "description": ss.description,
-                    "order": ss.order,
+                    "order": ss.sub_stage_order if hasattr(ss, 'sub_stage_order') else 0,
                     "status": ss.status,
-                    "progress": ss.progress,
-                    "priority": ss.priority,
-                    "assigned_to": ss.assigned_to,
+                    "progress": ss.progress_percentage if hasattr(ss, 'progress_percentage') else 0,
+                    "priority": getattr(ss, 'priority', None),
+                    "assigned_to": getattr(ss, 'assigned_to', None),
                     "start_date": ss.start_date,
                     "end_date": ss.end_date,
-                    "estimated_hours": ss.estimated_hours,
-                    "actual_hours": ss.actual_hours,
-                    "dependencies": ss.dependencies,
-                    "deliverables": ss.deliverables,
-                    "notes": ss.notes,
+                    "estimated_hours": getattr(ss, 'estimated_hours', None),
+                    "actual_hours": getattr(ss, 'actual_hours', None),
+                    "dependencies": getattr(ss, 'dependencies', None),
+                    "deliverables": getattr(ss, 'deliverables', None),
+                    "notes": getattr(ss, 'notes', None),
                     "created_at": ss.created_at,
                     "updated_at": ss.updated_at,
                     "tasks": [
@@ -523,7 +523,7 @@ def get_production_overview(project_id: int, db: Session = Depends(get_db)):
     
     stages = db.query(ProductionStage).filter(
         ProductionStage.project_id == project_id
-    ).order_by(ProductionStage.order).all()
+    ).order_by(ProductionStage.stage_order).all()
     
     total_stages = len(stages)
     completed_stages = sum(1 for s in stages if s.status == "completed")
