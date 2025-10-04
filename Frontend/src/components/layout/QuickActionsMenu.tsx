@@ -63,7 +63,7 @@ export default function QuickActionsMenu({ projectId, isProjectPage = false }: Q
       label: 'Add Actor',
       description: 'Add to cast database',
       action: () => router.push(`/projects/${projectId}?tab=catalog&action=add-actor`),
-      color: 'from-amber-500 to-yellow-600'
+      color: 'from-yellow-500 to-amber-600'
     },
     {
       icon: MapPin,
@@ -101,7 +101,7 @@ export default function QuickActionsMenu({ projectId, isProjectPage = false }: Q
     return (
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 shadow-lg z-50"
+        className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-600 hover:to-amber-700 shadow-lg z-50 animate-pulse-mustard"
         size="lg"
       >
         <Plus className="w-6 h-6" />

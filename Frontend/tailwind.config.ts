@@ -12,6 +12,28 @@ export default {
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        
+        // Dark theme color palette
+        'primary-bg': '#0D0D0D',      // Almost black primary background
+        'secondary-bg': '#1A1A1A',    // Dark grey for cards/containers
+        'accent-primary': '#FFC107',   // Mustard yellow for highlights/buttons
+        'accent-secondary': '#E5D5B5', // Warm beige for headings
+        'accent-brown': '#5A3825',     // Rich brown for hovers/borders
+        'text-primary': '#F5F5F5',     // Off-white for body text
+        'text-secondary': '#CFCFCF',   // Muted grey for less emphasis
+        'text-highlight': '#FFC107',   // Mustard yellow for highlights
+        
+        // Extended dark theme palette
+        palette: {
+          'bg-primary': '#0D0D0D',     // Almost black
+          'bg-secondary': '#1A1A1A',   // Dark grey
+          'accent-1': '#FFC107',       // Mustard yellow
+          'accent-2': '#E5D5B5',       // Warm beige
+          'accent-3': '#5A3825',       // Rich brown
+          'text-1': '#F5F5F5',         // Off-white
+          'text-2': '#CFCFCF',         // Muted grey
+        },
+        
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
@@ -20,13 +42,15 @@ export default {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
         },
-        primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
-        },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+        shadcn: {
+          primary: {
+            DEFAULT: "hsl(var(--primary))",
+            foreground: "hsl(var(--primary-foreground))",
+          },
+          secondary: {
+            DEFAULT: "hsl(var(--secondary))",
+            foreground: "hsl(var(--secondary-foreground))",
+          },
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
@@ -69,6 +93,7 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "spin-slow": "spin 3s linear infinite",
       },
     },
   },
