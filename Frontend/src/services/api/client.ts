@@ -532,37 +532,37 @@ class ApiClient {
     const params = new URLSearchParams();
     if (from) params.append('from', from);
     if (to) params.append('to', to);
-    return this.request<any>(`/api/scheduling/projects/${projectId}/schedule/calendar?${params}`);
+    return this.request<any>(`/api/projects/${projectId}/schedule/calendar?${params}`);
   }
 
   async getScheduleItems(projectId: string) {
-    return this.request<any[]>(`/api/scheduling/projects/${projectId}/schedule`);
+    return this.request<any[]>(`/api/projects/${projectId}/schedule/items`);
   }
 
   async createScheduleItem(projectId: string, sceneId: string, data: any) {
-    return this.request<any>(`/api/scheduling/projects/${projectId}/schedule`, {
+    return this.request<any>(`/api/projects/${projectId}/schedule/items?scene_id=${sceneId}`, {
       method: 'POST',
-      body: JSON.stringify({ ...data, scene_id: parseInt(sceneId) })
+      body: JSON.stringify(data)
     });
   }
 
-  async updateScheduleItem(projectId: string, scheduleId: string, data: any) {
-    return this.request<any>(`/api/scheduling/projects/${projectId}/schedule/${scheduleId}`, {
+  async updateScheduleItem(projectId: string, sceneId: string, data: any) {
+    return this.request<any>(`/api/projects/${projectId}/schedule/items/${sceneId}`, {
       method: 'PUT',
       body: JSON.stringify(data)
     });
   }
 
   async getScheduleConflicts(projectId: string) {
-    return this.request<any[]>(`/api/scheduling/projects/${projectId}/conflicts`);
+    return this.request<any[]>(`/api/projects/${projectId}/schedule/conflicts`);
   }
 
   async getScheduleStats(projectId: string) {
-    return this.request<any>(`/api/scheduling/projects/${projectId}/schedule/stats`);
+    return this.request<any>(`/api/projects/${projectId}/schedule/stats`);
   }
 
   async autoSchedule(projectId: string) {
-    return this.request<any>(`/api/scheduling/projects/${projectId}/auto-schedule`, {
+    return this.request<any>(`/api/projects/${projectId}/schedule/auto-schedule`, {
       method: 'POST'
     });
   }

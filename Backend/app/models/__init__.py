@@ -155,6 +155,11 @@ class Scene(Base):
     estimated_cost = Column(Float, default=0.0)
     actual_cost = Column(Float, default=0.0)
     
+    # Schedule fields
+    scheduled_date = Column(DateTime)
+    location = Column(String(500))
+    notes = Column(Text)
+    
     # Assignment
     assigned_to = Column(Integer, ForeignKey("users.id"))
     

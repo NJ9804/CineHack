@@ -15,6 +15,7 @@ from app.controllers import auth
 from app.controllers import members
 from app.controllers import comments
 from app.controllers import notifications
+from app.controllers import schedule
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -45,6 +46,7 @@ app.include_router(production_stages.router, prefix="/api", tags=["production-st
 app.include_router(members.router, prefix="/api", tags=["members"])
 app.include_router(comments.router, prefix="/api", tags=["comments"])
 app.include_router(notifications.router, prefix="/api", tags=["notifications"])
+app.include_router(schedule.router, prefix="/api", tags=["schedule"])
 
 @app.get("/")
 def root():
