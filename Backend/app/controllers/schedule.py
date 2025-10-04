@@ -11,8 +11,6 @@ from pydantic import BaseModel
 
 from app.config.database import get_db
 from app.models import Scene, Project, ProductionStage
-from app.utils.auth import get_current_user
-from app.models import User
 
 router = APIRouter()
 
@@ -62,8 +60,7 @@ class AutoScheduleResponse(BaseModel):
 @router.get("/projects/{project_id}/schedule/stats")
 def get_schedule_stats(
     project_id: int,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    db: Session = Depends(get_db)
 ):
     """Get scheduling statistics for a project"""
     # Get all scenes for the project
@@ -108,8 +105,7 @@ def get_schedule_stats(
 @router.get("/projects/{project_id}/schedule/conflicts")
 def get_scheduling_conflicts(
     project_id: int,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    db: Session = Depends(get_db)
 ):
     """Detect and return scheduling conflicts"""
     conflicts = []
@@ -175,8 +171,7 @@ def create_schedule_item(
     project_id: int,
     scene_id: int,
     schedule_data: ScheduleItemCreate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    db: Session = Depends(get_db)
 ):
     """Create or update a schedule item for a scene"""
     scene = db.query(Scene).filter(
@@ -214,8 +209,7 @@ def update_schedule_item(
     project_id: int,
     scene_id: int,
     update_data: ScheduleItemUpdate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    db: Session = Depends(get_db)
 ):
     """Update a schedule item"""
     scene = db.query(Scene).filter(
@@ -250,8 +244,7 @@ def update_schedule_item(
 def auto_schedule(
     project_id: int,
     request: AutoScheduleRequest,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    db: Session = Depends(get_db)
 ):
     """Auto-schedule unplanned scenes using AI optimization"""
     # Get all unplanned scenes
@@ -295,7 +288,7 @@ def auto_schedule(
     db.commit()
     
     # Check for conflicts after scheduling
-    conflicts_response = get_scheduling_conflicts(project_id, db, current_user)
+    conflicts_response = get_scheduling_conflicts(project_id, db)
     
     return AutoScheduleResponse(
         success=True,
@@ -308,8 +301,7 @@ def auto_schedule(
 def delete_schedule_item(
     project_id: int,
     scene_id: int,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    db: Session = Depends(get_db)
 ):
     """Remove a scene from the schedule (mark as unplanned)"""
     scene = db.query(Scene).filter(

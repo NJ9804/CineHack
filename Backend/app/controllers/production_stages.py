@@ -234,16 +234,16 @@ def get_production_stages(project_id: int, db: Session = Depends(get_db)):
             "project_id": stage.project_id,
             "name": stage.name,
             "description": stage.description,
-            "order": stage.stage_order if hasattr(stage, 'stage_order') else 0,
+            "order": stage.stage_order,
             "status": stage.status,
-            "progress": stage.progress_percentage if hasattr(stage, 'progress_percentage') else 0,
+            "progress": stage.progress_percentage,
             "start_date": stage.start_date,
             "end_date": stage.end_date,
-            "estimated_duration_days": getattr(stage, 'estimated_duration_days', None),
-            "actual_duration_days": getattr(stage, 'actual_duration_days', None),
-            "budget_allocated": getattr(stage, 'budget_allocated', 0.0),
-            "budget_spent": getattr(stage, 'budget_spent', 0.0),
-            "notes": getattr(stage, 'notes', None),
+            "estimated_duration_days": stage.estimated_duration_days if hasattr(stage, 'estimated_duration_days') else None,
+            "actual_duration_days": stage.actual_duration_days if hasattr(stage, 'actual_duration_days') else None,
+            "budget_allocated": stage.budget_allocated if hasattr(stage, 'budget_allocated') else None,
+            "budget_spent": stage.budget_spent if hasattr(stage, 'budget_spent') else None,
+            "notes": stage.notes if hasattr(stage, 'notes') else None,
             "created_at": stage.created_at,
             "updated_at": stage.updated_at,
             "sub_stages": [
@@ -252,18 +252,18 @@ def get_production_stages(project_id: int, db: Session = Depends(get_db)):
                     "stage_id": ss.stage_id,
                     "name": ss.name,
                     "description": ss.description,
-                    "order": ss.sub_stage_order if hasattr(ss, 'sub_stage_order') else 0,
+                    "order": ss.sub_stage_order,
                     "status": ss.status,
-                    "progress": ss.progress_percentage if hasattr(ss, 'progress_percentage') else 0,
-                    "priority": getattr(ss, 'priority', None),
-                    "assigned_to": getattr(ss, 'assigned_to', None),
+                    "progress": ss.progress_percentage,
+                    "priority": ss.priority if hasattr(ss, 'priority') else None,
+                    "assigned_to": ss.assigned_to if hasattr(ss, 'assigned_to') else None,
                     "start_date": ss.start_date,
                     "end_date": ss.end_date,
-                    "estimated_hours": getattr(ss, 'estimated_hours', None),
-                    "actual_hours": getattr(ss, 'actual_hours', None),
-                    "dependencies": getattr(ss, 'dependencies', None),
-                    "deliverables": getattr(ss, 'deliverables', None),
-                    "notes": getattr(ss, 'notes', None),
+                    "estimated_hours": ss.estimated_hours if hasattr(ss, 'estimated_hours') else None,
+                    "actual_hours": ss.actual_hours if hasattr(ss, 'actual_hours') else None,
+                    "dependencies": ss.dependencies if hasattr(ss, 'dependencies') else None,
+                    "deliverables": ss.deliverables if hasattr(ss, 'deliverables') else None,
+                    "notes": ss.notes if hasattr(ss, 'notes') else None,
                     "created_at": ss.created_at,
                     "updated_at": ss.updated_at,
                     "tasks": [
@@ -528,11 +528,11 @@ def get_production_overview(project_id: int, db: Session = Depends(get_db)):
     total_stages = len(stages)
     completed_stages = sum(1 for s in stages if s.status == "completed")
     in_progress_stages = sum(1 for s in stages if s.status == "in_progress")
-    overall_progress = sum(s.progress for s in stages) / total_stages if total_stages > 0 else 0
+    overall_progress = sum(s.progress_percentage or 0 for s in stages) / total_stages if total_stages > 0 else 0
     
-    # Calculate budget overview
-    total_budget_allocated = sum(s.budget_allocated or 0 for s in stages)
-    total_budget_spent = sum(s.budget_spent or 0 for s in stages)
+    # Calculate budget overview (if fields exist)
+    total_budget_allocated = sum(getattr(s, 'budget_allocated', 0) or 0 for s in stages)
+    total_budget_spent = sum(getattr(s, 'budget_spent', 0) or 0 for s in stages)
     
     # Get all tasks
     all_tasks = db.query(ProductionTask).join(ProductionStage).filter(

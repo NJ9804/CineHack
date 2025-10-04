@@ -134,3 +134,44 @@ export interface BudgetItem {
   spent: number;
   remaining: number;
 }
+
+// Promotions & Analytics Types
+export interface VideoAnalytics {
+  video_title: string;
+  url: string;
+  views: number;
+  likes: number;
+  comments_count: number;
+  video_description?: string;
+  top_comments?: string[];
+}
+
+export interface SentimentAnalysis {
+  overall_sentiment: 'positive' | 'negative' | 'neutral' | 'mixed';
+  positive_count: number;
+  negative_count: number;
+  neutral_count: number;
+  positive_percentage: number;
+  average_score: number;
+  sentiment_summary: string;
+  comments_analysis?: Array<{
+    comment: string;
+    sentiment: string;
+    score: number;
+  }>;
+  total_analyzed: number;
+  total_comments: number;
+}
+
+export interface Promotion {
+  id: number;
+  project_id: number;
+  film: string;
+  total_views: number;
+  total_likes: number;
+  total_comments: number;
+  videos: VideoAnalytics[];
+  industry_progress: string;
+  sentiment_analysis?: SentimentAnalysis;
+  created_at: string;
+}

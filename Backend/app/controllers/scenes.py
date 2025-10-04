@@ -48,12 +48,10 @@ class SceneResponse(BaseModel):
     crowd_data: Optional[Dict[str, Any]]
     time_data: Optional[Dict[str, Any]]
     technical_notes: Optional[str]
-    estimated_cost: Optional[float] = None
-    actual_cost: Optional[float] = None
-    created_at: Optional[str] = None
-    updated_at: Optional[str] = None
     estimated_cost: float
     actual_cost: float
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None
     
     class Config:
         from_attributes = True
@@ -75,7 +73,28 @@ async def create_scene(
     db.add(scene)
     db.commit()
     db.refresh(scene)
-    return scene
+    
+    return SceneResponse(
+        id=scene.id,
+        project_id=scene.project_id,
+        scene_number=scene.scene_number or f"Scene {scene.id}",
+        scene_heading=scene.scene_heading,
+        location_name=scene.location_name or "Unknown Location",
+        location_type=scene.location_type,
+        time_of_day=scene.time_of_day,
+        estimated_duration=scene.estimated_duration,
+        status=scene.status,
+        actors_data=scene.actors_data or [],
+        props_data=scene.props_data or [],
+        location_data=scene.location_data or {},
+        crowd_data=scene.crowd_data or {},
+        time_data=scene.time_data or {},
+        technical_notes=scene.technical_notes,
+        estimated_cost=scene.estimated_cost or 0.0,
+        actual_cost=scene.actual_cost or 0.0,
+        created_at=scene.created_at.isoformat() if scene.created_at else None,
+        updated_at=scene.updated_at.isoformat() if scene.updated_at else None
+    )
 
 @router.get("/projects/{project_id}/scenes", response_model=List[SceneResponse])
 async def get_project_scenes(project_id: int, db: Session = Depends(get_db)):
@@ -116,7 +135,28 @@ async def get_scene(scene_id: int, db: Session = Depends(get_db)):
     scene = db.query(Scene).filter(Scene.id == scene_id).first()
     if not scene:
         raise HTTPException(status_code=404, detail="Scene not found")
-    return scene
+    
+    return SceneResponse(
+        id=scene.id,
+        project_id=scene.project_id,
+        scene_number=scene.scene_number or f"Scene {scene.id}",
+        scene_heading=scene.scene_heading,
+        location_name=scene.location_name or "Unknown Location",
+        location_type=scene.location_type,
+        time_of_day=scene.time_of_day,
+        estimated_duration=scene.estimated_duration,
+        status=scene.status,
+        actors_data=scene.actors_data or [],
+        props_data=scene.props_data or [],
+        location_data=scene.location_data or {},
+        crowd_data=scene.crowd_data or {},
+        time_data=scene.time_data or {},
+        technical_notes=scene.technical_notes,
+        estimated_cost=scene.estimated_cost or 0.0,
+        actual_cost=scene.actual_cost or 0.0,
+        created_at=scene.created_at.isoformat() if scene.created_at else None,
+        updated_at=scene.updated_at.isoformat() if scene.updated_at else None
+    )
 
 @router.put("/{scene_id}", response_model=SceneResponse)
 async def update_scene(
@@ -137,7 +177,28 @@ async def update_scene(
     
     db.commit()
     db.refresh(scene)
-    return scene
+    
+    return SceneResponse(
+        id=scene.id,
+        project_id=scene.project_id,
+        scene_number=scene.scene_number or f"Scene {scene.id}",
+        scene_heading=scene.scene_heading,
+        location_name=scene.location_name or "Unknown Location",
+        location_type=scene.location_type,
+        time_of_day=scene.time_of_day,
+        estimated_duration=scene.estimated_duration,
+        status=scene.status,
+        actors_data=scene.actors_data or [],
+        props_data=scene.props_data or [],
+        location_data=scene.location_data or {},
+        crowd_data=scene.crowd_data or {},
+        time_data=scene.time_data or {},
+        technical_notes=scene.technical_notes,
+        estimated_cost=scene.estimated_cost or 0.0,
+        actual_cost=scene.actual_cost or 0.0,
+        created_at=scene.created_at.isoformat() if scene.created_at else None,
+        updated_at=scene.updated_at.isoformat() if scene.updated_at else None
+    )
 
 @router.delete("/{scene_id}")
 async def delete_scene(scene_id: int, db: Session = Depends(get_db)):
