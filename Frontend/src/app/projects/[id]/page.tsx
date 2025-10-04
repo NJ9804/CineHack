@@ -367,7 +367,7 @@ export default function ProjectDetailPage() {
 
         {/* Enhanced Project Tabs */}
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full grid-cols-8 bg-gray-900 border border-gray-700">
+          <TabsList className="grid w-full grid-cols-9 bg-gray-900 border border-gray-700">
             <TabsTrigger value="overview" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400">
               Overview
             </TabsTrigger>
