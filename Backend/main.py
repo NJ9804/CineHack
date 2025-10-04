@@ -11,6 +11,10 @@ from app.controllers import budget
 from app.controllers import scenes
 from app.controllers import characters
 from app.controllers import production_stages
+from app.controllers import auth
+from app.controllers import members
+from app.controllers import comments
+from app.controllers import notifications
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -30,6 +34,7 @@ app.add_middleware(
 )
 
 # Include routers
+app.include_router(auth.router, prefix="/api", tags=["auth"])
 app.include_router(projects.router, prefix="/api", tags=["projects"])
 app.include_router(scripts.router, prefix="/api", tags=["scripts"])
 app.include_router(catalog.router, prefix="/api", tags=["catalog"])
@@ -37,6 +42,9 @@ app.include_router(budget.router, prefix="/api", tags=["budget"])
 app.include_router(scenes.router, prefix="/api", tags=["scenes"])
 app.include_router(characters.router, prefix="/api", tags=["characters"])
 app.include_router(production_stages.router, prefix="/api", tags=["production-stages"])
+app.include_router(members.router, prefix="/api", tags=["members"])
+app.include_router(comments.router, prefix="/api", tags=["comments"])
+app.include_router(notifications.router, prefix="/api", tags=["notifications"])
 
 @app.get("/")
 def root():

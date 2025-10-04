@@ -3,6 +3,110 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from app.config.database import Base
 
+
+# ============= Authentication & User Management =============
+
+class User(Base):
+    __tablename__ = "users"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True, nullable=False)
+    username = Column(String, unique=True, index=True, nullable=False)
+    hashed_password = Column(String, nullable=False)
+    full_name = Column(String)
+    avatar_url = Column(String)
+    phone = Column(String)
+    is_active = Column(Boolean, default=True)
+    is_superuser = Column(Boolean, default=False)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    last_login = Column(DateTime)
+    
+    # Relationships
+    project_members = relationship("ProjectMember", back_populates="user", foreign_keys="ProjectMember.user_id")
+    comments = relationship("Comment", back_populates="user")
+    notifications = relationship("Notification", back_populates="user")
+    assigned_tasks = relationship("ProductionTask", back_populates="assigned_user", foreign_keys="ProductionTask.assigned_to")
+
+
+class ProjectMember(Base):
+    __tablename__ = "project_members"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"))
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
+    role = Column(String, nullable=False)  # owner, director, producer, shareholder, crew, viewer
+    permissions = Column(JSON)  # Custom permissions array
+    
+    # Role definitions:
+    # - owner: Full access to everything
+    # - director: Can edit all creative aspects, view budget
+    # - producer: Can edit budget, schedules, view everything
+    # - shareholder: Read-only access to budget and reports
+    # - crew: Can edit assigned tasks, view relevant scenes
+    # - viewer: Read-only access to project
+    
+    joined_at = Column(DateTime, server_default=func.now())
+    invited_by = Column(Integer, ForeignKey("users.id"))
+    
+    # Relationships
+    project = relationship("Project", back_populates="members")
+    user = relationship("User", back_populates="project_members", foreign_keys=[user_id])
+    inviter = relationship("User", foreign_keys=[invited_by])
+
+
+class Comment(Base):
+    __tablename__ = "comments"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    content = Column(Text, nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
+    
+    # Polymorphic - can comment on different entities
+    entity_type = Column(String, nullable=False)  # scene, task, project, budget_line
+    entity_id = Column(Integer, nullable=False)
+    
+    parent_comment_id = Column(Integer, ForeignKey("comments.id"))  # For threaded comments
+    
+    is_resolved = Column(Boolean, default=False)
+    is_edited = Column(Boolean, default=False)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    user = relationship("User", back_populates="comments")
+    replies = relationship("Comment", backref="parent", remote_side=[id])
+
+
+class Notification(Base):
+    __tablename__ = "notifications"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
+    title = Column(String, nullable=False)
+    message = Column(Text, nullable=False)
+    notification_type = Column(String)  # assignment, comment, mention, deadline, update
+    
+    # Link to related entity
+    entity_type = Column(String)  # project, scene, task, comment
+    entity_id = Column(Integer)
+    
+    is_read = Column(Boolean, default=False)
+    is_archived = Column(Boolean, default=False)
+    
+    action_url = Column(String)  # Frontend URL to navigate to
+    
+    created_at = Column(DateTime, server_default=func.now())
+    read_at = Column(DateTime)
+    
+    # Relationships
+    user = relationship("User", back_populates="notifications")
+
+
+# ============= Project Management =============
+
 class Project(Base):
     __tablename__ = "projects"
     
@@ -17,17 +121,21 @@ class Project(Base):
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
     
+    created_by = Column(Integer, ForeignKey("users.id"))
+    
     # Relationships
-    scenes = relationship("Scene", back_populates="project")
-    actors = relationship("ProjectActor", back_populates="project")
-    budget_lines = relationship("BudgetLine", back_populates="project")
+    scenes = relationship("Scene", back_populates="project", cascade="all, delete-orphan")
+    actors = relationship("ProjectActor", back_populates="project", cascade="all, delete-orphan")
+    budget_lines = relationship("BudgetLine", back_populates="project", cascade="all, delete-orphan")
+    members = relationship("ProjectMember", back_populates="project", cascade="all, delete-orphan")
+    creator = relationship("User", foreign_keys=[created_by])
 
 
 class Scene(Base):
     __tablename__ = "scenes"
     
     id = Column(Integer, primary_key=True, index=True)
-    project_id = Column(Integer, ForeignKey("projects.id"))
+    project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"))
     scene_number = Column(String)
     scene_heading = Column(String)
     location_name = Column(String)
@@ -47,11 +155,15 @@ class Scene(Base):
     estimated_cost = Column(Float, default=0.0)
     actual_cost = Column(Float, default=0.0)
     
+    # Assignment
+    assigned_to = Column(Integer, ForeignKey("users.id"))
+    
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
     
     # Relationships
     project = relationship("Project", back_populates="scenes")
+    assigned_user = relationship("User", foreign_keys=[assigned_to])
 
 
 class Actor(Base):
@@ -226,7 +338,7 @@ class ProductionTask(Base):
     description = Column(Text)
     status = Column(String, default="todo")  # todo, in_progress, review, completed, blocked
     priority = Column(String, default="medium")  # low, medium, high, critical
-    assigned_to = Column(String)
+    assigned_to = Column(Integer, ForeignKey("users.id"))  # Changed to Integer FK
     due_date = Column(DateTime)
     completed_date = Column(DateTime)
     estimated_hours = Column(Float)
@@ -242,3 +354,4 @@ class ProductionTask(Base):
     # Relationships
     stage = relationship("ProductionStage", back_populates="tasks")
     sub_stage = relationship("ProductionSubStage", back_populates="tasks")
+    assigned_user = relationship("User", back_populates="assigned_tasks")
