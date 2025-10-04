@@ -437,6 +437,7 @@ class Promotion(Base):
     total_comments = Column(Integer, default=0)
     videos = Column(JSON)  # Array of video analytics data
     industry_progress = Column(Text)
+    sentiment_analysis = Column(JSON)  # Sentiment analysis data
     
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())

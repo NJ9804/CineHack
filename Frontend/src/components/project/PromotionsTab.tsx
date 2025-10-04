@@ -20,8 +20,7 @@ import {
   Users,
   Smile,
   Frown,
-  Meh,
-  TrendingDown
+  Meh
 } from 'lucide-react';
 import { apiClient } from '@/services/api/client';
 import { Promotion, VideoAnalytics } from '@/lib/types';
@@ -277,15 +276,71 @@ export default function PromotionsTab({ projectId, projectName }: PromotionsTabP
               {/* Industry Progress Insight */}
               <Card className="bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-red-500/10 border-amber-500/20">
                 <CardHeader>
-                  <CardTitle className="text-white flex items-center">
-                    <Award className="w-5 h-5 mr-2 text-amber-400" />
-                    Industry Analysis
+                  <CardTitle className="text-white flex items-center text-xl">
+                    <Award className="w-6 h-6 mr-2 text-amber-400" />
+                    🏆 Industry Analysis & Performance
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-300 leading-relaxed">
-                    {selectedPromotion.industry_progress}
-                  </p>
+                  <div className="space-y-6">
+                    {/* Main Industry Analysis - Bigger and More Prominent */}
+                    <div className="bg-gradient-to-br from-amber-500/20 via-orange-500/15 to-yellow-500/10 border-2 border-amber-400/30 rounded-xl p-6">
+                      <p className="text-xl md:text-2xl font-semibold text-amber-100 leading-relaxed tracking-wide">
+                        {selectedPromotion.industry_progress}
+                      </p>
+                    </div>
+
+                    {/* Sentiment-based Analysis Enhancement */}
+                    {selectedPromotion.sentiment_analysis && (
+                      <div className="mt-4 p-6 rounded-xl bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-gray-700/50">
+                        {selectedPromotion.sentiment_analysis.overall_sentiment === 'positive' && (
+                          <div className="text-center space-y-3">
+                            <div className="text-6xl">🎉 🌟 🎬 ✨</div>
+                            <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400">
+                              The Film is Really Good! 🚀
+                            </h3>
+                            <p className="text-xl text-green-300 font-semibold">
+                              Audiences are loving it! The positive response is outstanding! 💚
+                            </p>
+                            <p className="text-lg text-gray-300">
+                              {selectedPromotion.sentiment_analysis.positive_percentage}% positive feedback shows strong audience approval 👏
+                            </p>
+                          </div>
+                        )}
+
+                        {selectedPromotion.sentiment_analysis.overall_sentiment === 'negative' && (
+                          <div className="text-center space-y-3">
+                            <div className="text-6xl">😔 📉 💔 😢</div>
+                            <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-rose-400 to-pink-400">
+                              The Film Needs Improvement
+                            </h3>
+                            <p className="text-xl text-red-300 font-semibold">
+                              Audiences are expressing concerns and criticism 😕
+                            </p>
+                            <p className="text-lg text-gray-300">
+                              Only {selectedPromotion.sentiment_analysis.positive_percentage}% positive feedback - consider addressing audience feedback 🔧
+                            </p>
+                          </div>
+                        )}
+
+                        {(selectedPromotion.sentiment_analysis.overall_sentiment === 'neutral' || 
+                          selectedPromotion.sentiment_analysis.overall_sentiment === 'mixed') && (
+                          <div className="text-center space-y-3">
+                            <div className="text-6xl">🤔 ⚖️ 📊 💭</div>
+                            <h3 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400">
+                              Mixed Reception 
+                            </h3>
+                            <p className="text-xl text-yellow-300 font-semibold">
+                              The film has both supporters and critics 🎭
+                            </p>
+                            <p className="text-lg text-gray-300">
+                              {selectedPromotion.sentiment_analysis.positive_percentage}% positive feedback shows room for growth 📈
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
                 </CardContent>
               </Card>
 
