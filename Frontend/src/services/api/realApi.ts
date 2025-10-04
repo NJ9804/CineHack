@@ -1,6 +1,8 @@
 // Real API Client for Backend Integration
 import { 
-  GlobalCost, 
+  GlobalCost,
+  GlobalCostCreate,
+  GlobalCostUpdate,
   Project, 
   Character, 
   Scene, 
@@ -179,6 +181,41 @@ const budget = {
   }
 };
 
+// Global Costs API
+const globalCosts = {
+  async getAll(): Promise<GlobalCost[]> {
+    return await apiRequest<GlobalCost[]>('/global-costs');
+  },
+
+  async getByCategory(category: 'actor' | 'property' | 'location'): Promise<GlobalCost[]> {
+    return await apiRequest<GlobalCost[]>(`/global-costs/category/${category}`);
+  },
+
+  async create(data: GlobalCostCreate): Promise<GlobalCost> {
+    return await apiRequest<GlobalCost>('/global-costs', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  },
+
+  async update(id: number, data: GlobalCostUpdate): Promise<GlobalCost> {
+    return await apiRequest<GlobalCost>(`/global-costs/${id}`, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+    });
+  },
+
+  async delete(id: number): Promise<{ message: string }> {
+    return await apiRequest<{ message: string }>(`/global-costs/${id}`, {
+      method: 'DELETE',
+    });
+  },
+
+  async getById(id: number): Promise<GlobalCost> {
+    return await apiRequest<GlobalCost>(`/global-costs/${id}`);
+  }
+};
+
 // Unified API client
 export const apiClient = {
   getProjects: projects.getAll,
@@ -189,7 +226,8 @@ export const apiClient = {
   getCharacters: characters.getByProjectId,
   getBudget: budget.getByProjectId,
   getSchedule: async (projectId: string) => [],
-  getAlerts: async (projectId: string) => []
+  getAlerts: async (projectId: string) => [],
+  globalCosts
 };
 
 // Named exports for backward compatibility
@@ -197,3 +235,4 @@ export const projectsApi = projects;
 export const charactersApi = characters;
 export const scenesApi = scenes;
 export const budgetApi = budget;
+export const globalCostsApi = globalCosts;

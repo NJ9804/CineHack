@@ -11,6 +11,8 @@ from app.controllers import budget
 from app.controllers import scenes
 from app.controllers import characters
 from app.controllers import production_stages
+from app.controllers import global_costs
+from app.controllers import invoice
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -37,6 +39,8 @@ app.include_router(budget.router, prefix="/api", tags=["budget"])
 app.include_router(scenes.router, prefix="/api", tags=["scenes"])
 app.include_router(characters.router, prefix="/api", tags=["characters"])
 app.include_router(production_stages.router, prefix="/api", tags=["production-stages"])
+app.include_router(global_costs.router, prefix="/api", tags=["global-costs"])
+app.include_router(invoice.router, tags=["invoice"])
 
 @app.get("/")
 def root():
