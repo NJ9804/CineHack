@@ -243,26 +243,48 @@ export default function ProjectDetailPage() {
           )}
         </div>
 
-        {/* Quick Access Banner */}
-        <Card className="bg-gradient-to-r from-accent-primary/10 via-accent-secondary/10 to-accent-brown/10 border-accent-primary/30 backdrop-blur-sm">
-          <CardContent className="py-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <Target className="w-8 h-8 text-accent-primary" />
-                <div>
-                  <h3 className="text-xl font-bold text-accent-secondary">🎯 Production Management</h3>
-                  <p className="text-text-secondary">Track all stages of your film production</p>
+        {/* Quick Access Banners */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Card className="bg-gradient-to-r from-accent-primary/10 via-accent-secondary/10 to-accent-brown/10 border-accent-primary/30 backdrop-blur-sm">
+            <CardContent className="py-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <Target className="w-8 h-8 text-accent-primary" />
+                  <div>
+                    <h3 className="text-xl font-bold text-accent-secondary">🎯 Production Stages</h3>
+                    <p className="text-text-secondary">Track production timeline</p>
+                  </div>
                 </div>
+                <Link href={`/projects/${projectId}/production-stages`}>
+                  <Button variant="cinematic" size="lg" className="hover:scale-105 transition-transform">
+                    <Clock className="w-5 h-5 mr-2" />
+                    View Timeline
+                  </Button>
+                </Link>
               </div>
-              <Link href={`/projects/${projectId}/production-stages`}>
-                <Button variant="cinematic" size="lg" className="hover:scale-105 transition-transform">
-                  <Clock className="w-5 h-5 mr-2" />
-                  🎬 View Production Timeline
-                </Button>
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-r from-green-500/10 via-blue-500/10 to-purple-500/10 border-green-500/30 backdrop-blur-sm">
+            <CardContent className="py-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <Film className="w-8 h-8 text-green-500" />
+                  <div>
+                    <h3 className="text-xl font-bold text-accent-secondary">🎬 Operations</h3>
+                    <p className="text-text-secondary">Rentals, Hotels, Catering & More</p>
+                  </div>
+                </div>
+                <Link href={`/projects/${projectId}/operations`}>
+                  <Button variant="cinematic" size="lg" className="hover:scale-105 transition-transform bg-green-600 hover:bg-green-700">
+                    <Target className="w-5 h-5 mr-2" />
+                    Manage Operations
+                  </Button>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
         {/* Enhanced Project Overview Stats */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

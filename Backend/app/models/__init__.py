@@ -589,3 +589,481 @@ class TicketActivity(Base):
     # Relationships
     ticket = relationship("Ticket", back_populates="activities")
     user = relationship("User")
+
+
+# ============= Production Operations Management =============
+
+class RentalItem(Base):
+    """Tracks rented equipment, costumes, props, and art production items"""
+    __tablename__ = "rental_items"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"))
+    
+    # Item details
+    item_name = Column(String, nullable=False)
+    item_type = Column(String, nullable=False)  # equipment, costume, prop, art_production, vehicle
+    category = Column(String)  # camera, lighting, wardrobe, set_design, etc.
+    description = Column(Text)
+    quantity = Column(Integer, default=1)
+    
+    # Vendor information
+    vendor_name = Column(String, nullable=False)
+    vendor_contact = Column(String)
+    vendor_email = Column(String)
+    vendor_address = Column(Text)
+    
+    # Rental details
+    rental_start_date = Column(DateTime, nullable=False)
+    rental_end_date = Column(DateTime, nullable=False)
+    actual_return_date = Column(DateTime)
+    
+    # Costs
+    daily_rate = Column(Float, default=0.0)
+    security_deposit = Column(Float, default=0.0)
+    total_cost = Column(Float, default=0.0)
+    penalty_charges = Column(Float, default=0.0)
+    
+    # Status tracking
+    status = Column(String, default="reserved")  # reserved, picked_up, in_use, returned, overdue, damaged
+    condition_on_pickup = Column(String, default="good")  # good, fair, damaged
+    condition_on_return = Column(String)
+    
+    # Assignment
+    assigned_to = Column(Integer, ForeignKey("users.id"))
+    department = Column(String)  # art, camera, costume, etc.
+    
+    # Reminders and alerts
+    return_reminder_sent = Column(Boolean, default=False)
+    overdue_alert_sent = Column(Boolean, default=False)
+    
+    # Documentation
+    rental_agreement_url = Column(String)
+    pickup_photos = Column(JSON)  # Array of photo URLs
+    return_photos = Column(JSON)
+    notes = Column(Text)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    created_by = Column(Integer, ForeignKey("users.id"))
+    
+    # Relationships
+    project = relationship("Project")
+    assigned_user = relationship("User", foreign_keys=[assigned_to])
+    creator = relationship("User", foreign_keys=[created_by])
+
+
+class Purchase(Base):
+    """Tracks all purchases for production"""
+    __tablename__ = "purchases"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"))
+    
+    # Purchase details
+    item_name = Column(String, nullable=False)
+    category = Column(String, nullable=False)  # art_supplies, props, costumes, consumables, stationary, etc.
+    description = Column(Text)
+    quantity = Column(Integer, default=1)
+    unit = Column(String)  # pcs, kg, liters, etc.
+    
+    # Vendor information
+    vendor_name = Column(String)
+    vendor_contact = Column(String)
+    purchase_location = Column(String)
+    
+    # Financial details
+    unit_price = Column(Float, default=0.0)
+    total_amount = Column(Float, nullable=False)
+    tax_amount = Column(Float, default=0.0)
+    discount = Column(Float, default=0.0)
+    final_amount = Column(Float, nullable=False)
+    
+    # Payment tracking
+    payment_method = Column(String)  # cash, card, upi, bank_transfer, petty_cash
+    payment_status = Column(String, default="pending")  # pending, paid, partially_paid, reimbursement_pending
+    paid_by = Column(Integer, ForeignKey("users.id"))
+    reimbursement_status = Column(String)  # pending, approved, paid
+    
+    # Documentation
+    invoice_number = Column(String)
+    invoice_url = Column(String)
+    receipt_url = Column(String)
+    purchase_date = Column(DateTime, nullable=False)
+    
+    # Department and purpose
+    department = Column(String)  # art, costume, props, food, etc.
+    purpose = Column(Text)
+    scene_id = Column(Integer, ForeignKey("scenes.id"))
+    
+    # Approval workflow
+    requested_by = Column(Integer, ForeignKey("users.id"))
+    approved_by = Column(Integer, ForeignKey("users.id"))
+    approval_status = Column(String, default="approved")  # pending, approved, rejected
+    
+    notes = Column(Text)
+    tags = Column(JSON)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    project = relationship("Project")
+    scene = relationship("Scene")
+    paid_by_user = relationship("User", foreign_keys=[paid_by])
+    requested_by_user = relationship("User", foreign_keys=[requested_by])
+    approved_by_user = relationship("User", foreign_keys=[approved_by])
+
+
+class HotelBooking(Base):
+    """Manages hotel accommodations for cast and crew"""
+    __tablename__ = "hotel_bookings"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"))
+    
+    # Hotel details
+    hotel_name = Column(String, nullable=False)
+    hotel_address = Column(Text)
+    hotel_contact = Column(String)
+    hotel_email = Column(String)
+    star_rating = Column(Integer)
+    
+    # Room details
+    room_number = Column(String)
+    room_type = Column(String)  # single, double, suite, dormitory
+    number_of_rooms = Column(Integer, default=1)
+    
+    # Guest details
+    guest_name = Column(String, nullable=False)
+    guest_role = Column(String)  # actor, director, crew, etc.
+    guest_contact = Column(String)
+    actor_id = Column(Integer, ForeignKey("actors.id"))
+    user_id = Column(Integer, ForeignKey("users.id"))
+    
+    # Booking details
+    check_in_date = Column(DateTime, nullable=False)
+    check_out_date = Column(DateTime, nullable=False)
+    actual_check_in = Column(DateTime)
+    actual_check_out = Column(DateTime)
+    
+    # Costs
+    room_rate_per_night = Column(Float, nullable=False)
+    total_nights = Column(Integer)
+    total_cost = Column(Float)
+    advance_paid = Column(Float, default=0.0)
+    balance_amount = Column(Float, default=0.0)
+    
+    # Status
+    booking_status = Column(String, default="confirmed")  # pending, confirmed, checked_in, checked_out, cancelled
+    payment_status = Column(String, default="pending")  # pending, advance_paid, fully_paid
+    
+    # Additional services
+    meals_included = Column(Boolean, default=False)
+    meal_plan = Column(String)  # breakfast, half_board, full_board
+    transportation_arranged = Column(Boolean, default=False)
+    
+    # Documentation
+    booking_reference = Column(String, unique=True)
+    confirmation_email_url = Column(String)
+    
+    # Reminders
+    check_in_reminder_sent = Column(Boolean, default=False)
+    check_out_reminder_sent = Column(Boolean, default=False)
+    
+    # Location and scene mapping
+    shooting_location = Column(String)
+    scene_ids = Column(JSON)  # Array of scene IDs this booking is for
+    
+    notes = Column(Text)
+    special_requests = Column(Text)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    booked_by = Column(Integer, ForeignKey("users.id"))
+    
+    # Relationships
+    project = relationship("Project")
+    actor = relationship("Actor")
+    user = relationship("User", foreign_keys=[user_id])
+    booked_by_user = relationship("User", foreign_keys=[booked_by])
+
+
+class ActorAvailability(Base):
+    """Tracks actor availability and schedules"""
+    __tablename__ = "actor_availability"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    actor_id = Column(Integer, ForeignKey("actors.id", ondelete="CASCADE"))
+    project_id = Column(Integer, ForeignKey("projects.id"))
+    
+    # Availability period
+    start_date = Column(DateTime, nullable=False)
+    end_date = Column(DateTime, nullable=False)
+    
+    # Status
+    availability_status = Column(String, default="available")  # available, tentative, booked, unavailable
+    
+    # Booking details (if booked)
+    scene_ids = Column(JSON)  # Array of scene IDs actor is scheduled for
+    shoot_location = Column(String)
+    call_time = Column(String)
+    role_character = Column(String)
+    
+    # Conflicts and notes
+    conflict_reason = Column(String)  # other_project, personal, medical, travel
+    conflicting_project = Column(String)
+    
+    # Travel and logistics
+    requires_travel = Column(Boolean, default=False)
+    travel_from = Column(String)
+    travel_to = Column(String)
+    accommodation_needed = Column(Boolean, default=False)
+    hotel_booking_id = Column(Integer, ForeignKey("hotel_bookings.id"))
+    
+    # Reminders
+    reminder_sent = Column(Boolean, default=False)
+    confirmed_by_actor = Column(Boolean, default=False)
+    confirmation_date = Column(DateTime)
+    
+    notes = Column(Text)
+    special_requirements = Column(Text)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    created_by = Column(Integer, ForeignKey("users.id"))
+    
+    # Relationships
+    actor = relationship("Actor")
+    project = relationship("Project")
+    hotel_booking = relationship("HotelBooking")
+    creator = relationship("User", foreign_keys=[created_by])
+
+
+class FoodCatering(Base):
+    """Manages daily food and catering for production"""
+    __tablename__ = "food_catering"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"))
+    
+    # Date and meal details
+    catering_date = Column(DateTime, nullable=False)
+    meal_type = Column(String, nullable=False)  # breakfast, lunch, dinner, snacks, tea
+    
+    # Location details
+    shoot_location = Column(String)
+    delivery_location = Column(String)
+    scene_ids = Column(JSON)  # Related scenes
+    
+    # Headcount
+    total_people = Column(Integer, nullable=False)
+    actors_count = Column(Integer, default=0)
+    crew_count = Column(Integer, default=0)
+    junior_artists_count = Column(Integer, default=0)
+    
+    # Vendor details
+    vendor_name = Column(String, nullable=False)
+    vendor_contact = Column(String)
+    vendor_type = Column(String)  # catering_service, restaurant, homemade
+    
+    # Menu and dietary
+    menu_details = Column(JSON)  # Array of menu items
+    vegetarian_count = Column(Integer, default=0)
+    non_vegetarian_count = Column(Integer, default=0)
+    special_dietary_requirements = Column(Text)
+    
+    # Costs
+    per_person_cost = Column(Float, default=0.0)
+    total_cost = Column(Float, nullable=False)
+    advance_paid = Column(Float, default=0.0)
+    
+    # Timing
+    delivery_time = Column(String)
+    actual_delivery_time = Column(String)
+    
+    # Status
+    status = Column(String, default="planned")  # planned, ordered, delivered, completed, cancelled
+    payment_status = Column(String, default="pending")  # pending, paid, advance_paid
+    
+    # Quality tracking
+    quality_rating = Column(Integer)  # 1-5 stars
+    feedback = Column(Text)
+    
+    notes = Column(Text)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    ordered_by = Column(Integer, ForeignKey("users.id"))
+    
+    # Relationships
+    project = relationship("Project")
+    ordered_by_user = relationship("User", foreign_keys=[ordered_by])
+
+
+class Transportation(Base):
+    """Tracks vehicles, fuel, and transportation logistics"""
+    __tablename__ = "transportation"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"))
+    
+    # Vehicle details
+    vehicle_type = Column(String, nullable=False)  # car, van, truck, bus, bike, rental
+    vehicle_number = Column(String)
+    vehicle_model = Column(String)
+    ownership = Column(String)  # owned, rented, personal_reimbursement
+    
+    # Driver details
+    driver_name = Column(String)
+    driver_contact = Column(String)
+    driver_license = Column(String)
+    
+    # Usage details
+    usage_date = Column(DateTime, nullable=False)
+    purpose = Column(String)  # cast_transport, equipment_transport, location_recce, daily_commute
+    from_location = Column(String)
+    to_location = Column(String)
+    distance_km = Column(Float)
+    
+    # Fuel tracking
+    fuel_type = Column(String)  # petrol, diesel, cng, electric
+    fuel_quantity_liters = Column(Float)
+    fuel_cost = Column(Float)
+    fuel_receipt_url = Column(String)
+    
+    # Other costs
+    toll_charges = Column(Float, default=0.0)
+    parking_charges = Column(Float, default=0.0)
+    driver_allowance = Column(Float, default=0.0)
+    rental_charges = Column(Float, default=0.0)
+    total_cost = Column(Float)
+    
+    # Odometer readings
+    start_odometer = Column(Float)
+    end_odometer = Column(Float)
+    
+    # Assignment
+    assigned_to = Column(Integer, ForeignKey("users.id"))
+    department = Column(String)
+    scene_ids = Column(JSON)
+    
+    # Status
+    status = Column(String, default="scheduled")  # scheduled, in_progress, completed, cancelled
+    payment_status = Column(String, default="pending")
+    
+    notes = Column(Text)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    created_by = Column(Integer, ForeignKey("users.id"))
+    
+    # Relationships
+    project = relationship("Project")
+    assigned_user = relationship("User", foreign_keys=[assigned_to])
+    creator = relationship("User", foreign_keys=[created_by])
+
+
+class JuniorArtist(Base):
+    """Manages junior artists/extras for production"""
+    __tablename__ = "junior_artists"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"))
+    
+    # Personal details
+    name = Column(String, nullable=False)
+    contact_number = Column(String)
+    emergency_contact = Column(String)
+    age = Column(Integer)
+    gender = Column(String)
+    
+    # Physical attributes
+    height = Column(String)
+    build = Column(String)  # slim, average, athletic, heavy
+    
+    # Professional details
+    experience_level = Column(String)  # fresher, experienced
+    special_skills = Column(JSON)  # dancing, horse_riding, martial_arts, etc.
+    languages_known = Column(JSON)
+    
+    # Availability
+    is_available = Column(Boolean, default=True)
+    availability_dates = Column(JSON)  # Array of date ranges
+    
+    # Daily rate and payment
+    daily_rate = Column(Float, nullable=False)
+    payment_status = Column(String, default="pending")  # pending, paid, partially_paid
+    
+    # Documents
+    id_proof_type = Column(String)
+    id_proof_url = Column(String)
+    photo_url = Column(String)
+    
+    # Agency details (if through an agency)
+    agency_name = Column(String)
+    agency_contact = Column(String)
+    agency_commission = Column(Float, default=0.0)
+    
+    notes = Column(Text)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    project = relationship("Project")
+    attendance_records = relationship("JuniorArtistAttendance", back_populates="junior_artist", cascade="all, delete-orphan")
+
+
+class JuniorArtistAttendance(Base):
+    """Tracks daily attendance and assignments for junior artists"""
+    __tablename__ = "junior_artist_attendance"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    junior_artist_id = Column(Integer, ForeignKey("junior_artists.id", ondelete="CASCADE"))
+    project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"))
+    
+    # Date and scene details
+    attendance_date = Column(DateTime, nullable=False)
+    scene_ids = Column(JSON)  # Array of scene IDs
+    shoot_location = Column(String)
+    
+    # Role assignment
+    role_description = Column(String)  # crowd_member, party_guest, soldier, etc.
+    costume_details = Column(String)
+    makeup_required = Column(Boolean, default=False)
+    
+    # Timing
+    call_time = Column(String)
+    actual_arrival_time = Column(String)
+    wrap_time = Column(String)
+    total_hours = Column(Float)
+    
+    # Status
+    attendance_status = Column(String, default="scheduled")  # scheduled, present, absent, late, left_early
+    
+    # Payment for the day
+    payment_amount = Column(Float)
+    overtime_hours = Column(Float, default=0.0)
+    overtime_amount = Column(Float, default=0.0)
+    total_payment = Column(Float)
+    payment_status = Column(String, default="pending")
+    
+    # Meals and facilities
+    meals_provided = Column(Boolean, default=True)
+    transport_provided = Column(Boolean, default=False)
+    transport_cost = Column(Float, default=0.0)
+    
+    # Performance and notes
+    performance_rating = Column(Integer)  # 1-5 stars
+    notes = Column(Text)
+    issues = Column(Text)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    marked_by = Column(Integer, ForeignKey("users.id"))
+    
+    # Relationships
+    junior_artist = relationship("JuniorArtist", back_populates="attendance_records")
+    project = relationship("Project")
+    marked_by_user = relationship("User", foreign_keys=[marked_by])

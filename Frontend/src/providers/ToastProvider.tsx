@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext } from 'react';
 import { useToast, ToastContainer, Toast } from '@/components/ui/toast';
+import { Toaster } from 'sonner';
 
 interface ToastContextType {
   success: (title: string, description?: string) => void;
@@ -20,6 +21,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     <ToastContext.Provider value={{ success, error, warning, info, addToast }}>
       {children}
       <ToastContainer toasts={toasts} onDismiss={dismissToast} />
+      <Toaster position="top-right" richColors />
     </ToastContext.Provider>
   );
 }
