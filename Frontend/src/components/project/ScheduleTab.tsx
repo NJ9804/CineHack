@@ -1,56 +1,42 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, Users, AlertTriangle, MapPin, CheckCircle } from 'lucide-react';
-import { Scene, ScheduleItem, Alert } from '@/lib/types';
-import CompactSceneCard from './CompactSceneCard';
-
-// Define SchedulingConflict type if not imported
-type SchedulingConflict = {
-  id: string;
-  sceneId: string;
-  conflictType: string;
-  description?: string;
-  // Add other fields as needed based on your backend response
-};
-
-// Define ScheduleStats type if not already imported
-type ScheduleStats = {
-  totalScenes: number;
-  planned: number;
-  inProgress: number;
-  completed: number;
-  // Add other fields as needed based on your backend response
-};
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Sparkles, BarChart3, AlertTriangle, LayoutGrid, Calendar } from 'lucide-react';
+import { Scene, Alert } from '@/lib/types';
+import KanbanBoard from './KanbanBoard';
+import DayWiseSchedule from './DayWiseSchedule';
+import apiClient from '@/services/api/client';
+import type { ScheduleStats, SchedulingConflict } from '@/lib/types';
 
 interface ScheduleTabProps {
   projectId: string;
   scenes: Scene[];
-  schedule: ScheduleItem[];
+  schedule: any[];
   alerts: Alert[];
 }
 
-type ViewMode = 'kanban' | 'timeline' | 'calendar';
-
 export default function ScheduleTab({ projectId, scenes, schedule, alerts }: ScheduleTabProps) {
-  const [viewMode, setViewMode] = useState<ViewMode>('kanban');
   const [scheduleStats, setScheduleStats] = useState<ScheduleStats | null>(null);
   const [conflicts, setConflicts] = useState<SchedulingConflict[]>([]);
-  const [draggedScene, setDraggedScene] = useState<Scene | null>(null);
-  const [selectedScene, setSelectedScene] = useState<Scene | null>(null);
-  const [isScheduleModalOpen, setIsScheduleModalOpen] = useState(false);
   const [isAutoScheduling, setIsAutoScheduling] = useState(false);
+  const [localScenes, setLocalScenes] = useState<Scene[]>(scenes);
+  const [activeTab, setActiveTab] = useState<'kanban' | 'day-wise'>('kanban');
+
+  // Update local scenes when props change
+  useEffect(() => {
+    setLocalScenes(scenes);
+  }, [scenes]);
 
   // Fetch schedule data
   useEffect(() => {
     const fetchScheduleData = async () => {
       try {
         const [stats, conflictsData] = await Promise.all([
-          scheduleApi.getStats(projectId),
-          scheduleApi.getConflicts(projectId)
+          apiClient.getScheduleStats(projectId),
+          apiClient.getScheduleConflicts(projectId)
         ]);
         setScheduleStats(stats);
         setConflicts(conflictsData);
@@ -59,89 +45,46 @@ export default function ScheduleTab({ projectId, scenes, schedule, alerts }: Sch
       }
     };
 
-    fetchScheduleData();
+    if (projectId) {
+      fetchScheduleData();
+    }
   }, [projectId]);
 
-  // Group scenes by status for Kanban view
-  // Note: Backend uses 'shooting' status, frontend uses 'in-progress'
-  // Add null checks to prevent runtime errors
-  const safeScenes = scenes || [];
-  
-  // Debug: Log the scenes to see what we're getting
-  console.log('ScheduleTab - Received scenes:', safeScenes);
-  console.log('ScheduleTab - Scene statuses:', safeScenes.map(s => ({ id: s.id, name: s.name, status: s.status })));
-  
-  const groupedScenes = {
-    unplanned: safeScenes.filter(s => !s.status || s.status === 'unplanned'),
-    planned: safeScenes.filter(s => s.status === 'planned'),
-    'in-progress': safeScenes.filter(s => s.status === 'in-progress' || s.status === 'shooting'),
-    completed: safeScenes.filter(s => s.status === 'completed')
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'completed': return 'bg-green-500/20 text-green-400 border-green-500/30';
-      case 'in-progress': return 'bg-blue-500/20 text-blue-400 border-blue-500/30';
-      case 'planned': return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
-      case 'unplanned': return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
-      default: return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
-    }
-  };
-
-  const getStatusIcon = (status: string) => {
-    switch (status) {
-      case 'completed': return <CheckCircle className="w-4 h-4" />;
-      case 'in-progress': return <Play className="w-4 h-4" />;
-      case 'planned': return <Target className="w-4 h-4" />;
-      default: return <Clock className="w-4 h-4" />;
-    }
-  };
-
-  const handleDragStart = (scene: Scene) => {
-    setDraggedScene(scene);
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-  };
-
-  const handleDrop = async (e: React.DragEvent, newStatus: string) => {
-    e.preventDefault();
-    if (draggedScene) {
-      try {
-        await scheduleApi.updateScheduleItem(projectId, draggedScene.id, { status: newStatus as any });
-        draggedScene.status = newStatus as any;
-        setDraggedScene(null);
-      } catch (error) {
-        console.error('Failed to update scene status:', error);
-      }
-    }
-  };
-
-  const handleScheduleScene = (scene: Scene) => {
-    setSelectedScene(scene);
-    setIsScheduleModalOpen(true);
-  };
-
-  const handleSaveSchedule = async (scheduleData: Partial<ScheduleItem>) => {
+  // Handle scene status change from Kanban board
+  const handleSceneStatusChange = async (sceneId: string, newStatus: string) => {
     try {
-      if (selectedScene) {
-        await scheduleApi.createScheduleItem(projectId, selectedScene.id, scheduleData);
-        const stats = await scheduleApi.getStats(projectId);
-        setScheduleStats(stats);
-      }
+      // Update the scene status via API
+      await apiClient.updateScene(parseInt(sceneId), { status: newStatus });
+      
+      // Update local state optimistically
+      setLocalScenes(prev => 
+        prev.map(scene => 
+          scene.id === sceneId ? { ...scene, status: newStatus as any } : scene
+        )
+      );
+
+      // Refresh stats
+      const stats = await apiClient.getScheduleStats(projectId);
+      setScheduleStats(stats);
     } catch (error) {
-      console.error('Failed to save schedule:', error);
+      console.error('Failed to update scene status:', error);
+      // Revert on error
+      setLocalScenes(scenes);
     }
   };
 
   const handleAutoSchedule = async () => {
     setIsAutoScheduling(true);
     try {
-      const result = await scheduleApi.autoSchedule(projectId);
+      const result = await apiClient.autoSchedule(projectId);
       console.log('Auto-schedule result:', result);
-      const stats = await scheduleApi.getStats(projectId);
+      
+      // Refresh stats and scenes
+      const stats = await apiClient.getScheduleStats(projectId);
       setScheduleStats(stats);
+      
+      // Trigger parent to refresh scenes
+      window.location.reload(); // Temporary - ideally use state management
     } catch (error) {
       console.error('Failed to auto-schedule:', error);
     } finally {
@@ -149,215 +92,150 @@ export default function ScheduleTab({ projectId, scenes, schedule, alerts }: Sch
     }
   };
 
+  // Calculate stats from scenes
+  const stats = {
+    total: localScenes.length,
+    unplanned: localScenes.filter(s => !s.status || s.status === 'unplanned').length,
+    planned: localScenes.filter(s => s.status === 'planned').length,
+    inProgress: localScenes.filter(s => s.status === 'in-progress' || s.status === 'shooting').length,
+    completed: localScenes.filter(s => s.status === 'completed').length,
+  };
 
+  const completionPercentage = stats.total > 0 
+    ? Math.round((stats.completed / stats.total) * 100) 
+    : 0;
 
   return (
     <div className="space-y-6">
-      {/* Schedule Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-secondary-bg border-accent-brown">
-          <CardContent className="p-4">
-            <div className="text-2xl font-bold text-text-primary">{scenes.length}</div>
-            <div className="text-sm text-text-secondary">Total Scenes</div>
-          </CardContent>
-        </Card>
-        <Card className="bg-secondary-bg border-accent-brown">
-          <CardContent className="p-4">
-            <div className="text-2xl font-bold text-accent-secondary">
-              {groupedScenes.planned.length}
-            </div>
-            <div className="text-sm text-text-secondary">Planned</div>
-          </CardContent>
-        </Card>
-        <Card className="bg-secondary-bg border-accent-brown">
-          <CardContent className="p-4">
-            <div className="text-2xl font-bold text-accent-primary">
-              {groupedScenes['in-progress'].length}
-            </div>
-            <div className="text-sm text-text-secondary">In Progress</div>
-          </CardContent>
-        </Card>
-        <Card className="bg-secondary-bg border-accent-brown">
-          <CardContent className="p-4">
-            <div className="text-2xl font-bold text-accent-primary">
-              {groupedScenes.completed.length}
-            </div>
-            <div className="text-sm text-text-secondary">Completed</div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Scenes Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {/* Planned Column */}
+      {/* Header with Actions */}
+      <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-accent-secondary flex items-center">
-              <div className="w-3 h-3 bg-accent-brown rounded-full mr-2"></div>
-              Planned ({groupedScenes.planned.length})
-            </h3>
-          </div>
-          <div className="bg-primary-bg/50 border border-accent-brown rounded-lg p-4 min-h-[500px] space-y-4">
-            {groupedScenes.planned.map((scene) => (
-              <CompactSceneCard key={scene.id} scene={scene} alerts={alerts} />
-            ))}
-            {groupedScenes.planned.length === 0 && (
-              <div className="text-center text-text-secondary py-8">
-                <Calendar className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                <p className="text-sm">No planned scenes</p>
-              </div>
-            )}
-          </div>
+          <h2 className="text-2xl font-bold text-white">Shooting Schedule</h2>
+          <p className="text-gray-400 text-sm mt-1">
+            Organize and plan your production schedule
+          </p>
         </div>
-
-        {/* In Progress Column */}
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-accent-secondary flex items-center">
-              <div className="w-3 h-3 bg-accent-secondary rounded-full mr-2"></div>
-              In Progress ({groupedScenes['in-progress'].length})
-            </h3>
-          </div>
-          <div className="bg-primary-bg/50 border border-accent-brown rounded-lg p-4 min-h-[500px] space-y-4">
-            {groupedScenes['in-progress'].map((scene) => (
-              <CompactSceneCard key={scene.id} scene={scene} alerts={alerts} />
-            ))}
-            {groupedScenes['in-progress'].length === 0 && (
-              <div className="text-center text-text-secondary py-8">
-                <Clock className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                <p className="text-sm">No scenes in progress</p>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Completed Column */}
-        <div>
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-accent-secondary flex items-center">
-              <div className="w-3 h-3 bg-accent-primary rounded-full mr-2"></div>
-              Completed ({groupedScenes.completed.length})
-            </h3>
-          </div>
-          <div className="bg-primary-bg/50 border border-accent-brown rounded-lg p-4 min-h-[500px] space-y-4">
-            {groupedScenes.completed.map((scene) => (
-              <CompactSceneCard key={scene.id} scene={scene} alerts={alerts} />
-            ))}
-            {groupedScenes.completed.length === 0 && (
-              <div className="text-center text-text-secondary py-8">
-                <div className="w-8 h-8 mx-auto mb-2 opacity-50 flex items-center justify-center text-accent-primary text-xl">
-                  ✓
-                </div>
-                <p className="text-sm">No completed scenes</p>
-              </div>
-            )}
-          </div>
+        <div className="flex gap-3">
+          <Button
+            variant="outline"
+            onClick={handleAutoSchedule}
+            disabled={isAutoScheduling}
+            className="border-amber-500/30 hover:bg-amber-500/10"
+          >
+            <Sparkles className="w-4 h-4 mr-2" />
+            {isAutoScheduling ? 'Scheduling...' : 'Auto Schedule'}
+          </Button>
+          <Button variant="outline" className="border-gray-700">
+            <BarChart3 className="w-4 h-4 mr-2" />
+            Export
+          </Button>
         </div>
       </div>
 
-      {/* Content based on view mode */}
-      {viewMode === 'kanban' && (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <KanbanColumn
-            title="Unplanned"
-            status="unplanned"
-            scenes={groupedScenes.unplanned}
-            color="bg-gray-400"
-            icon={<Clock className="w-4 h-4" />}
-          />
-          <KanbanColumn
-            title="Planned"
-            status="planned"
-            scenes={groupedScenes.planned}
-            color="bg-yellow-400"
-            icon={<Target className="w-4 h-4" />}
-          />
-          <KanbanColumn
-            title="In Progress"
-            status="in-progress"
-            scenes={groupedScenes['in-progress']}
-            color="bg-blue-400"
-            icon={<Play className="w-4 h-4" />}
-          />
-          <KanbanColumn
-            title="Completed"
-            status="completed"
-            scenes={groupedScenes.completed}
-            color="bg-green-400"
-            icon={<CheckCircle className="w-4 h-4" />}
-          />
-        </div>
-      )}
-
-      {viewMode === 'timeline' && (
-        <ScheduleTimeline
-          scenes={safeScenes}
-          schedule={schedule || []}
-          conflicts={conflicts || []}
-          onEditSchedule={handleScheduleScene}
-        />
-      )}
-
-      {viewMode === 'calendar' && (
+      {/* Stats Overview */}
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
         <Card className="bg-gray-900/50 border-gray-700">
-          <CardContent className="p-8 text-center">
-            <Calendar className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-            <h3 className="text-lg font-medium text-white mb-2">Calendar View</h3>
-            <p className="text-gray-400 mb-4">
-              Calendar integration coming soon. This will show scenes scheduled on specific dates.
-            </p>
-            <Button variant="outline">
-              Set up Calendar Integration
-            </Button>
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-white">{stats.total}</div>
+            <div className="text-xs text-gray-400 mt-1">Total Scenes</div>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-gray-900/50 border-gray-700">
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-gray-400">{stats.unplanned}</div>
+            <div className="text-xs text-gray-400 mt-1">Unplanned</div>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-yellow-900/20 border-yellow-700/30">
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-yellow-400">{stats.planned}</div>
+            <div className="text-xs text-yellow-300 mt-1">Planned</div>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-blue-900/20 border-blue-700/30">
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-blue-400">{stats.inProgress}</div>
+            <div className="text-xs text-blue-300 mt-1">In Progress</div>
+          </CardContent>
+        </Card>
+        
+        <Card className="bg-green-900/20 border-green-700/30">
+          <CardContent className="p-4">
+            <div className="text-2xl font-bold text-green-400">{stats.completed}</div>
+            <div className="text-xs text-green-300 mt-1">
+              Completed ({completionPercentage}%)
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Conflicts Alert */}
+      {conflicts.length > 0 && (
+        <Card className="bg-red-900/20 border-red-700/30">
+          <CardContent className="p-4">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <h4 className="text-red-300 font-medium mb-2">
+                  {conflicts.length} Scheduling Conflict{conflicts.length !== 1 ? 's' : ''} Detected
+                </h4>
+                <div className="space-y-1">
+                  {conflicts.slice(0, 3).map((conflict, idx) => (
+                    <p key={idx} className="text-sm text-red-200">
+                      • {conflict.message}
+                    </p>
+                  ))}
+                  {conflicts.length > 3 && (
+                    <p className="text-sm text-red-300 mt-2">
+                      +{conflicts.length - 3} more conflicts
+                    </p>
+                  )}
+                </div>
+              </div>
+            </div>
           </CardContent>
         </Card>
       )}
 
-      {/* Schedule Actions */}
-      <Card className="bg-secondary-bg border-accent-brown">
-        <CardHeader>
-          <CardTitle className="text-accent-secondary flex items-center">
-            <Calendar className="w-5 h-5 mr-2 text-accent-primary" />
-            Schedule Management
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-wrap gap-3">
-            <Button 
-              variant="cinematic"
-              onClick={handleAutoSchedule}
-              disabled={isAutoScheduling}
-            >
-              {isAutoScheduling ? 'Auto-Scheduling...' : 'Auto-Schedule Scenes'}
-            </Button>
-            <Button variant="outline">
-              Resolve Conflicts
-            </Button>
-            <Button variant="outline">
-              Actor Availability
-            </Button>
-            <Button variant="outline">
-              Export Schedule
-            </Button>
-            <Button variant="outline">
-              Import Calendar
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Tabs for Different Views */}
+      <Tabs value={activeTab} onValueChange={(val) => setActiveTab(val as any)} className="w-full">
+        <TabsList className="grid w-full max-w-md grid-cols-2 bg-gray-900/50 border border-gray-700">
+          <TabsTrigger value="kanban" className="data-[state=active]:bg-amber-500/20">
+            <LayoutGrid className="w-4 h-4 mr-2" />
+            Kanban Board
+          </TabsTrigger>
+          <TabsTrigger value="day-wise" className="data-[state=active]:bg-amber-500/20">
+            <Calendar className="w-4 h-4 mr-2" />
+            Day-Wise Schedule
+          </TabsTrigger>
+        </TabsList>
 
-      {/* Schedule Scene Modal */}
-      {selectedScene && (
-        <ScheduleSceneModal
-          open={isScheduleModalOpen}
-          onClose={() => {
-            setIsScheduleModalOpen(false);
-            setSelectedScene(null);
-          }}
-          scene={selectedScene}
-          onSave={handleSaveSchedule}
-        />
-      )}
+        <TabsContent value="kanban" className="mt-6">
+          {/* Kanban Board */}
+          <KanbanBoard
+            scenes={localScenes}
+            onSceneStatusChange={handleSceneStatusChange}
+            onSceneClick={(scene) => {
+              console.log('Scene clicked:', scene);
+              // TODO: Open scene details modal
+            }}
+          />
+        </TabsContent>
+
+        <TabsContent value="day-wise" className="mt-6">
+          {/* Day-Wise Schedule */}
+          <DayWiseSchedule 
+            scenes={localScenes}
+            onEditSchedule={(scene, day) => {
+              console.log('Edit schedule for scene:', scene, 'on day:', day);
+              // TODO: Open schedule edit modal
+            }}
+          />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
