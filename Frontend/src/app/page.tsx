@@ -30,15 +30,16 @@ export default function Home() {
         console.error('Failed to load lottie player:', error);
       });
 
-      const token = localStorage.getItem('token');
-      if (!token) {
-        router.push('/login');
-      } else {
-        // Add a minimum loading time to show the panda animation
-        setTimeout(() => {
-          setLoading(false);
-        }, 6000); // Show loading screen for 6 seconds to enjoy the panda
-      }
+      // Authentication disabled for now - allow access to dashboard
+      // TODO: Implement proper authentication system
+      setLoading(false);
+      
+      // const token = localStorage.getItem('token');
+      // if (!token) {
+      //   router.push('/login');
+      // } else {
+      //   setLoading(false);
+      // }
     }
   }, [router]);
 

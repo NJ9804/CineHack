@@ -16,13 +16,9 @@ export default function LoginPage() {
   const [error, setError] = useState('');
 
   // Check if already logged in
+  // Authentication disabled - redirect to home
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('token');
-      if (token) {
-        router.push('/projects');
-      }
-    }
+    router.push('/');
   }, [router]);
 
   const handleLogin = async (e: React.FormEvent) => {
