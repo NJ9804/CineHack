@@ -423,7 +423,7 @@ class ProductionTask(Base):
     # Relationships
     stage = relationship("ProductionStage", back_populates="tasks")
     sub_stage = relationship("ProductionSubStage", back_populates="tasks")
-<<<<<<< HEAD
+    assigned_user = relationship("User", back_populates="assigned_tasks", foreign_keys=[assigned_to])
 
 
 class Promotion(Base):
@@ -443,6 +443,3 @@ class Promotion(Base):
     
     # Relationships
     project = relationship("Project")
-=======
-    assigned_user = relationship("User", back_populates="assigned_tasks")
->>>>>>> cdb3f3ca4a11fb3e94d7b075978e886c92c6c404

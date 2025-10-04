@@ -344,15 +344,9 @@ export default function ProjectDetailPage() {
 
         {/* Enhanced Project Tabs */}
         <Tabs defaultValue="overview" className="w-full">
-<<<<<<< HEAD
           <TabsList className="grid w-full grid-cols-8 bg-gray-900 border border-gray-700">
             <TabsTrigger value="overview" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400">
               Overview
-=======
-          <TabsList className="grid w-full grid-cols-7 bg-gradient-to-r from-secondary-bg to-primary-bg border border-accent-brown/30 p-1 rounded-lg">
-            <TabsTrigger value="overview" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
-              🎭 Overview
->>>>>>> cdb3f3ca4a11fb3e94d7b075978e886c92c6c404
             </TabsTrigger>
             <TabsTrigger value="scenes" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
               🎬 Scenes
@@ -369,16 +363,11 @@ export default function ProjectDetailPage() {
             <TabsTrigger value="characters" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
               👥 Characters
             </TabsTrigger>
-<<<<<<< HEAD
             <TabsTrigger value="promotions" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400">
               Promotions
             </TabsTrigger>
             <TabsTrigger value="risks" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400">
               Risks
-=======
-            <TabsTrigger value="risks" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
-              ⚠️ Risks
->>>>>>> cdb3f3ca4a11fb3e94d7b075978e886c92c6c404
             </TabsTrigger>
           </TabsList>
 
