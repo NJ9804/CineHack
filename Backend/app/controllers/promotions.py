@@ -3,8 +3,11 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from app.config.database import get_db
 from app.services.youtube_service import youtube_service
+from app.services.llm_service import llm_service
 from app.models import Promotion
 import json
+from google import genai
+
 
 router = APIRouter(prefix="/promotions", tags=["promotions"])
 
@@ -19,6 +22,35 @@ async def create_promotion(payload: PromotionCreate, db: Session = Depends(get_d
         if report.get("message") == "No videos found":
             raise HTTPException(status_code=404, detail="No videos found for the provided film")
 
+        # Collect all comments from all videos for sentiment analysis
+        all_comments = []
+        for video in report.get("videos", []):
+            if video.get("top_comments"):
+                all_comments.extend(video["top_comments"])
+        
+        # Perform sentiment analysis on all collected comments
+        sentiment_analysis = None
+        if all_comments:
+            sentiment_analysis = llm_service.analyze_sentiment(
+                comments=all_comments,
+                video_title=payload.film
+            )
+        
+        # Generate impressive industry analysis using AI
+        industry_analysis = report.get("industry_progress", "")
+        if sentiment_analysis:
+            analytics_data = {
+                "total_views": report.get("total_views", 0),
+                "total_likes": report.get("total_likes", 0),
+                "total_comments": report.get("total_comments", 0),
+                "videos": report.get("videos", [])
+            }
+            industry_analysis = llm_service.generate_industry_analysis(
+                film_name=payload.film,
+                analytics_data=analytics_data,
+                sentiment_data=sentiment_analysis
+            )
+
         # Save to DB if project_id provided
         promo = Promotion(
             project_id=payload.project_id,
@@ -27,13 +59,14 @@ async def create_promotion(payload: PromotionCreate, db: Session = Depends(get_d
             total_likes=report.get("total_likes", 0),
             total_comments=report.get("total_comments", 0),
             videos=report.get("videos"),
-            industry_progress=report.get("industry_progress")
+            industry_progress=industry_analysis,
+            sentiment_analysis=sentiment_analysis
         )
         db.add(promo)
         db.commit()
         db.refresh(promo)
 
-        return {"success": True, "promotion_id": promo.id, "report": report}
+        return {"success": True, "promotion_id": promo.id, "report": report, "sentiment_analysis": sentiment_analysis}
     except HTTPException:
         raise
     except Exception as e:
@@ -52,6 +85,7 @@ async def list_promotions(db: Session = Depends(get_db)):
             "total_comments": p.total_comments,
             "videos": p.videos,
             "industry_progress": p.industry_progress,
+            "sentiment_analysis": p.sentiment_analysis,
             "created_at": p.created_at.isoformat() if p.created_at else None
         } for p in promos
     ]}
@@ -70,6 +104,7 @@ async def get_promotion(promotion_id: int, db: Session = Depends(get_db)):
         "total_comments": p.total_comments,
         "videos": p.videos,
         "industry_progress": p.industry_progress,
+        "sentiment_analysis": p.sentiment_analysis,
         "created_at": p.created_at.isoformat() if p.created_at else None
     }
 
@@ -85,6 +120,7 @@ async def get_project_promotions(project_id: int, db: Session = Depends(get_db))
             "total_comments": p.total_comments,
             "videos": p.videos,
             "industry_progress": p.industry_progress,
+            "sentiment_analysis": p.sentiment_analysis,
             "created_at": p.created_at.isoformat() if p.created_at else None
         } for p in promos
     ]}
