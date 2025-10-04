@@ -292,12 +292,12 @@ export default function RentalsManager({ projectId }: { projectId: number }) {
 
   const getStatusBadge = (status: string) => {
     const variants: Record<string, { color: string; label: string }> = {
-      reserved: { color: 'bg-blue-100 text-blue-800', label: 'Reserved' },
-      picked_up: { color: 'bg-yellow-100 text-yellow-800', label: 'Picked Up' },
-      in_use: { color: 'bg-green-100 text-green-800', label: 'In Use' },
-      returned: { color: 'bg-gray-100 text-gray-800', label: 'Returned' },
-      overdue: { color: 'bg-red-100 text-red-800', label: 'Overdue' },
-      damaged: { color: 'bg-red-100 text-red-800', label: 'Damaged' },
+      reserved: { color: 'bg-accent-secondary/20 text-accent-secondary border-accent-secondary/30', label: 'Reserved' },
+      picked_up: { color: 'bg-accent-primary/20 text-accent-primary border-accent-primary/30', label: 'Picked Up' },
+      in_use: { color: 'bg-accent-primary/20 text-accent-primary border-accent-primary/30', label: 'In Use' },
+      returned: { color: 'bg-accent-brown/20 text-accent-secondary border-accent-brown/30', label: 'Returned' },
+      overdue: { color: 'bg-red-500/20 text-red-400 border-red-500/30', label: 'Overdue' },
+      damaged: { color: 'bg-red-500/20 text-red-400 border-red-500/30', label: 'Damaged' },
     };
     const variant = variants[status] || variants.reserved;
     return <Badge className={variant.color}>{variant.label}</Badge>;
@@ -313,48 +313,51 @@ export default function RentalsManager({ projectId }: { projectId: number }) {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 text-accent-secondary">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Rental Management</h2>
-          <p className="text-gray-600">Track equipment, costumes, props, and art production rentals</p>
+          <h2 className="text-2xl font-bold text-accent-secondary flex items-center gap-2">
+            📦 Rental Management
+          </h2>
+          <p className="text-accent-secondary/70">Track equipment, costumes, props, and art production rentals</p>
         </div>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button>
+            <Button className="bg-accent-primary hover:bg-accent-primary/80 text-primary-bg font-semibold">
               <Plus className="h-4 w-4 mr-2" />
               Add Rental
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>Add New Rental Item</DialogTitle>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-secondary-bg/95 border-2 border-accent-brown/70 shadow-2xl backdrop-blur-md">
+            <DialogHeader className="bg-primary-bg/90 -m-6 mb-4 p-6 rounded-t-lg border-b-2 border-accent-brown/60">
+              <DialogTitle className="text-accent-secondary font-bold text-xl">📦 Add New Rental Item</DialogTitle>
             </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 bg-primary-bg/95 p-6 rounded-lg border-2 border-accent-brown/60 shadow-xl backdrop-blur-sm">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label>Item Name *</Label>
+                  <Label className="text-text-secondary text-sm block mb-1 font-medium">Item Name *</Label>
                   <Input
                     value={formData.item_name}
                     onChange={(e) => setFormData({ ...formData, item_name: e.target.value })}
                     required
+                    className="bg-secondary-bg/90 border-accent-brown/60 text-text-primary focus:border-accent-primary transition-colors shadow-sm"
                   />
                 </div>
                 <div>
-                  <Label>Item Type *</Label>
+                  <Label className="text-text-secondary text-sm block mb-1 font-medium">Item Type *</Label>
                   <Select
                     value={formData.item_type}
                     onValueChange={(value) => setFormData({ ...formData, item_type: value })}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="bg-secondary-bg/90 border-accent-brown/60 text-text-primary focus:border-accent-primary shadow-sm">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="equipment">Equipment</SelectItem>
-                      <SelectItem value="costume">Costume</SelectItem>
-                      <SelectItem value="prop">Prop</SelectItem>
-                      <SelectItem value="art_production">Art Production</SelectItem>
-                      <SelectItem value="vehicle">Vehicle</SelectItem>
+                    <SelectContent className="bg-primary-bg/95 border-accent-brown/60 backdrop-blur-sm">
+                      <SelectItem value="equipment" className="text-text-primary hover:bg-secondary-bg/80">Equipment</SelectItem>
+                      <SelectItem value="costume" className="text-text-primary hover:bg-secondary-bg/80">Costume</SelectItem>
+                      <SelectItem value="prop" className="text-text-primary hover:bg-secondary-bg/80">Prop</SelectItem>
+                      <SelectItem value="art_production" className="text-text-primary hover:bg-secondary-bg/80">Art Production</SelectItem>
+                      <SelectItem value="vehicle" className="text-text-primary hover:bg-secondary-bg/80">Vehicle</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -476,10 +479,10 @@ export default function RentalsManager({ projectId }: { projectId: number }) {
               </div>
 
               <div className="flex justify-end gap-2">
-                <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
+                <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)} className="border-accent-brown/30 text-accent-secondary hover:bg-accent-brown/10">
                   Cancel
                 </Button>
-                <Button type="submit">Add Rental</Button>
+                <Button type="submit" className="bg-accent-primary hover:bg-accent-primary/80 text-primary-bg font-semibold">Add Rental</Button>
               </div>
             </form>
           </DialogContent>
@@ -487,7 +490,7 @@ export default function RentalsManager({ projectId }: { projectId: number }) {
       </div>
 
       {/* Filters */}
-      <Card>
+      <Card className="bg-gradient-to-r from-secondary-bg to-accent-brown/5 border-accent-brown/20 shadow-lg">
         <CardContent className="p-4">
           <div className="flex flex-wrap gap-4">
             <div>
@@ -526,6 +529,10 @@ export default function RentalsManager({ projectId }: { projectId: number }) {
               <Button
                 variant={showOverdueOnly ? 'default' : 'outline'}
                 onClick={() => setShowOverdueOnly(!showOverdueOnly)}
+                className={showOverdueOnly 
+                  ? "bg-accent-primary hover:bg-accent-primary/80 text-primary-bg" 
+                  : "border-accent-brown/30 text-accent-secondary hover:bg-accent-brown/10"
+                }
               >
                 <AlertTriangle className="h-4 w-4 mr-2" />
                 Show Overdue Only
@@ -538,23 +545,23 @@ export default function RentalsManager({ projectId }: { projectId: number }) {
       {/* Rentals List */}
       <div className="grid gap-4">
         {rentals.length === 0 ? (
-          <Card>
-            <CardContent className="p-8 text-center text-gray-500">
+          <Card className="bg-gradient-to-r from-secondary-bg to-accent-brown/5 border-accent-brown/20">
+            <CardContent className="p-8 text-center text-accent-secondary/70">
               No rental items found
             </CardContent>
           </Card>
         ) : (
           rentals.map((rental) => (
-            <Card key={rental.id} className={isOverdue(rental) ? 'border-red-300 bg-red-50' : ''}>
+            <Card key={rental.id} className={`bg-gradient-to-r from-secondary-bg to-accent-brown/5 border-accent-brown/20 shadow-lg hover:shadow-xl transition-all duration-300 ${isOverdue(rental) ? 'border-red-500/50 bg-gradient-to-r from-red-500/5 to-secondary-bg' : ''}`}>
               <CardContent className="p-6">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <Package className="h-5 w-5 text-gray-500" />
-                      <h3 className="text-lg font-semibold">{rental.item_name}</h3>
+                      <Package className="h-5 w-5 text-accent-primary" />
+                      <h3 className="text-lg font-semibold text-accent-secondary">{rental.item_name}</h3>
                       {getStatusBadge(rental.status)}
                       {isOverdue(rental) && (
-                        <Badge className="bg-red-100 text-red-800">
+                        <Badge className="bg-red-500/20 text-red-400 border-red-500/30">
                           <AlertTriangle className="h-3 w-3 mr-1" />
                           OVERDUE
                         </Badge>
@@ -562,26 +569,26 @@ export default function RentalsManager({ projectId }: { projectId: number }) {
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 text-sm">
                       <div>
-                        <p className="text-gray-600">Type</p>
-                        <p className="font-medium">{rental.item_type.replace('_', ' ')}</p>
+                        <p className="text-accent-secondary/70">Type</p>
+                        <p className="font-medium text-accent-secondary">{rental.item_type.replace('_', ' ')}</p>
                       </div>
                       <div>
-                        <p className="text-gray-600">Vendor</p>
-                        <p className="font-medium">{rental.vendor_name}</p>
+                        <p className="text-accent-secondary/70">Vendor</p>
+                        <p className="font-medium text-accent-secondary">{rental.vendor_name}</p>
                       </div>
                       <div>
-                        <p className="text-gray-600">Rental Period</p>
-                        <p className="font-medium">
+                        <p className="text-accent-secondary/70">Rental Period</p>
+                        <p className="font-medium text-accent-secondary">
                           {new Date(rental.rental_start_date).toLocaleDateString()} - {new Date(rental.rental_end_date).toLocaleDateString()}
                         </p>
                       </div>
                       <div>
-                        <p className="text-gray-600">Cost</p>
-                        <p className="font-medium">₹{rental.total_cost.toLocaleString()}</p>
+                        <p className="text-accent-secondary/70">Cost</p>
+                        <p className="font-medium text-accent-primary">₹{rental.total_cost.toLocaleString()}</p>
                       </div>
                     </div>
                     {rental.notes && (
-                      <p className="mt-3 text-sm text-gray-600">{rental.notes}</p>
+                      <p className="mt-3 text-sm text-accent-secondary/70">{rental.notes}</p>
                     )}
                   </div>
                   <div className="ml-4 flex gap-2">
@@ -589,6 +596,7 @@ export default function RentalsManager({ projectId }: { projectId: number }) {
                       <Button
                         size="sm"
                         onClick={() => openReturnDialog(rental)}
+                        className="bg-accent-primary hover:bg-accent-primary/80 text-primary-bg font-medium"
                       >
                         <CheckCircle className="h-4 w-4 mr-2" />
                         Mark Returned
@@ -598,6 +606,7 @@ export default function RentalsManager({ projectId }: { projectId: number }) {
                       size="sm"
                       variant="outline"
                       onClick={() => openEditDialog(rental)}
+                      className="border-accent-brown/30 text-accent-secondary hover:bg-accent-brown/10"
                     >
                       <Edit className="h-4 w-4 mr-2" />
                       Edit
@@ -606,6 +615,7 @@ export default function RentalsManager({ projectId }: { projectId: number }) {
                       size="sm"
                       variant="destructive"
                       onClick={() => deleteRental(rental.id)}
+                      className="bg-red-500/20 hover:bg-red-500/30 text-red-400 border-red-500/30"
                     >
                       <Trash2 className="h-4 w-4 mr-2" />
                       Delete
@@ -620,57 +630,58 @@ export default function RentalsManager({ projectId }: { projectId: number }) {
 
       {/* Return Dialog */}
       <Dialog open={isReturnDialogOpen} onOpenChange={setIsReturnDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Mark Item as Returned</DialogTitle>
+        <DialogContent className="bg-secondary-bg/95 border-2 border-accent-brown/70 shadow-2xl backdrop-blur-md">
+          <DialogHeader className="bg-primary-bg/90 -m-6 mb-4 p-6 rounded-t-lg border-b border-accent-brown/30">
+            <DialogTitle className="text-accent-secondary text-xl font-semibold">Mark Item as Returned</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div>
-              <p className="text-sm text-gray-600 mb-2">
-                Item: <strong>{selectedRental?.item_name}</strong>
+              <p className="text-sm text-accent-secondary/70 mb-2">
+                Item: <strong className="text-accent-secondary">{selectedRental?.item_name}</strong>
               </p>
-              <p className="text-sm text-gray-600">
-                Return Date: <strong>{new Date().toLocaleDateString()}</strong>
+              <p className="text-sm text-accent-secondary/70">
+                Return Date: <strong className="text-accent-primary">{new Date().toLocaleDateString()}</strong>
               </p>
             </div>
             <div>
-              <Label>Condition on Return *</Label>
+              <Label className="text-accent-secondary font-medium">Condition on Return *</Label>
               <Select
                 value={returnFormData.condition_on_return}
                 onValueChange={(value) => setReturnFormData({ ...returnFormData, condition_on_return: value })}
               >
-                <SelectTrigger>
+                <SelectTrigger className="bg-secondary-bg/90 border-accent-brown/40 text-text-primary focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/50">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="good">Good</SelectItem>
-                  <SelectItem value="fair">Fair</SelectItem>
-                  <SelectItem value="damaged">Damaged</SelectItem>
+                <SelectContent className="bg-secondary-bg/95 border-accent-brown/50 backdrop-blur-sm">
+                  <SelectItem value="good" className="text-text-primary hover:bg-accent-brown/20 focus:bg-accent-brown/20">Good</SelectItem>
+                  <SelectItem value="fair" className="text-text-primary hover:bg-accent-brown/20 focus:bg-accent-brown/20">Fair</SelectItem>
+                  <SelectItem value="damaged" className="text-text-primary hover:bg-accent-brown/20 focus:bg-accent-brown/20">Damaged</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div>
-              <Label>Return Notes</Label>
+              <Label className="text-accent-secondary font-medium">Return Notes</Label>
               <Textarea
                 value={returnFormData.notes}
                 onChange={(e) => setReturnFormData({ ...returnFormData, notes: e.target.value })}
                 placeholder="Any issues or notes about the return..."
                 rows={3}
+                className="bg-secondary-bg/90 border-accent-brown/40 text-text-primary placeholder:text-text-secondary/60 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/50 resize-none"
               />
             </div>
             {selectedRental && isOverdue(selectedRental) && (
-              <div className="bg-red-50 border border-red-200 rounded p-3">
-                <p className="text-sm text-red-800 font-medium">
+              <div className="bg-red-500/10 border border-red-500/30 rounded p-3">
+                <p className="text-sm text-red-400 font-medium">
                   ⚠️ This item is overdue. Penalty charges may apply.
                 </p>
               </div>
             )}
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsReturnDialogOpen(false)}>
+            <Button variant="outline" onClick={() => setIsReturnDialogOpen(false)} className="border-accent-brown/30 text-accent-secondary hover:bg-accent-brown/10">
               Cancel
             </Button>
-            <Button onClick={markAsReturned}>
+            <Button onClick={markAsReturned} className="bg-accent-primary hover:bg-accent-primary/80 text-primary-bg font-semibold">
               Confirm Return
             </Button>
           </DialogFooter>
@@ -679,53 +690,54 @@ export default function RentalsManager({ projectId }: { projectId: number }) {
 
       {/* Edit Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle>Edit Rental Item</DialogTitle>
+        <DialogContent className="max-w-2xl bg-secondary-bg/95 border-2 border-accent-brown/70 shadow-2xl backdrop-blur-md">
+          <DialogHeader className="bg-primary-bg/90 -m-6 mb-4 p-6 rounded-t-lg border-b border-accent-brown/30">
+            <DialogTitle className="text-accent-secondary text-xl font-semibold">Edit Rental Item</DialogTitle>
           </DialogHeader>
-          <form onSubmit={handleEdit} className="space-y-4">
+          <form onSubmit={handleEdit} className="space-y-6 bg-primary-bg/95 p-6 rounded-lg border border-accent-brown/30">
             <div>
-              <Label>Item Name *</Label>
+              <Label className="text-accent-secondary font-medium">Item Name *</Label>
               <Input
                 value={formData.item_name}
                 onChange={(e) => setFormData({ ...formData, item_name: e.target.value })}
                 required
+                className="bg-secondary-bg/90 border-accent-brown/40 text-text-primary placeholder:text-text-secondary/60 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/50"
               />
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label>Vendor Name</Label>
+                <Label className="text-accent-secondary font-medium">Vendor Name</Label>
                 <Input
                   value={formData.vendor_name}
                   onChange={(e) => setFormData({ ...formData, vendor_name: e.target.value })}
                   readOnly
-                  className="bg-gray-50"
+                  className="bg-secondary-bg/50 border-accent-brown/30 text-text-secondary cursor-not-allowed"
                 />
               </div>
               <div>
-                <Label>Daily Rate</Label>
+                <Label className="text-accent-secondary font-medium">Daily Rate</Label>
                 <Input
                   type="number"
                   value={formData.daily_rate}
                   onChange={(e) => setFormData({ ...formData, daily_rate: parseFloat(e.target.value) })}
-                  readOnly
-                  className="bg-gray-50"
+                  className="bg-secondary-bg/90 border-accent-brown/40 text-text-primary placeholder:text-text-secondary/60 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/50"
                 />
               </div>
             </div>
             <div>
-              <Label>Notes</Label>
+              <Label className="text-accent-secondary font-medium">Notes</Label>
               <Textarea
                 value={formData.notes}
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                 rows={3}
+                className="bg-secondary-bg/90 border-accent-brown/40 text-text-primary placeholder:text-text-secondary/60 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/50 resize-none"
               />
             </div>
             <DialogFooter>
-              <Button type="button" variant="outline" onClick={() => setIsEditDialogOpen(false)}>
+              <Button type="button" variant="outline" onClick={() => setIsEditDialogOpen(false)} className="border-accent-brown/30 text-accent-secondary hover:bg-accent-brown/10">
                 Cancel
               </Button>
-              <Button type="submit">Save Changes</Button>
+              <Button type="submit" className="bg-accent-primary hover:bg-accent-primary/80 text-primary-bg font-semibold">Save Changes</Button>
             </DialogFooter>
           </form>
         </DialogContent>

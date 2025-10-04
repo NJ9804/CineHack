@@ -78,24 +78,28 @@ export default function TransportationManager({ projectId }: { projectId: number
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Transportation & Fuel</h2>
-          <p className="text-gray-600">Track vehicles, fuel, and transportation costs</p>
+          <h2 className="text-2xl font-bold text-accent-secondary">🚐 Transportation & Fuel</h2>
+          <p className="text-text-secondary">Track vehicles, fuel, and transportation costs</p>
         </div>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button><Plus className="h-4 w-4 mr-2" />Add Record</Button>
+            <Button variant="outline" className="border-accent-primary text-accent-primary hover:bg-accent-primary hover:text-primary-bg transition-all duration-300">
+              <Plus className="h-4 w-4 mr-2" />🚐 Add Record
+            </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>Add Transportation Record</DialogTitle>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-secondary-bg/95 border-2 border-accent-brown/70 shadow-2xl backdrop-blur-md">
+            <DialogHeader className="bg-primary-bg/90 -m-6 mb-4 p-6 rounded-t-lg border-b border-accent-brown/30">
+              <DialogTitle className="text-accent-secondary text-xl font-semibold">🚐 Add Transportation Record</DialogTitle>
             </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-6 bg-primary-bg/95 p-6 rounded-lg border border-accent-brown/30">
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <Label>Vehicle Type *</Label>
+                  <Label className="text-accent-secondary font-medium">Vehicle Type *</Label>
                   <Select value={formData.vehicle_type} onValueChange={(value) => setFormData({ ...formData, vehicle_type: value })}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent>
+                    <SelectTrigger className="bg-secondary-bg/90 border-accent-brown/40 text-text-primary focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/50">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-secondary-bg/95 border-accent-brown/50 backdrop-blur-sm">
                       <SelectItem value="car">Car</SelectItem>
                       <SelectItem value="van">Van</SelectItem>
                       <SelectItem value="truck">Truck</SelectItem>
@@ -199,8 +203,12 @@ export default function TransportationManager({ projectId }: { projectId: number
                 </div>
               </div>
               <div className="flex justify-end gap-2">
-                <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
-                <Button type="submit">Add Record</Button>
+                <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)} className="border-accent-brown/30 text-text-secondary hover:bg-accent-brown/20">
+                  Cancel
+                </Button>
+                <Button type="submit" className="bg-accent-primary text-primary-bg hover:bg-accent-primary/90">
+                  🚐 Add Record
+                </Button>
               </div>
             </form>
           </DialogContent>
@@ -209,10 +217,12 @@ export default function TransportationManager({ projectId }: { projectId: number
 
       <div className="grid gap-4">
         {records.map((record) => (
-          <Card key={record.id}>
+          <Card key={record.id} className="bg-gradient-to-br from-secondary-bg to-accent-brown/10 border-accent-brown shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group">
             <CardContent className="p-6">
-              <div className="flex items-center gap-3 mb-2">
-                <Car className="h-5 w-5" />
+              <div className="flex items-center gap-3 mb-4">
+                <div className="p-2 bg-accent-primary/20 rounded-lg group-hover:bg-accent-primary/30 transition-colors">
+                  <Car className="h-5 w-5 text-accent-primary" />
+                </div>
                 <h3 className="text-lg font-semibold">{record.vehicle_type.toUpperCase()} - {record.vehicle_number || 'N/A'}</h3>
                 <Badge>{record.purpose.replace('_', ' ')}</Badge>
               </div>

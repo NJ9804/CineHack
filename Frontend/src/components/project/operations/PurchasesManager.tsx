@@ -72,25 +72,32 @@ export default function PurchasesManager({ projectId }: { projectId: number }) {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Purchase Tracking</h2>
-          <p className="text-gray-600">Track all production purchases and expenses</p>
+          <h2 className="text-2xl font-bold text-accent-secondary">🛒 Purchase Tracking</h2>
+          <p className="text-text-secondary">Track all production purchases and expenses</p>
         </div>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button><Plus className="h-4 w-4 mr-2" />Add Purchase</Button>
+            <Button variant="outline" className="border-accent-primary text-accent-primary hover:bg-accent-primary hover:text-primary-bg transition-all duration-300">
+              <Plus className="h-4 w-4 mr-2" />🛒 Add Purchase
+            </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>Record New Purchase</DialogTitle>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-secondary-bg/95 border-2 border-accent-brown/70 shadow-2xl backdrop-blur-md">
+            <DialogHeader className="bg-primary-bg/90 -m-6 mb-4 p-6 rounded-t-lg border-b border-accent-brown/30">
+              <DialogTitle className="text-accent-secondary text-xl font-semibold">🛒 Record New Purchase</DialogTitle>
             </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-6 bg-primary-bg/95 p-6 rounded-lg border border-accent-brown/30">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label>Item Name *</Label>
-                  <Input value={formData.item_name} onChange={(e) => setFormData({ ...formData, item_name: e.target.value })} required />
+                  <Label className="text-accent-secondary font-medium">Item Name *</Label>
+                  <Input 
+                    value={formData.item_name} 
+                    onChange={(e) => setFormData({ ...formData, item_name: e.target.value })} 
+                    required
+                    className="bg-secondary-bg/90 border-accent-brown/40 text-text-primary placeholder:text-text-secondary/60 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/50"
+                  />
                 </div>
                 <div>
-                  <Label>Category *</Label>
+                  <Label className="text-accent-secondary font-medium">Category *</Label>
                   <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
                     <SelectTrigger><SelectValue /></SelectTrigger>
                     <SelectContent>
@@ -151,8 +158,12 @@ export default function PurchasesManager({ projectId }: { projectId: number }) {
                 <Textarea value={formData.notes} onChange={(e) => setFormData({ ...formData, notes: e.target.value })} rows={3} />
               </div>
               <div className="flex justify-end gap-2">
-                <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
-                <Button type="submit">Record Purchase</Button>
+                <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)} className="border-accent-brown/30 text-text-secondary hover:bg-accent-brown/20">
+                  Cancel
+                </Button>
+                <Button type="submit" className="bg-accent-primary text-primary-bg hover:bg-accent-primary/90">
+                  🛒 Record Purchase
+                </Button>
               </div>
             </form>
           </DialogContent>
@@ -161,15 +172,24 @@ export default function PurchasesManager({ projectId }: { projectId: number }) {
 
       <div className="grid gap-4">
         {purchases.map((purchase) => (
-          <Card key={purchase.id}>
+          <Card key={purchase.id} className="bg-gradient-to-br from-secondary-bg to-accent-brown/10 border-accent-brown shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group">
             <CardContent className="p-6">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <ShoppingCart className="h-5 w-5" />
-                    <h3 className="text-lg font-semibold">{purchase.item_name}</h3>
-                    <Badge>{purchase.category}</Badge>
-                    <Badge variant={purchase.payment_status === 'paid' ? 'default' : 'secondary'}>{purchase.payment_status}</Badge>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-accent-primary/20 rounded-lg group-hover:bg-accent-primary/30 transition-colors">
+                      <ShoppingCart className="h-5 w-5 text-accent-primary" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-accent-secondary">🛒 {purchase.item_name}</h3>
+                    <Badge className="bg-accent-secondary/20 text-accent-secondary border-accent-secondary/30">
+                      {purchase.category}
+                    </Badge>
+                    <Badge className={`${
+                      purchase.payment_status === 'paid' ? 'bg-accent-primary/20 text-accent-primary border-accent-primary/30' :
+                      'bg-orange-500/20 text-orange-400 border-orange-500/30'
+                    }`}>
+                      {purchase.payment_status}
+                    </Badge>
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 text-sm">
                     <div>

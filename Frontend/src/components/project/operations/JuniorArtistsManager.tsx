@@ -116,26 +116,33 @@ export default function JuniorArtistsManager({ projectId }: { projectId: number 
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Junior Artists Management</h2>
-          <p className="text-gray-600">Manage extras and junior artists</p>
+          <h2 className="text-2xl font-bold text-accent-secondary">👥 Junior Artists Management</h2>
+          <p className="text-text-secondary">Manage extras and junior artists</p>
         </div>
         <div className="flex gap-2">
           <Dialog open={isArtistDialogOpen} onOpenChange={setIsArtistDialogOpen}>
             <DialogTrigger asChild>
-              <Button variant="outline"><Plus className="h-4 w-4 mr-2" />Add Artist</Button>
+              <Button variant="outline" className="border-accent-brown/30 text-accent-secondary hover:bg-accent-brown/20">
+                <Plus className="h-4 w-4 mr-2" />👥 Add Artist
+              </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl">
-              <DialogHeader>
-                <DialogTitle>Add Junior Artist</DialogTitle>
+            <DialogContent className="max-w-2xl bg-secondary-bg/95 border-2 border-accent-brown/70 shadow-2xl backdrop-blur-md">
+              <DialogHeader className="bg-primary-bg/90 -m-6 mb-4 p-6 rounded-t-lg border-b border-accent-brown/30">
+                <DialogTitle className="text-accent-secondary text-xl font-semibold">👥 Add Junior Artist</DialogTitle>
               </DialogHeader>
-              <form onSubmit={handleArtistSubmit} className="space-y-4">
+              <form onSubmit={handleArtistSubmit} className="space-y-6 bg-primary-bg/95 p-6 rounded-lg border border-accent-brown/30">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label>Name *</Label>
-                    <Input value={artistForm.name} onChange={(e) => setArtistForm({ ...artistForm, name: e.target.value })} required />
+                    <Label className="text-accent-secondary font-medium">Name *</Label>
+                    <Input 
+                      value={artistForm.name} 
+                      onChange={(e) => setArtistForm({ ...artistForm, name: e.target.value })} 
+                      required
+                      className="bg-secondary-bg/90 border-accent-brown/40 text-text-primary placeholder:text-text-secondary/60 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/50"
+                    />
                   </div>
                   <div>
-                    <Label>Contact</Label>
+                    <Label className="text-accent-secondary font-medium">Contact</Label>
                     <Input value={artistForm.contact_number} onChange={(e) => setArtistForm({ ...artistForm, contact_number: e.target.value })} />
                   </div>
                 </div>
@@ -174,20 +181,24 @@ export default function JuniorArtistsManager({ projectId }: { projectId: number 
 
           <Dialog open={isAttendanceDialogOpen} onOpenChange={setIsAttendanceDialogOpen}>
             <DialogTrigger asChild>
-              <Button><UserCheck className="h-4 w-4 mr-2" />Mark Attendance</Button>
+              <Button className="bg-accent-primary text-primary-bg hover:bg-accent-primary/90">
+                <UserCheck className="h-4 w-4 mr-2" />📋 Mark Attendance
+              </Button>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl">
-              <DialogHeader>
-                <DialogTitle>Mark Attendance</DialogTitle>
+            <DialogContent className="max-w-2xl bg-secondary-bg/95 border-2 border-accent-brown/70 shadow-2xl backdrop-blur-md">
+              <DialogHeader className="bg-primary-bg/90 -m-6 mb-4 p-6 rounded-t-lg border-b border-accent-brown/30">
+                <DialogTitle className="text-accent-secondary text-xl font-semibold">📋 Mark Attendance</DialogTitle>
               </DialogHeader>
-              <form onSubmit={handleAttendanceSubmit} className="space-y-4">
+              <form onSubmit={handleAttendanceSubmit} className="space-y-6 bg-primary-bg/95 p-6 rounded-lg border border-accent-brown/30">
                 <div>
-                  <Label>Select Artist *</Label>
+                  <Label className="text-accent-secondary font-medium">Select Artist *</Label>
                   <Select value={attendanceForm.junior_artist_id.toString()} onValueChange={(value) => setAttendanceForm({ ...attendanceForm, junior_artist_id: parseInt(value) })}>
-                    <SelectTrigger><SelectValue placeholder="Choose artist" /></SelectTrigger>
-                    <SelectContent>
+                    <SelectTrigger className="bg-secondary-bg/90 border-accent-brown/40 text-text-primary focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/50">
+                      <SelectValue placeholder="Choose artist" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-secondary-bg/95 border-accent-brown/50 backdrop-blur-sm">
                       {artists.map((artist) => (
-                        <SelectItem key={artist.id} value={artist.id.toString()}>{artist.name}</SelectItem>
+                        <SelectItem key={artist.id} value={artist.id.toString()} className="text-text-primary hover:bg-accent-brown/20 focus:bg-accent-brown/20">{artist.name}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -235,9 +246,9 @@ export default function JuniorArtistsManager({ projectId }: { projectId: number 
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        <Card>
+        <Card className="bg-gradient-to-br from-secondary-bg to-accent-brown/10 border-accent-brown shadow-lg">
           <CardContent className="p-6">
-            <h3 className="text-lg font-semibold mb-4">Registered Artists ({artists.length})</h3>
+            <h3 className="text-lg font-semibold mb-4 text-accent-secondary">👥 Registered Artists ({artists.length})</h3>
             <div className="space-y-3">
               {artists.map((artist) => (
                 <div key={artist.id} className="flex items-center justify-between p-3 bg-gray-50 rounded">
@@ -254,9 +265,9 @@ export default function JuniorArtistsManager({ projectId }: { projectId: number 
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-gradient-to-br from-secondary-bg to-accent-brown/10 border-accent-brown shadow-lg">
           <CardContent className="p-6">
-            <h3 className="text-lg font-semibold mb-4">Recent Attendance ({attendance.length})</h3>
+            <h3 className="text-lg font-semibold mb-4 text-accent-secondary">📋 Recent Attendance ({attendance.length})</h3>
             <div className="space-y-3">
               {attendance.slice(0, 10).map((record) => (
                 <div key={record.id} className="p-3 bg-gray-50 rounded">

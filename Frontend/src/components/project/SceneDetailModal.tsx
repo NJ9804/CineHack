@@ -56,32 +56,32 @@ export default function SceneDetailModal({ scene, alerts, children }: SceneDetai
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-secondary-bg border-accent-brown">
-        <DialogHeader>
-          <DialogTitle className="text-2xl text-accent-secondary flex items-center gap-2">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-secondary-bg/95 border-2 border-accent-brown/70 shadow-2xl backdrop-blur-md">
+        <DialogHeader className="bg-primary-bg/90 -m-6 mb-4 p-6 rounded-t-lg border-b border-accent-brown/30">
+          <DialogTitle className="text-2xl text-accent-secondary flex items-center gap-2 font-semibold">
             <span>Scene {scene.number}: {scene.name}</span>
             {sceneAlerts.length > 0 && (
-              <Badge className="bg-accent-brown text-accent-primary">
+              <Badge className="bg-accent-primary/20 text-accent-primary border border-accent-primary/40">
                 {sceneAlerts.length} Alert{sceneAlerts.length > 1 ? 's' : ''}
               </Badge>
             )}
           </DialogTitle>
         </DialogHeader>
 
-        <Tabs defaultValue="details" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-3 bg-primary-bg">
-            <TabsTrigger value="details" className="text-text-secondary data-[state=active]:text-accent-primary">Scene Details</TabsTrigger>
-            <TabsTrigger value="weather" className="text-text-secondary data-[state=active]:text-accent-primary">Weather & Alerts</TabsTrigger>
-            <TabsTrigger value="schedule" className="text-text-secondary data-[state=active]:text-accent-primary">Schedule & Edit</TabsTrigger>
+        <Tabs defaultValue="details" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-3 bg-primary-bg/95 border border-accent-brown/30 rounded-lg">
+            <TabsTrigger value="details" className="text-text-secondary data-[state=active]:text-accent-primary data-[state=active]:bg-secondary-bg/90">Scene Details</TabsTrigger>
+            <TabsTrigger value="weather" className="text-text-secondary data-[state=active]:text-accent-primary data-[state=active]:bg-secondary-bg/90">Weather & Alerts</TabsTrigger>
+            <TabsTrigger value="schedule" className="text-text-secondary data-[state=active]:text-accent-primary data-[state=active]:bg-secondary-bg/90">Schedule & Edit</TabsTrigger>
           </TabsList>
 
           <TabsContent value="details" className="space-y-4">
             {/* Detailed Description */}
-            <Card className="bg-primary-bg border-accent-brown">
-              <CardHeader>
-                <CardTitle className="text-accent-secondary">Scene Description</CardTitle>
+            <Card className="bg-primary-bg/95 border border-accent-brown/40 shadow-lg backdrop-blur-sm">
+              <CardHeader className="border-b border-accent-brown/20 bg-secondary-bg/50">
+                <CardTitle className="text-accent-secondary font-medium">Scene Description</CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <p className="text-text-primary leading-relaxed mb-4">
                   This scene takes place in {scene.location} during the morning hours. The lighting should be natural and soft, creating an intimate atmosphere. The characters engage in dialogue that drives the plot forward while revealing key character motivations. Special attention should be paid to the positioning of actors to ensure optimal camera angles for the emotional beats of the scene.
                 </p>
@@ -113,38 +113,38 @@ export default function SceneDetailModal({ scene, alerts, children }: SceneDetai
 
             {/* Properties & Equipment */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Card className="bg-primary-bg border-accent-brown">
-                <CardHeader>
-                  <CardTitle className="text-accent-secondary flex items-center gap-2">
+              <Card className="bg-primary-bg/95 border border-accent-brown/40 shadow-lg backdrop-blur-sm">
+                <CardHeader className="border-b border-accent-brown/20 bg-secondary-bg/50">
+                  <CardTitle className="text-accent-secondary flex items-center gap-2 font-medium">
                     <Package className="w-5 h-5" />
                     Props Required ({scene.properties.length})
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-4">
                   <div className="space-y-2">
                     {scene.properties.map((prop, index) => (
-                      <div key={index} className="flex items-center justify-between p-2 bg-secondary-bg rounded">
+                      <div key={index} className="flex items-center justify-between p-3 bg-secondary-bg/80 rounded-lg border border-accent-brown/20">
                         <span className="text-text-primary">{prop}</span>
-                        <Badge className="bg-accent-primary/20 text-accent-primary text-xs">Available</Badge>
+                        <Badge className="bg-accent-primary/20 text-accent-primary text-xs border border-accent-primary/40">Available</Badge>
                       </div>
                     ))}
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-primary-bg border-accent-brown">
-                <CardHeader>
-                  <CardTitle className="text-accent-secondary flex items-center gap-2">
+              <Card className="bg-primary-bg/95 border border-accent-brown/40 shadow-lg backdrop-blur-sm">
+                <CardHeader className="border-b border-accent-brown/20 bg-secondary-bg/50">
+                  <CardTitle className="text-accent-secondary flex items-center gap-2 font-medium">
                     <Camera className="w-5 h-5" />
                     Equipment ({scene.equipment.length})
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="p-4">
                   <div className="space-y-2">
                     {scene.equipment.map((equipment, index) => (
-                      <div key={index} className="flex items-center justify-between p-2 bg-secondary-bg rounded">
+                      <div key={index} className="flex items-center justify-between p-3 bg-secondary-bg/80 rounded-lg border border-accent-brown/20">
                         <span className="text-text-primary">{equipment}</span>
-                        <Badge className="bg-accent-secondary/20 text-accent-secondary text-xs">Reserved</Badge>
+                        <Badge className="bg-accent-secondary/20 text-accent-secondary text-xs border border-accent-secondary/40">Reserved</Badge>
                       </div>
                     ))}
                   </div>
@@ -153,20 +153,20 @@ export default function SceneDetailModal({ scene, alerts, children }: SceneDetai
             </div>
 
             {/* Crowd Requirements */}
-            <Card className="bg-primary-bg border-accent-brown">
-              <CardHeader>
-                <CardTitle className="text-accent-secondary flex items-center gap-2">
+            <Card className="bg-primary-bg/95 border border-accent-brown/40 shadow-lg backdrop-blur-sm">
+              <CardHeader className="border-b border-accent-brown/20 bg-secondary-bg/50">
+                <CardTitle className="text-accent-secondary flex items-center gap-2 font-medium">
                   <Users className="w-5 h-5" />
                   Characters & Crowd Requirements
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <h4 className="text-text-primary font-medium mb-3">Main Characters ({scene.characters.length})</h4>
                     <div className="space-y-2">
                       {scene.characters.map((character, index) => (
-                        <div key={index} className="flex items-center gap-2 p-2 bg-secondary-bg rounded">
+                        <div key={index} className="flex items-center gap-2 p-3 bg-secondary-bg/80 rounded-lg border border-accent-brown/20">
                           <UserCheck className="w-4 h-4 text-accent-primary" />
                           <span className="text-text-primary">{character}</span>
                         </div>
@@ -197,26 +197,26 @@ export default function SceneDetailModal({ scene, alerts, children }: SceneDetai
 
           <TabsContent value="weather" className="space-y-4">
             {/* Weather Forecast */}
-            <Card className="bg-primary-bg border-accent-brown">
-              <CardHeader>
-                <CardTitle className="text-accent-secondary flex items-center gap-2">
+            <Card className="bg-primary-bg/95 border border-accent-brown/40 shadow-lg backdrop-blur-sm">
+              <CardHeader className="border-b border-accent-brown/20 bg-secondary-bg/50">
+                <CardTitle className="text-accent-secondary flex items-center gap-2 font-medium">
                   <Cloud className="w-5 h-5" />
                   Weather Forecast & Conditions
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div className="text-center p-4 bg-secondary-bg rounded-lg">
+                  <div className="text-center p-4 bg-secondary-bg/80 rounded-lg border border-accent-brown/20">
                     <Sun className="w-8 h-8 text-accent-primary mx-auto mb-2" />
                     <div className="text-text-primary font-bold text-lg">28°C</div>
                     <div className="text-text-secondary text-sm">Sunny</div>
                   </div>
-                  <div className="text-center p-4 bg-secondary-bg rounded-lg">
+                  <div className="text-center p-4 bg-secondary-bg/80 rounded-lg border border-accent-brown/20">
                     <Cloud className="w-8 h-8 text-accent-secondary mx-auto mb-2" />
                     <div className="text-text-primary font-bold text-lg">15%</div>
                     <div className="text-text-secondary text-sm">Rain Chance</div>
                   </div>
-                  <div className="text-center p-4 bg-secondary-bg rounded-lg">
+                  <div className="text-center p-4 bg-secondary-bg/80 rounded-lg border border-accent-brown/20">
                     <div className="w-8 h-8 flex items-center justify-center text-accent-primary text-xl mx-auto mb-2">💨</div>
                     <div className="text-text-primary font-bold text-lg">12 km/h</div>
                     <div className="text-text-secondary text-sm">Wind Speed</div>
@@ -236,17 +236,17 @@ export default function SceneDetailModal({ scene, alerts, children }: SceneDetai
               <div className="space-y-3">
                 <h3 className="text-accent-secondary font-semibold text-lg">Active Alerts</h3>
                 {sceneAlerts.map((alert) => (
-                  <Card key={alert.id} className={`border-2 ${
-                    alert.severity === 'high' ? 'border-accent-brown bg-accent-brown/10' :
-                    alert.severity === 'medium' ? 'border-accent-secondary bg-accent-secondary/10' :
-                    'border-accent-brown bg-secondary-bg'
+                  <Card key={alert.id} className={`border-2 shadow-lg backdrop-blur-sm ${
+                    alert.severity === 'high' ? 'border-red-500/70 bg-red-500/10' :
+                    alert.severity === 'medium' ? 'border-accent-secondary/70 bg-accent-secondary/10' :
+                    'border-accent-brown/40 bg-secondary-bg/80'
                   }`}>
                     <CardContent className="p-4">
                       <div className="flex items-start gap-3">
                         <div className={`p-2 rounded-full ${
-                          alert.severity === 'high' ? 'bg-accent-brown' :
-                          alert.severity === 'medium' ? 'bg-accent-secondary' :
-                          'bg-accent-brown'
+                          alert.severity === 'high' ? 'bg-red-500/20 border border-red-500/40' :
+                          alert.severity === 'medium' ? 'bg-accent-secondary/20 border border-accent-secondary/40' :
+                          'bg-accent-primary/20 border border-accent-primary/40'
                         }`}>
                           {alert.type === 'weather' ? getWeatherIcon(alert) : <AlertTriangle className="w-4 h-4" />}
                         </div>
@@ -270,10 +270,10 @@ export default function SceneDetailModal({ scene, alerts, children }: SceneDetai
                 ))}
               </div>
             ) : (
-              <Card className="bg-primary-bg border-accent-brown">
+              <Card className="bg-primary-bg/95 border border-accent-brown/40 shadow-lg backdrop-blur-sm">
                 <CardContent className="p-8 text-center">
-                  <div className="w-12 h-12 bg-accent-primary/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <AlertTriangle className="w-6 h-6 text-accent-primary" />
+                  <div className="w-12 h-12 bg-accent-primary/20 rounded-full flex items-center justify-center mx-auto mb-3 border border-accent-primary/40">
+                    <CheckCircle className="w-6 h-6 text-accent-primary" />
                   </div>
                   <h3 className="text-lg font-medium text-accent-secondary mb-2">No Active Alerts</h3>
                   <p className="text-text-secondary">This scene has no weather warnings or production alerts.</p>
@@ -284,14 +284,14 @@ export default function SceneDetailModal({ scene, alerts, children }: SceneDetai
 
           <TabsContent value="schedule" className="space-y-4">
             {/* Schedule Information */}
-            <Card className="bg-primary-bg border-accent-brown">
-              <CardHeader>
-                <CardTitle className="text-accent-secondary flex items-center gap-2">
+            <Card className="bg-primary-bg/95 border border-accent-brown/40 shadow-lg backdrop-blur-sm">
+              <CardHeader className="border-b border-accent-brown/20 bg-secondary-bg/50">
+                <CardTitle className="text-accent-secondary flex items-center gap-2 font-medium">
                   <Calendar className="w-5 h-5" />
                   Schedule Information
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 p-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
                     <label className="text-text-secondary text-sm block mb-1">Scheduled Date</label>
@@ -322,14 +322,14 @@ export default function SceneDetailModal({ scene, alerts, children }: SceneDetai
             </Card>
 
             {/* Budget Information */}
-            <Card className="bg-primary-bg border-accent-brown">
-              <CardHeader>
-                <CardTitle className="text-accent-secondary flex items-center gap-2">
+            <Card className="bg-primary-bg/95 border border-accent-brown/40 shadow-lg backdrop-blur-sm">
+              <CardHeader className="border-b border-accent-brown/20 bg-secondary-bg/50">
+                <CardTitle className="text-accent-secondary flex items-center gap-2 font-medium">
                   <div className="w-5 h-5 flex items-center justify-center text-accent-primary">₹</div>
                   Budget Breakdown
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="p-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-3">
                     <div className="flex justify-between">
@@ -344,7 +344,7 @@ export default function SceneDetailModal({ scene, alerts, children }: SceneDetai
                       <span className="text-text-secondary">Location & Props:</span>
                       <span className="text-text-primary font-medium">₹{((scene.estimatedBudget * 0.15) / 100000).toFixed(1)}L</span>
                     </div>
-                    <div className="flex justify-between border-t border-accent-brown pt-2">
+                    <div className="flex justify-between border-t border-accent-brown/30 pt-3 mt-3">
                       <span className="text-accent-secondary font-semibold">Total Budget:</span>
                       <span className="text-accent-primary font-bold">₹{(scene.estimatedBudget / 100000).toFixed(1)}L</span>
                     </div>
@@ -363,14 +363,14 @@ export default function SceneDetailModal({ scene, alerts, children }: SceneDetai
             </Card>
 
             {/* Edit Options */}
-            <Card className="bg-primary-bg border-accent-brown">
-              <CardHeader>
-                <CardTitle className="text-accent-secondary flex items-center gap-2">
+            <Card className="bg-primary-bg/95 border border-accent-brown/40 shadow-lg backdrop-blur-sm">
+              <CardHeader className="border-b border-accent-brown/20 bg-secondary-bg/50">
+                <CardTitle className="text-accent-secondary flex items-center gap-2 font-medium">
                   <Edit className="w-5 h-5" />
                   Edit Scene Options
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 p-6">
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                   <Button variant="outline" size="sm">
                     <Edit className="w-3 h-3 mr-2" />

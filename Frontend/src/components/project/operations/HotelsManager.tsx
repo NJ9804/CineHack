@@ -120,79 +120,86 @@ export default function HotelsManager({ projectId }: { projectId: number }) {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Hotel Management</h2>
-          <p className="text-gray-600">Manage accommodations for cast and crew</p>
+          <h2 className="text-2xl font-bold text-accent-secondary">🏨 Hotel Management</h2>
+          <p className="text-text-secondary">Manage accommodations for cast and crew</p>
         </div>
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button>
+            <Button variant="outline" className="border-accent-primary text-accent-primary hover:bg-accent-primary hover:text-primary-bg transition-all duration-300">
               <Plus className="h-4 w-4 mr-2" />
-              New Booking
+              🏨 New Booking
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
-              <DialogTitle>Create Hotel Booking</DialogTitle>
+          <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-secondary-bg/95 border-2 border-accent-brown/70 shadow-2xl backdrop-blur-md">
+            <DialogHeader className="bg-primary-bg/90 -m-6 mb-4 p-6 rounded-t-lg border-b border-accent-brown/30">
+              <DialogTitle className="text-accent-secondary text-xl font-semibold">🏨 Create Hotel Booking</DialogTitle>
             </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-6 bg-primary-bg/95 p-6 rounded-lg border border-accent-brown/30">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label>Hotel Name *</Label>
+                  <Label className="text-accent-secondary font-medium">Hotel Name *</Label>
                   <Input
                     value={formData.hotel_name}
                     onChange={(e) => setFormData({ ...formData, hotel_name: e.target.value })}
                     required
+                    className="bg-secondary-bg/90 border-accent-brown/40 text-text-primary placeholder:text-text-secondary/60 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/50"
                   />
                 </div>
                 <div>
-                  <Label>Hotel Contact</Label>
+                  <Label className="text-accent-secondary font-medium">Hotel Contact</Label>
                   <Input
                     value={formData.hotel_contact}
                     onChange={(e) => setFormData({ ...formData, hotel_contact: e.target.value })}
+                    className="bg-secondary-bg/90 border-accent-brown/40 text-text-primary placeholder:text-text-secondary/60 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/50"
                   />
                 </div>
               </div>
               <div>
-                <Label>Hotel Address</Label>
+                <Label className="text-accent-secondary font-medium">Hotel Address</Label>
                 <Textarea
                   value={formData.hotel_address}
                   onChange={(e) => setFormData({ ...formData, hotel_address: e.target.value })}
                   rows={2}
+                  className="bg-secondary-bg/90 border-accent-brown/40 text-text-primary placeholder:text-text-secondary/60 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/50 resize-none"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label>Guest Name *</Label>
+                  <Label className="text-accent-secondary font-medium">Guest Name *</Label>
                   <Input
                     value={formData.guest_name}
                     onChange={(e) => setFormData({ ...formData, guest_name: e.target.value })}
                     required
+                    className="bg-secondary-bg/90 border-accent-brown/40 text-text-primary placeholder:text-text-secondary/60 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/50"
                   />
                 </div>
                 <div>
-                  <Label>Guest Role</Label>
+                  <Label className="text-accent-secondary font-medium">Guest Role</Label>
                   <Input
                     value={formData.guest_role}
                     onChange={(e) => setFormData({ ...formData, guest_role: e.target.value })}
                     placeholder="e.g., Actor, Director"
+                    className="bg-secondary-bg/90 border-accent-brown/40 text-text-primary placeholder:text-text-secondary/60 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/50"
                   />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Label>Check-in Date *</Label>
+                  <Label className="text-accent-secondary font-medium">Check-in Date *</Label>
                   <Input
                     type="datetime-local"
                     value={formData.check_in_date}
                     onChange={(e) => setFormData({ ...formData, check_in_date: e.target.value })}
                     required
+                    className="bg-secondary-bg/90 border-accent-brown/40 text-text-primary focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/50"
                   />
                 </div>
                 <div>
-                  <Label>Check-out Date *</Label>
+                  <Label className="text-accent-secondary font-medium">Check-out Date *</Label>
                   <Input
                     type="datetime-local"
                     value={formData.check_out_date}
+                    className="bg-secondary-bg/90 border-accent-brown/40 text-text-primary focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/50"
                     onChange={(e) => setFormData({ ...formData, check_out_date: e.target.value })}
                     required
                   />
@@ -226,10 +233,12 @@ export default function HotelsManager({ projectId }: { projectId: number }) {
                 </div>
               </div>
               <div className="flex justify-end gap-2">
-                <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)}>
+                <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)} className="border-accent-brown/30 text-text-secondary hover:bg-accent-brown/20">
                   Cancel
                 </Button>
-                <Button type="submit">Create Booking</Button>
+                <Button type="submit" className="bg-accent-primary text-primary-bg hover:bg-accent-primary/90">
+                  🏨 Create Booking
+                </Button>
               </div>
             </form>
           </DialogContent>
@@ -238,7 +247,7 @@ export default function HotelsManager({ projectId }: { projectId: number }) {
 
       <div className="grid gap-4">
         {bookings.map((booking) => (
-          <Card key={booking.id}>
+          <Card key={booking.id} className="bg-gradient-to-br from-secondary-bg to-accent-brown/10 border-accent-brown shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group">
             <CardContent className="p-6">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
