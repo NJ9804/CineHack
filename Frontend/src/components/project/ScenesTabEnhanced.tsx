@@ -145,81 +145,86 @@ export default function ScenesTab({ projectId, scenes: passedScenes }: ScenesTab
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="text-gray-400">Loading scenes...</div>
+        <div className="text-accent-primary font-medium flex items-center">
+          <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-accent-primary mr-3"></div>
+          🎬 Loading scenes...
+        </div>
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
-      {/* Header Actions */}
+      {/* Enhanced Header Actions */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-white">Scenes</h2>
-          <p className="text-gray-400 text-sm mt-1">
-            {scenes.length} scenes extracted from script
+          <h2 className="text-3xl font-bold text-accent-secondary flex items-center">
+            🎬 Scenes
+          </h2>
+          <p className="text-text-secondary text-sm mt-1 flex items-center">
+            📊 {scenes.length} scenes extracted from script
             {filteredScenes.length !== scenes.length && ` • ${filteredScenes.length} matching filters`}
           </p>
-          <p className="text-gray-500 text-xs mt-1">
-            API: /api/scenes/projects/{projectId}/scenes
+          <p className="text-accent-brown text-xs mt-1">
+            🔗 API: /api/scenes/projects/{projectId}/scenes
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-3">
           <Button 
             variant="outline"
             size="sm"
             onClick={loadScenes}
             disabled={loading}
-            className="text-gray-300"
+            className="border-accent-brown text-accent-secondary hover:bg-accent-brown/20 transition-colors"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
-            Refresh
+            🔄 Refresh
           </Button>
           <Button 
             onClick={() => setUploadModalOpen(true)}
-            className="bg-blue-600 hover:bg-blue-700"
+            className="bg-accent-primary text-primary-bg hover:bg-accent-primary/80 font-medium transition-colors"
           >
             <Upload className="w-4 h-4 mr-2" />
-            Upload Script
+            📤 Upload Script
           </Button>
         </div>
       </div>
 
-      {/* Search and Filters */}
+      {/* Enhanced Search and Filters */}
       {scenes.length > 0 && (
-        <Card className="bg-gray-900/30 border-gray-700">
+        <Card className="bg-gradient-to-r from-secondary-bg/80 to-primary-bg/60 border-accent-brown shadow-lg">
           <CardContent className="p-4">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-accent-primary w-4 h-4" />
                 <Input
-                  placeholder="Search scenes, locations, actors..."
+                  placeholder="🔍 Search scenes, locations, actors..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 bg-gray-800 border-gray-600 text-white"
+                  className="pl-10 bg-secondary-bg/50 border-accent-brown/30 text-accent-secondary focus:border-accent-primary transition-colors"
                 />
               </div>
-              <div className="flex gap-2">
+              <div className="flex gap-3">
                 <Select value={locationFilter} onValueChange={setLocationFilter}>
-                  <SelectTrigger className="w-32 bg-gray-800 border-gray-600 text-white">
-                    <SelectValue placeholder="Location" />
+                  <SelectTrigger className="w-40 bg-secondary-bg/50 border-accent-brown/30 text-accent-secondary focus:border-accent-primary">
+                    <SelectValue placeholder="📍 Location" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Locations</SelectItem>
-                    <SelectItem value="indoor">Indoor</SelectItem>
-                    <SelectItem value="outdoor">Outdoor</SelectItem>
+                  <SelectContent className="bg-primary-bg border-accent-brown">
+                    <SelectItem value="all">🌐 All Locations</SelectItem>
+                    <SelectItem value="indoor">🏠 Indoor</SelectItem>
+                    <SelectItem value="outdoor">🌅 Outdoor</SelectItem>
                   </SelectContent>
                 </Select>
                 <Select value={timeFilter} onValueChange={setTimeFilter}>
-                  <SelectTrigger className="w-28 bg-gray-800 border-gray-600 text-white">
-                    <SelectValue placeholder="Time" />
+                  <SelectTrigger className="w-32 bg-secondary-bg/50 border-accent-brown/30 text-accent-secondary focus:border-accent-primary">
+                    <SelectValue placeholder="🕐 Time" />
                   </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Times</SelectItem>
-                    <SelectItem value="day">Day</SelectItem>
-                    <SelectItem value="night">Night</SelectItem>
-                    <SelectItem value="morning">Morning</SelectItem>
-                    <SelectItem value="evening">Evening</SelectItem>
+                  <SelectContent className="bg-primary-bg border-accent-brown">
+                    <SelectItem value="all">🌍 All Times</SelectItem>
+                    <SelectItem value="day">☀️ Day</SelectItem>
+                    <SelectItem value="night">🌙 Night</SelectItem>
+                    <SelectItem value="morning">🌅 Morning</SelectItem>
+                    <SelectItem value="evening">🌇 Evening</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -228,73 +233,75 @@ export default function ScenesTab({ projectId, scenes: passedScenes }: ScenesTab
         </Card>
       )}
 
-      {/* Scenes Overview */}
+      {/* Enhanced Scenes Overview */}
       {scenes.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card className="bg-gradient-to-br from-blue-500/10 to-cyan-600/10 border-blue-500/20">
+          <Card className="bg-gradient-to-br from-accent-primary/20 to-accent-secondary/10 border-accent-primary/30 hover:shadow-lg hover:shadow-accent-primary/20 transition-all duration-300">
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-white">{filteredScenes.length}</div>
-              <div className="text-sm text-gray-400">
+              <div className="text-3xl font-bold text-accent-primary flex items-center">
+                🎬 {filteredScenes.length}
+              </div>
+              <div className="text-sm text-text-secondary">
                 {filteredScenes.length === scenes.length ? 'Total Scenes' : 'Filtered Scenes'}
               </div>
             </CardContent>
           </Card>
-          <Card className="bg-gradient-to-br from-purple-500/10 to-pink-600/10 border-purple-500/20">
+          <Card className="bg-gradient-to-br from-accent-secondary/20 to-accent-brown/10 border-accent-secondary/30 hover:shadow-lg hover:shadow-accent-secondary/20 transition-all duration-300">
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-white">
-                {filteredScenes.filter(s => s.location_type === 'indoor' || s.interior).length}
+              <div className="text-3xl font-bold text-accent-secondary flex items-center">
+                🏠 {filteredScenes.filter(s => s.location_type === 'indoor' || s.interior).length}
               </div>
-              <div className="text-sm text-gray-400">Interior</div>
+              <div className="text-sm text-text-secondary">Interior Scenes</div>
             </CardContent>
           </Card>
-          <Card className="bg-gradient-to-br from-green-500/10 to-emerald-600/10 border-green-500/20">
+          <Card className="bg-gradient-to-br from-accent-brown/20 to-accent-primary/10 border-accent-brown/30 hover:shadow-lg hover:shadow-accent-brown/20 transition-all duration-300">
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-white">
-                {filteredScenes.filter(s => s.location_type === 'outdoor' || (!s.interior && s.interior !== undefined)).length}
+              <div className="text-3xl font-bold text-accent-brown flex items-center">
+                🌅 {filteredScenes.filter(s => s.location_type === 'outdoor' || (!s.interior && s.interior !== undefined)).length}
               </div>
-              <div className="text-sm text-gray-400">Exterior</div>
+              <div className="text-sm text-text-secondary">Exterior Scenes</div>
             </CardContent>
           </Card>
-          <Card className="bg-gradient-to-br from-yellow-500/10 to-amber-600/10 border-yellow-500/20">
+          <Card className="bg-gradient-to-br from-accent-primary/15 to-accent-secondary/15 border-accent-primary/20 hover:shadow-lg hover:shadow-accent-primary/20 transition-all duration-300">
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-white">
-                {filteredScenes.filter(s => s.technical_notes || (s.actors_data && s.actors_data.some((a: any) => a.vfx))).length}
+              <div className="text-3xl font-bold text-accent-primary flex items-center">
+                ✨ {filteredScenes.filter(s => s.technical_notes || (s.actors_data && s.actors_data.some((a: any) => a.vfx))).length}
               </div>
-              <div className="text-sm text-gray-400">Special Scenes</div>
+              <div className="text-sm text-text-secondary">Special Scenes</div>
             </CardContent>
           </Card>
         </div>
       )}
 
-      {/* Empty State */}
+      {/* Enhanced Empty State */}
       {scenes.length === 0 && !loading && (
-        <Card className="bg-gray-900/30 border-dashed border-gray-600">
+        <Card className="bg-gradient-to-br from-secondary-bg/50 to-primary-bg/30 border-dashed border-accent-brown/50 shadow-lg">
           <CardContent className="p-12 text-center">
-            <FileText className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-white mb-2">No Scenes Yet</h3>
-            <p className="text-gray-400 mb-6 max-w-md mx-auto">
-              Upload your film script PDF and our AI will automatically extract scenes,
-              characters, props, locations, and more.
+            <div className="text-8xl mb-6">🎬</div>
+            <h3 className="text-2xl font-bold text-accent-secondary mb-3">No Scenes Yet</h3>
+            <p className="text-text-secondary mb-8 max-w-md mx-auto leading-relaxed">
+              📄 Upload your film script PDF and our AI will automatically extract scenes,
+              characters, props, locations, and more to kickstart your production planning.
             </p>
             <Button 
               onClick={() => setUploadModalOpen(true)}
-              className="bg-blue-600 hover:bg-blue-700"
+              className="bg-accent-primary text-primary-bg hover:bg-accent-primary/80 font-medium px-8 py-3 text-lg transition-colors"
             >
-              <Upload className="w-4 h-4 mr-2" />
-              Upload Script PDF
+              <Upload className="w-5 h-5 mr-3" />
+              📤 Upload Script PDF
             </Button>
           </CardContent>
         </Card>
       )}
 
-      {/* No Results State */}
+      {/* Enhanced No Results State */}
       {scenes.length > 0 && filteredScenes.length === 0 && !loading && (
-        <Card className="bg-gray-900/30 border-gray-600">
+        <Card className="bg-gradient-to-br from-secondary-bg/50 to-primary-bg/30 border-accent-brown/50 shadow-lg">
           <CardContent className="p-8 text-center">
-            <Search className="w-12 h-12 text-gray-600 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold text-white mb-2">No Scenes Match Your Filters</h3>
-            <p className="text-gray-400 mb-4">
-              Try adjusting your search terms or filters to find what you're looking for.
+            <div className="text-6xl mb-4">🔍</div>
+            <h3 className="text-xl font-bold text-accent-secondary mb-3">No Scenes Match Your Filters</h3>
+            <p className="text-text-secondary mb-6 max-w-md mx-auto">
+              🎯 Try adjusting your search terms or filters to find what you're looking for.
             </p>
             <Button 
               variant="outline"
@@ -303,295 +310,135 @@ export default function ScenesTab({ projectId, scenes: passedScenes }: ScenesTab
                 setLocationFilter('all');
                 setTimeFilter('all');
               }}
+              className="border-accent-primary text-accent-primary hover:bg-accent-primary hover:text-primary-bg font-medium transition-colors"
             >
-              Clear All Filters
+              🗑️ Clear All Filters
             </Button>
           </CardContent>
         </Card>
       )}
 
-      {/* Scenes Grid */}
+      {/* Simplified Scenes Grid */}
       {filteredScenes.length > 0 && (
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
           {filteredScenes.map((scene) => (
             <Card 
               key={scene.id} 
-              className="bg-gray-900/50 border-gray-700 hover:border-blue-500/50 transition-all hover:shadow-lg hover:shadow-blue-500/10"
+              className="bg-gradient-to-br from-secondary-bg/80 to-primary-bg/60 border-accent-brown shadow-lg hover:border-accent-primary/50 transition-all hover:shadow-xl hover:shadow-accent-primary/20 transform hover:-translate-y-1"
             >
-              <CardHeader className="pb-3">
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Badge variant="outline" className="text-blue-400 border-blue-500/50 font-mono text-xs">
-                        {scene.scene_number || `Scene ${scene.seq || scene.id}`}
-                      </Badge>
-                      <Badge className={getTimeOfDayColor(scene.time_of_day || 'day')}>
-                        {(scene.time_of_day || 'DAY').toUpperCase()}
-                      </Badge>
-                      {scene.location_type && (
-                        <Badge variant="secondary" className="text-xs">
-                          {scene.location_type.toUpperCase()}
-                        </Badge>
-                      )}
-                    </div>
-                    <CardTitle className="text-white text-base font-semibold leading-tight">
-                      {scene.scene_heading || 
-                       `${(scene.location_type === 'indoor' || scene.interior) ? 'INT.' : 'EXT.'} ${scene.location_name || scene.location || 'Unknown Location'}`}
-                    </CardTitle>
-                  </div>
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="text-gray-400 hover:text-blue-400 p-1"
-                    onClick={() => handleSceneEdit(scene)}
-                  >
-                    <Edit className="w-4 h-4" />
-                  </Button>
+              <CardHeader className="pb-4">
+                {/* Scene Header */}
+                <div className="flex items-center justify-between mb-3">
+                  <Badge variant="outline" className="text-accent-primary border-accent-primary/50 font-mono text-sm bg-accent-primary/10">
+                    🎬 {scene.scene_number || `Scene ${scene.seq || scene.id}`}
+                  </Badge>
+                  <Badge className={`${getTimeOfDayColor(scene.time_of_day || 'day')} font-medium`}>
+                    {scene.time_of_day === 'day' ? '☀️' : 
+                     scene.time_of_day === 'night' ? '🌙' : 
+                     scene.time_of_day === 'morning' ? '🌅' : 
+                     scene.time_of_day === 'evening' ? '🌇' : '🕐'} {(scene.time_of_day || 'DAY').toUpperCase()}
+                  </Badge>
                 </div>
-                
-                {/* Location Details */}
-                {scene.location_name && (
-                  <div className="flex items-center gap-2 text-sm text-gray-300 mb-2">
-                    <MapPin className="w-4 h-4 text-amber-400" />
-                    <span>{scene.location_name}</span>
-                    {scene.location_data?.specific_details && (
-                      <span className="text-gray-500">• {scene.location_data.specific_details}</span>
-                    )}
-                  </div>
-                )}
 
-                {/* Time & Duration */}
-                <div className="flex items-center gap-4 text-xs text-gray-400">
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
-                    <span>{scene.estimated_duration || 'Unknown duration'}</span>
-                  </div>
-                  {scene.time_data?.specific_time && (
-                    <span>{scene.time_data.specific_time}</span>
-                  )}
-                  {scene.time_data?.weather && (
-                    <span>• {scene.time_data.weather}</span>
+                {/* Location */}
+                <div className="flex items-center gap-2 mb-3">
+                  <MapPin className="w-4 h-4 text-accent-primary" />
+                  <span className="text-accent-secondary font-semibold">
+                    📍 {scene.location_name || scene.location || 'Unknown Location'}
+                  </span>
+                  {scene.location_type && (
+                    <Badge variant="secondary" className="text-xs bg-accent-brown/20 text-accent-brown border-accent-brown/30">
+                      {scene.location_type === 'indoor' ? '🏠' : '🌅'} {scene.location_type.toUpperCase()}
+                    </Badge>
                   )}
                 </div>
-              </CardHeader>
-              
-              <CardContent className="space-y-4">
-                {/* Scene Description/Notes */}
+
+                {/* Scene Description */}
+                <CardTitle className="text-accent-secondary text-base font-bold leading-tight mb-3">
+                  {scene.scene_heading || 
+                   `${(scene.location_type === 'indoor' || scene.interior) ? 'INT.' : 'EXT.'} ${scene.location_name || scene.location || 'Unknown Location'}`}
+                </CardTitle>
+
+                {/* Scene Notes (if available) */}
                 {(scene.technical_notes || scene.notes) && (
-                  <div className="bg-gray-800/30 p-3 rounded border-l-2 border-blue-500">
-                    <div className="text-xs font-medium text-blue-400 mb-1">Scene Notes</div>
-                    <div className="text-xs text-gray-300 leading-relaxed">
+                  <div className="bg-secondary-bg/50 p-3 rounded-lg border-l-4 border-accent-primary mb-3">
+                    <div className="text-xs font-semibold text-accent-primary mb-1">📝 Scene Notes</div>
+                    <div className="text-xs text-accent-secondary leading-relaxed line-clamp-3">
                       {scene.technical_notes || scene.notes}
                     </div>
                   </div>
                 )}
 
-                {/* Cast Section - Enhanced */}
-                {scene.actors_data && scene.actors_data.length > 0 && (
-                  <div>
-                    <div className="flex items-center gap-2 mb-3">
-                      <Users className="w-4 h-4 text-purple-400" />
-                      <span className="text-sm font-medium text-purple-400">Cast ({scene.actors_data.length})</span>
-                    </div>
-                    <div className="space-y-2">
-                      {scene.actors_data.slice(0, 6).map((actor: any, idx: number) => (
-                        <div key={idx} className="flex items-start justify-between p-2 bg-gray-800/40 rounded">
-                          <div className="flex-1">
-                            <div className="text-sm font-medium text-white">
-                              {typeof actor === 'string' ? actor : actor.name || 'Unknown Actor'}
-                            </div>
-                            {typeof actor === 'object' && actor.description && (
-                              <div className="text-xs text-gray-400 mt-1">
-                                {actor.description}
-                              </div>
-                            )}
-                          </div>
-                          {typeof actor === 'object' && actor.role && (
-                            <Badge variant="outline" className="text-xs ml-2">
-                              {actor.role}
-                            </Badge>
-                          )}
-                        </div>
-                      ))}
-                      {scene.actors_data.length > 6 && (
-                        <div className="text-xs text-gray-500 text-center py-1">
-                          +{scene.actors_data.length - 6} more actors
-                        </div>
-                      )}
-                    </div>
+                {/* Quick Info */}
+                <div className="flex items-center gap-4 text-xs text-text-secondary mb-4">
+                  <div className="flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-accent-secondary" />
+                    <span>⏱️ {scene.estimated_duration || 'TBD'}</span>
                   </div>
-                )}
-
-                {/* Props Section - Enhanced */}
-                {scene.props_data && scene.props_data.length > 0 && (
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-4 h-4 text-green-400">📦</div>
-                      <span className="text-sm font-medium text-green-400">Props ({scene.props_data.length})</span>
+                  {scene.actors_data && scene.actors_data.length > 0 && (
+                    <div className="flex items-center gap-1">
+                      <Users className="w-3 h-3 text-accent-primary" />
+                      <span>🎭 {scene.actors_data.length} actors</span>
                     </div>
-                    <div className="grid grid-cols-2 gap-1">
-                      {scene.props_data.slice(0, 8).map((prop: any, idx: number) => (
-                        <Badge key={idx} variant="secondary" className="text-xs justify-start">
-                          {typeof prop === 'string' ? prop : prop.name || prop}
-                        </Badge>
-                      ))}
-                      {scene.props_data.length > 8 && (
-                        <Badge variant="secondary" className="text-xs col-span-2 justify-center">
-                          +{scene.props_data.length - 8} more props
-                        </Badge>
-                      )}
+                  )}
+                  {scene.estimated_cost && scene.estimated_cost > 0 && (
+                    <div className="flex items-center gap-1">
+                      <span>💰 ₹{(scene.estimated_cost / 100000).toFixed(1)}L</span>
                     </div>
-                  </div>
-                )}
-
-                {/* Location Details - Enhanced */}
-                {scene.location_data && Object.keys(scene.location_data).length > 0 && (
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <MapPin className="w-4 h-4 text-amber-400" />
-                      <span className="text-sm font-medium text-amber-400">Location Details</span>
-                    </div>
-                    <div className="bg-gray-800/40 p-2 rounded space-y-1">
-                      {scene.location_data.name && (
-                        <div className="text-xs">
-                          <span className="text-gray-400">Name:</span>
-                          <span className="text-white ml-2">{scene.location_data.name}</span>
-                        </div>
-                      )}
-                      {scene.location_data.type && (
-                        <div className="text-xs">
-                          <span className="text-gray-400">Type:</span>
-                          <span className="text-white ml-2">{scene.location_data.type}</span>
-                        </div>
-                      )}
-                      {scene.location_data.specific_details && (
-                        <div className="text-xs">
-                          <span className="text-gray-400">Details:</span>
-                          <span className="text-white ml-2">{scene.location_data.specific_details}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                {/* Time & Weather Details */}
-                {scene.time_data && Object.keys(scene.time_data).length > 0 && (
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <Clock className="w-4 h-4 text-blue-400" />
-                      <span className="text-sm font-medium text-blue-400">Time & Weather</span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 text-xs">
-                      {scene.time_data.time_of_day && (
-                        <div className="bg-gray-800/40 p-2 rounded">
-                          <div className="text-gray-400">Time of Day</div>
-                          <div className="text-white font-medium">{scene.time_data.time_of_day}</div>
-                        </div>
-                      )}
-                      {scene.time_data.specific_time && (
-                        <div className="bg-gray-800/40 p-2 rounded">
-                          <div className="text-gray-400">Specific Time</div>
-                          <div className="text-white font-medium">{scene.time_data.specific_time}</div>
-                        </div>
-                      )}
-                      {scene.time_data.weather && (
-                        <div className="bg-gray-800/40 p-2 rounded col-span-2">
-                          <div className="text-gray-400">Weather</div>
-                          <div className="text-white font-medium">{scene.time_data.weather}</div>
-                        </div>
-                      )}
-                      {scene.time_data.season && (
-                        <div className="bg-gray-800/40 p-2 rounded col-span-2">
-                          <div className="text-gray-400">Season</div>
-                          <div className="text-white font-medium">{scene.time_data.season}</div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                {/* Crowd Section - Enhanced */}
-                {scene.crowd_data && (scene.crowd_data.people_needed || scene.crowd_data.crowd_type) && (
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-4 h-4 text-orange-400">👥</div>
-                      <span className="text-sm font-medium text-orange-400">Crowd Requirements</span>
-                    </div>
-                    <div className="bg-gray-800/40 p-2 rounded">
-                      {scene.crowd_data.people_needed && (
-                        <div className="text-xs mb-1">
-                          <span className="text-gray-400">People Needed:</span>
-                          <span className="text-white ml-2 font-medium">{scene.crowd_data.people_needed}</span>
-                        </div>
-                      )}
-                      {scene.crowd_data.crowd_type && (
-                        <div className="text-xs">
-                          <span className="text-gray-400">Type:</span>
-                          <span className="text-white ml-2">{scene.crowd_data.crowd_type}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                {/* Production Details */}
-                <div className="grid grid-cols-2 gap-2 text-xs">
-                  <div className="bg-gray-800/40 p-2 rounded">
-                    <div className="text-gray-400">Duration</div>
-                    <div className="text-white font-medium">
-                      {scene.estimated_duration || scene.duration_minutes ? `${scene.duration_minutes} min` : 'TBD'}
-                    </div>
-                  </div>
-                  <div className="bg-gray-800/40 p-2 rounded">
-                    <div className="text-gray-400">Est. Cost</div>
-                    <div className="text-white font-medium">
-                      {scene.estimated_cost && scene.estimated_cost > 0 ? 
-                        `₹${(scene.estimated_cost / 100000).toFixed(1)}L` : 
-                        'TBD'
-                      }
-                    </div>
-                  </div>
+                  )}
                 </div>
 
-                {/* Status and Actions */}
-                <div className="flex items-center justify-between pt-3 border-t border-gray-800">
-                  <div className="flex items-center gap-2">
-                    <Badge 
-                      className={
-                        scene.status === 'completed' ? 'bg-green-500/20 text-green-400 border-green-500/30' :
-                        scene.status === 'shooting' ? 'bg-blue-500/20 text-blue-400 border-blue-500/30' :
-                        scene.status === 'planned' ? 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30' :
-                        'bg-gray-500/20 text-gray-400 border-gray-500/30'
-                      }
-                    >
-                      {(scene.status || 'unplanned').charAt(0).toUpperCase() + (scene.status || 'unplanned').slice(1)}
-                    </Badge>
-                    {scene.created_at && (
-                      <span className="text-xs text-gray-500">
-                        Added {new Date(scene.created_at).toLocaleDateString()}
-                      </span>
-                    )}
-                  </div>
+                {/* Status */}
+                <div className="flex items-center justify-between mb-4">
+                  <Badge 
+                    className={
+                      scene.status === 'completed' ? 'bg-accent-primary/20 text-accent-primary border-accent-primary/30' :
+                      scene.status === 'shooting' ? 'bg-accent-secondary/20 text-accent-secondary border-accent-secondary/30' :
+                      scene.status === 'planned' ? 'bg-accent-brown/20 text-accent-brown border-accent-brown/30' :
+                      'bg-text-secondary/20 text-text-secondary border-text-secondary/30'
+                    }
+                  >
+                    {scene.status === 'completed' ? '✅ Complete' :
+                     scene.status === 'shooting' ? '🎬 Filming' :
+                     scene.status === 'planned' ? '📋 Planned' :
+                     '📌 Unplanned'}
+                  </Badge>
+                  {scene.created_at && (
+                    <span className="text-xs text-text-secondary">
+                      📅 {new Date(scene.created_at).toLocaleDateString()}
+                    </span>
+                  )}
                 </div>
-
+              </CardHeader>
+              
+              <CardContent className="pt-0">
                 {/* Action Buttons */}
-                <div className="flex gap-2 pt-2">
+                <div className="grid grid-cols-3 gap-2">
                   <Button 
                     variant="outline" 
                     size="sm" 
-                    className="flex-1 text-xs"
-                    onClick={() => handleSceneEdit(scene)}
+                    className="text-xs border-accent-secondary text-accent-secondary hover:bg-accent-secondary hover:text-primary-bg transition-colors"
+                    onClick={() => {
+                      // TODO: Implement view scene details modal
+                      console.log('View scene details:', scene.id);
+                    }}
                   >
-                    <Edit className="w-3 h-3 mr-1" />
-                    Edit Details
+                    👁️ View Scene
                   </Button>
                   <Button 
-                    variant="ghost" 
+                    variant="outline" 
                     size="sm" 
-                    className="text-blue-400 hover:text-blue-300"
+                    className="text-xs border-accent-primary text-accent-primary hover:bg-accent-primary hover:text-primary-bg transition-colors"
+                    onClick={() => handleSceneEdit(scene)}
                   >
-                    <Calendar className="w-3 h-3 mr-1" />
-                    Schedule
+                    ✏️ Edit
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="text-xs border-accent-brown text-accent-brown hover:bg-accent-brown hover:text-primary-bg transition-colors"
+                  >
+                    📅 Schedule
                   </Button>
                 </div>
               </CardContent>

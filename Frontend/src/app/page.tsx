@@ -11,6 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Film, Plus, Calendar, DollarSign, AlertTriangle, Loader2, WifiOff } from 'lucide-react';
 import { mockProjects, mockAlerts } from '@/services/mock/data';
 import DashboardAnalytics from '@/components/dashboard/DashboardAnalytics';
+import { useAuth } from '@/providers/AuthProvider';
 
 // Add custom element type for lottie-player
 declare global {
@@ -28,6 +29,7 @@ declare global {
 
 export default function Home() {
   const router = useRouter();
+  const { isAuthenticated, loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(true);
   const [projects] = useState(mockProjects);
   const [alerts] = useState(mockAlerts);
@@ -40,22 +42,20 @@ export default function Home() {
       import('@lottiefiles/lottie-player').then(() => {
         setLottieLoaded(true);
       }).catch(console.error);
-
-      // Authentication disabled for now - allow access to dashboard
-      // TODO: Implement proper authentication system
-      setLoading(false);
-      
-      // const token = localStorage.getItem('token');
-      // if (!token) {
-      //   router.push('/login');
-      // } else {
-      //   setLoading(false);
-      // }
     }
-  }, [router]);
+  }, []);
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!authLoading && !isAuthenticated) {
+      router.push('/login');
+    } else if (!authLoading && isAuthenticated) {
+      setLoading(false);
+    }
+  }, [authLoading, isAuthenticated, router]);
 
   // 🎥 Loading with Enhanced Animation
-  if (loading) {
+  if (loading || authLoading) {
     return (
       <div className="min-h-screen bg-primary-bg flex items-center justify-center">
         <div className="text-center">

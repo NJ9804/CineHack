@@ -6,20 +6,23 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Film, Loader2 } from 'lucide-react';
-import { apiClient } from '@/services/api/client';
+import { useAuth } from '@/providers/AuthProvider';
+import Link from 'next/link';
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('producer@celluloid.com');
-  const [password, setPassword] = useState('SecurePass123!');
+  const { login, isAuthenticated, loading: authLoading } = useAuth();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // Check if already logged in
-  // Authentication disabled - redirect to home
+  // If already authenticated, redirect to home
   useEffect(() => {
-    router.push('/');
-  }, [router]);
+    if (isAuthenticated && !authLoading) {
+      router.push('/');
+    }
+  }, [isAuthenticated, authLoading, router]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,13 +30,8 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const response = await apiClient.login(email, password);
-      
-      // Store token
-      apiClient.setToken(response.access_token);
-      
-      // Redirect to projects
-      router.push('/projects');
+      await login({ username, password });
+      // Redirect is handled by AuthProvider
     } catch (err: any) {
       console.error('Login error:', err);
       setError(err.message || 'Login failed. Please check your credentials.');
@@ -61,16 +59,16 @@ export default function LoginPage() {
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-4">
-              {/* Email */}
+              {/* Username or Email */}
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Email
+                  Username or Email
                 </label>
                 <Input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your@email.com"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="username or email"
                   className="bg-gray-800 border-gray-700 text-white"
                   required
                   disabled={loading}
@@ -120,15 +118,12 @@ export default function LoginPage() {
 
             {/* Demo Credentials */}
             <div className="mt-6 pt-4 border-t border-gray-700">
-              <p className="text-xs text-gray-400 text-center mb-2">Demo Credentials:</p>
-              <div className="bg-gray-800/50 rounded-lg p-3 space-y-1">
-                <p className="text-xs text-gray-300">
-                  <span className="text-gray-500">Email:</span> producer@celluloid.com
-                </p>
-                <p className="text-xs text-gray-300">
-                  <span className="text-gray-500">Password:</span> SecurePass123!
-                </p>
-              </div>
+              <p className="text-xs text-gray-400 text-center mb-2">
+                Don't have an account?{' '}
+                <Link href="/register" className="text-amber-400 hover:text-amber-300">
+                  Register here
+                </Link>
+              </p>
             </div>
           </CardContent>
         </Card>

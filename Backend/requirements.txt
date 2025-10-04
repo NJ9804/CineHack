@@ -10,3 +10,7 @@ google-genai
 sqlalchemy
 psycopg2-binary
 pydantic
+python-jose[cryptography]
+passlib[bcrypt]
+python-dotenv
+email-validator

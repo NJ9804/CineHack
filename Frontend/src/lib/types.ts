@@ -1,9 +1,27 @@
 // Global Types
 export interface GlobalCost {
-  id: string;
+  id: number;
   name: string;
-  category: 'actors' | 'actresses' | 'properties';
+  category: 'actor' | 'property' | 'location';
+  billing_cycle: 'daily' | 'weekly' | 'monthly';
   cost: number;
+  description?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface GlobalCostCreate {
+  name: string;
+  category: 'actor' | 'property' | 'location';
+  billing_cycle: 'daily' | 'weekly' | 'monthly';
+  cost: number;
+  description?: string;
+}
+
+export interface GlobalCostUpdate {
+  cost?: number;
+  billing_cycle?: 'daily' | 'weekly' | 'monthly';
+  description?: string;
 }
 
 export interface Actor {

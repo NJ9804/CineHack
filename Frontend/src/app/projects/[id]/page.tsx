@@ -160,9 +160,15 @@ export default function ProjectDetailPage() {
 
   if (loading) {
     return (
-      <Layout title="Loading...">
+      <Layout title="🎬 Loading Project...">
         <div className="flex items-center justify-center min-h-[60vh]">
-          <Loader2 className="w-8 h-8 text-amber-400 animate-spin" />
+          <Card className="bg-gradient-to-br from-secondary-bg/80 to-primary-bg/60 border-accent-brown/30 max-w-md shadow-2xl backdrop-blur-sm">
+            <CardContent className="p-8 text-center">
+              <Loader2 className="w-12 h-12 text-accent-primary animate-spin mx-auto mb-4" />
+              <h3 className="text-lg font-bold text-accent-secondary mb-2">Loading Project Details...</h3>
+              <p className="text-text-secondary">Gathering production information</p>
+            </CardContent>
+          </Card>
         </div>
       </Layout>
     );
@@ -170,14 +176,17 @@ export default function ProjectDetailPage() {
 
   if (error || !project) {
     return (
-      <Layout title="Project Not Found">
+      <Layout title="🎬 Project Not Found">
         <div className="text-center py-12">
-          <Card className="bg-red-500/10 border-red-500/20 max-w-md mx-auto">
-            <CardContent className="p-6">
-              <h2 className="text-xl text-white mb-2">Project not found</h2>
-              <p className="text-gray-400 mb-4">{error || 'The project you are looking for does not exist.'}</p>
+          <Card className="bg-gradient-to-br from-secondary-bg/80 to-primary-bg/60 border-accent-brown/30 shadow-2xl backdrop-blur-sm max-w-md mx-auto">
+            <CardContent className="p-8 text-center">
+              <div className="text-6xl mb-4">🎭</div>
+              <h2 className="text-xl font-bold text-accent-primary mb-2">Project Not Found</h2>
+              <p className="text-text-secondary mb-6">{error || 'The project you are looking for does not exist.'}</p>
               <Link href="/projects">
-                <Button variant="outline">Back to Projects</Button>
+                <Button variant="cinematic">
+                  🎬 Back to Projects
+                </Button>
               </Link>
             </CardContent>
           </Card>
@@ -214,185 +223,248 @@ export default function ProjectDetailPage() {
   }
 
   return (
-    <Layout title={project.title} subtitle={`${project.year} • ${project.status.replace('-', ' ')}`}>
-      <div className="space-y-6">
+    <Layout title={`🎬 ${project.title}`} subtitle={`${project.year} • ${project.status.replace('-', ' ')}`}>
+      <div className="space-y-8">
+        {/* Project Header */}
+        <div className="text-center py-6">
+          <h1 className="text-3xl md:text-4xl font-bold text-accent-secondary mb-2">
+            🎭 {project.title}
+          </h1>
+          <p className="text-text-secondary text-lg">
+            {project.year} Production • {project.status === 'in-progress' ? '🎬 Currently Filming' : 
+             project.status === 'planning' ? '📋 In Planning' : 
+             project.status === 'completed' ? '✅ Completed' : project.status}
+          </p>
+          {project.synopsis && (
+            <p className="text-text-secondary/80 mt-2 max-w-2xl mx-auto">
+              {project.synopsis}
+            </p>
+          )}
+        </div>
+
         {/* Quick Access Banner */}
-        <Card className="bg-gradient-to-r from-amber-500/10 via-purple-500/10 to-blue-500/10 border-amber-500/20">
-          <CardContent className="py-4">
+        <Card className="bg-gradient-to-r from-accent-primary/10 via-accent-secondary/10 to-accent-brown/10 border-accent-primary/30 backdrop-blur-sm">
+          <CardContent className="py-6">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Target className="w-6 h-6 text-amber-400" />
+              <div className="flex items-center gap-4">
+                <Target className="w-8 h-8 text-accent-primary" />
                 <div>
-                  <h3 className="text-lg font-semibold text-white">Production Management</h3>
-                  <p className="text-sm text-gray-400">Track all stages of your film production</p>
+                  <h3 className="text-xl font-bold text-accent-secondary">🎯 Production Management</h3>
+                  <p className="text-text-secondary">Track all stages of your film production</p>
                 </div>
               </div>
               <Link href={`/projects/${projectId}/production-stages`}>
-                <Button className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700">
-                  <Clock className="w-4 h-4 mr-2" />
-                  View Production Timeline
+                <Button variant="cinematic" size="lg" className="hover:scale-105 transition-transform">
+                  <Clock className="w-5 h-5 mr-2" />
+                  🎬 View Production Timeline
                 </Button>
               </Link>
             </div>
           </CardContent>
         </Card>
 
-        {/* Project Overview Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <Card className="bg-gradient-to-br from-blue-500/10 to-cyan-600/10 border-blue-500/20">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-blue-400">Total Scenes</CardTitle>
-              <Film className="h-4 w-4 text-blue-400" />
+        {/* Enhanced Project Overview Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="bg-gradient-to-br from-secondary-bg to-accent-brown/10 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+              <div>
+                <CardTitle className="text-sm font-medium text-accent-secondary">🎬 Total Scenes</CardTitle>
+                <p className="text-xs text-text-secondary mt-1">Script breakdown</p>
+              </div>
+              <div className="p-3 bg-accent-primary/20 rounded-full group-hover:bg-accent-primary/30 transition-colors">
+                <Film className="h-6 w-6 text-accent-primary" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-white">{dashboard?.summary?.total_scenes || scenes.length}</div>
-              <p className="text-xs text-gray-400">{completedScenes} completed</p>
+              <div className="text-3xl font-bold text-accent-primary mb-1">{dashboard?.summary?.total_scenes || scenes.length}</div>
+              <div className="flex items-center text-sm text-text-secondary">
+                <span className="mr-2">✅</span>
+                {completedScenes} completed scenes
+              </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-green-500/10 to-emerald-600/10 border-green-500/20">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-green-400">Budget Used</CardTitle>
-              <DollarSign className="h-4 w-4 text-green-400" />
+          <Card className="bg-gradient-to-br from-secondary-bg to-accent-secondary/10 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+              <div>
+                <CardTitle className="text-sm font-medium text-accent-secondary">💰 Budget Usage</CardTitle>
+                <p className="text-xs text-text-secondary mt-1">Financial tracking</p>
+              </div>
+              <div className="p-3 bg-accent-secondary/20 rounded-full group-hover:bg-accent-secondary/30 transition-colors">
+                <DollarSign className="h-6 w-6 text-accent-secondary" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-white">{budgetPercentage}%</div>
-              <p className="text-xs text-gray-400">{formatCurrency(budgetUsed)} of {formatCurrency(budgetTotal)}</p>
+              <div className="text-3xl font-bold text-accent-secondary mb-1">{budgetPercentage}%</div>
+              <div className="flex items-center text-sm text-text-secondary">
+                <span className="mr-2">💸</span>
+                {formatCurrency(budgetUsed)} of {formatCurrency(budgetTotal)}
+              </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-purple-500/10 to-pink-600/10 border-purple-500/20">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-purple-400">Characters</CardTitle>
-              <Users className="h-4 w-4 text-purple-400" />
+          <Card className="bg-gradient-to-br from-secondary-bg to-accent-primary/10 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+              <div>
+                <CardTitle className="text-sm font-medium text-accent-secondary">🎭 Characters</CardTitle>
+                <p className="text-xs text-text-secondary mt-1">Cast & crew</p>
+              </div>
+              <div className="p-3 bg-accent-brown/20 rounded-full group-hover:bg-accent-brown/30 transition-colors">
+                <Users className="h-6 w-6 text-accent-primary" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-white">{dashboard?.summary?.characters?.length || characters.length}</div>
-              <p className="text-xs text-gray-400">{characters.filter(c => c.actorId).length} cast</p>
+              <div className="text-3xl font-bold text-accent-primary mb-1">{dashboard?.summary?.characters?.length || characters.length}</div>
+              <div className="flex items-center text-sm text-text-secondary">
+                <span className="mr-2">🎪</span>
+                {characters.filter(c => c.actorId).length} actors cast
+              </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-amber-500/10 to-orange-600/10 border-amber-500/20">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-amber-400">Locations</CardTitle>
-              <MapPin className="h-4 w-4 text-amber-400" />
+          <Card className="bg-gradient-to-br from-secondary-bg to-accent-brown/10 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+              <div>
+                <CardTitle className="text-sm font-medium text-accent-secondary">📍 Locations</CardTitle>
+                <p className="text-xs text-text-secondary mt-1">Filming sites</p>
+              </div>
+              <div className="p-3 bg-accent-secondary/20 rounded-full group-hover:bg-accent-secondary/30 transition-colors">
+                <MapPin className="h-6 w-6 text-accent-secondary" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-white">{dashboard?.summary?.locations?.length || 0}</div>
-              <p className="text-xs text-gray-400">unique locations</p>
+              <div className="text-3xl font-bold text-accent-secondary mb-1">{dashboard?.summary?.locations?.length || 0}</div>
+              <div className="flex items-center text-sm text-text-secondary">
+                <span className="mr-2">🗺️</span>
+                unique locations
+              </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Project Tabs */}
+        {/* Enhanced Project Tabs */}
         <Tabs defaultValue="overview" className="w-full">
+<<<<<<< HEAD
           <TabsList className="grid w-full grid-cols-8 bg-gray-900 border border-gray-700">
             <TabsTrigger value="overview" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400">
               Overview
+=======
+          <TabsList className="grid w-full grid-cols-7 bg-gradient-to-r from-secondary-bg to-primary-bg border border-accent-brown/30 p-1 rounded-lg">
+            <TabsTrigger value="overview" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
+              🎭 Overview
+>>>>>>> cdb3f3ca4a11fb3e94d7b075978e886c92c6c404
             </TabsTrigger>
-            <TabsTrigger value="scenes" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400">
-              Scenes
+            <TabsTrigger value="scenes" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
+              🎬 Scenes
             </TabsTrigger>
-            <TabsTrigger value="catalog" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400">
-              Catalog
+            <TabsTrigger value="catalog" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
+              📋 Catalog
             </TabsTrigger>
-            <TabsTrigger value="schedule" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400">
-              Schedule
+            <TabsTrigger value="schedule" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
+              📅 Schedule
             </TabsTrigger>
-            <TabsTrigger value="budget" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400">
-              Budget
+            <TabsTrigger value="budget" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
+              💰 Budget
             </TabsTrigger>
-            <TabsTrigger value="characters" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400">
-              Characters
+            <TabsTrigger value="characters" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
+              👥 Characters
             </TabsTrigger>
+<<<<<<< HEAD
             <TabsTrigger value="promotions" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400">
               Promotions
             </TabsTrigger>
             <TabsTrigger value="risks" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400">
               Risks
+=======
+            <TabsTrigger value="risks" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
+              ⚠️ Risks
+>>>>>>> cdb3f3ca4a11fb3e94d7b075978e886c92c6c404
             </TabsTrigger>
           </TabsList>
 
           {/* Overview Tab */}
           <TabsContent value="overview" className="mt-6 space-y-6">
-            {/* Project Overview Cards */}
+            {/* Enhanced Project Overview Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Script Analysis Status */}
-              <Card className="bg-gradient-to-br from-blue-500/10 to-cyan-600/10 border-blue-500/20">
+              <Card className="bg-gradient-to-br from-secondary-bg to-accent-primary/10 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
                 <CardHeader>
-                  <CardTitle className="text-white flex items-center">
-                    <Film className="w-5 h-5 mr-2 text-blue-400" />
-                    Script Analysis
+                  <CardTitle className="text-accent-secondary flex items-center">
+                    <Film className="w-6 h-6 mr-3 text-accent-primary" />
+                    🎬 Script Analysis
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {dashboard?.summary?.has_script ? (
-                    <div className="space-y-2">
-                      <div className="text-2xl font-bold text-white">{dashboard.summary.total_scenes}</div>
-                      <p className="text-xs text-gray-400">Total Scenes</p>
-                      <div className="flex gap-4 text-xs">
-                        <span className="text-blue-400">{dashboard.summary.indoor_scenes} Indoor</span>
-                        <span className="text-green-400">{dashboard.summary.outdoor_scenes} Outdoor</span>
+                    <div className="space-y-3">
+                      <div className="text-3xl font-bold text-accent-primary">{dashboard.summary.total_scenes}</div>
+                      <p className="text-sm text-text-secondary">Total Scenes Extracted</p>
+                      <div className="flex gap-4 text-sm">
+                        <span className="text-accent-secondary">🏠 {dashboard.summary.indoor_scenes} Indoor</span>
+                        <span className="text-accent-primary">🌅 {dashboard.summary.outdoor_scenes} Outdoor</span>
                       </div>
                     </div>
                   ) : (
-                    <div className="text-center">
-                      <div className="text-lg text-gray-400 mb-2">No Script Uploaded</div>
-                      <p className="text-xs text-gray-500">Upload a PDF script to begin analysis</p>
+                    <div className="text-center py-4">
+                      <div className="text-6xl mb-3">📄</div>
+                      <div className="text-lg text-accent-primary mb-2">No Script Uploaded</div>
+                      <p className="text-sm text-text-secondary">Upload a PDF script to begin analysis</p>
                     </div>
                   )}
                 </CardContent>
               </Card>
 
               {/* Locations Summary */}
-              <Card className="bg-gradient-to-br from-green-500/10 to-emerald-600/10 border-green-500/20">
+              <Card className="bg-gradient-to-br from-secondary-bg to-accent-secondary/10 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
                 <CardHeader>
-                  <CardTitle className="text-white flex items-center">
-                    <MapPin className="w-5 h-5 mr-2 text-green-400" />
-                    Locations
+                  <CardTitle className="text-accent-secondary flex items-center">
+                    <MapPin className="w-6 h-6 mr-3 text-accent-secondary" />
+                    📍 Locations
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {dashboard?.summary?.locations?.length > 0 ? (
-                    <div className="space-y-2">
-                      <div className="text-2xl font-bold text-white">{dashboard.summary.locations.length}</div>
-                      <p className="text-xs text-gray-400">Unique Locations</p>
-                      <div className="text-xs text-gray-300 max-h-12 overflow-hidden">
+                    <div className="space-y-3">
+                      <div className="text-3xl font-bold text-accent-secondary">{dashboard.summary.locations.length}</div>
+                      <p className="text-sm text-text-secondary">Unique Filming Locations</p>
+                      <div className="text-sm text-accent-primary max-h-12 overflow-hidden">
                         {dashboard.summary.locations.slice(0, 2).join(', ')}
                         {dashboard.summary.locations.length > 2 && '...'}
                       </div>
                     </div>
                   ) : (
-                    <div className="text-center">
-                      <div className="text-lg text-gray-400 mb-2">0</div>
-                      <p className="text-xs text-gray-500">No locations identified</p>
+                    <div className="text-center py-4">
+                      <div className="text-6xl mb-3">🗺️</div>
+                      <div className="text-lg text-accent-secondary mb-2">0</div>
+                      <p className="text-sm text-text-secondary">No locations identified</p>
                     </div>
                   )}
                 </CardContent>
               </Card>
 
               {/* Characters Summary */}
-              <Card className="bg-gradient-to-br from-purple-500/10 to-pink-600/10 border-purple-500/20">
+              <Card className="bg-gradient-to-br from-secondary-bg to-accent-brown/10 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
                 <CardHeader>
-                  <CardTitle className="text-white flex items-center">
-                    <Users className="w-5 h-5 mr-2 text-purple-400" />
-                    Characters
+                  <CardTitle className="text-accent-secondary flex items-center">
+                    <Users className="w-6 h-6 mr-3 text-accent-brown" />
+                    🎭 Characters
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {dashboard?.summary?.characters?.length > 0 ? (
-                    <div className="space-y-2">
-                      <div className="text-2xl font-bold text-white">{dashboard.summary.characters.length}</div>
-                      <p className="text-xs text-gray-400">Characters Found</p>
-                      <div className="text-xs text-gray-300 max-h-12 overflow-hidden">
+                    <div className="space-y-3">
+                      <div className="text-3xl font-bold text-accent-brown">{dashboard.summary.characters.length}</div>
+                      <p className="text-sm text-text-secondary">Characters Found</p>
+                      <div className="text-sm text-accent-primary max-h-12 overflow-hidden">
                         {dashboard.summary.characters.slice(0, 3).join(', ')}
                         {dashboard.summary.characters.length > 3 && '...'}
                       </div>
                     </div>
                   ) : (
-                    <div className="text-center">
-                      <div className="text-lg text-gray-400 mb-2">0</div>
-                      <p className="text-xs text-gray-500">No characters extracted</p>
+                    <div className="text-center py-4">
+                      <div className="text-6xl mb-3">🎪</div>
+                      <div className="text-lg text-accent-brown mb-2">0</div>
+                      <p className="text-sm text-text-secondary">No characters extracted</p>
                     </div>
                   )}
                 </CardContent>
@@ -400,34 +472,36 @@ export default function ProjectDetailPage() {
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Script Files */}
-              <Card className="bg-gray-900/50 border-gray-700">
+              {/* Enhanced Script Files */}
+              <Card className="bg-gradient-to-br from-secondary-bg/80 to-primary-bg/60 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="text-white flex items-center">
-                    <Film className="w-5 h-5 mr-2 text-amber-400" />
-                    Script Files
+                  <CardTitle className="text-accent-secondary flex items-center">
+                    <Film className="w-6 h-6 mr-3 text-accent-primary" />
+                    📄 Script Files
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {dashboard?.scripts?.length > 0 ? (
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                       {dashboard.scripts.map((script: any) => (
-                        <div key={script.id} className="p-3 bg-gray-800/50 rounded-lg">
-                          <div className="flex items-center justify-between mb-2">
-                            <p className="text-white font-medium truncate">{script.filename}</p>
-                            <span className="text-xs text-green-400 bg-green-500/20 px-2 py-1 rounded">
+                        <div key={script.id} className="p-4 bg-primary-bg/50 rounded-lg border border-accent-brown/20 hover:border-accent-primary/30 transition-colors">
+                          <div className="flex items-center justify-between mb-3">
+                            <p className="text-accent-secondary font-semibold truncate flex items-center">
+                              📄 {script.filename}
+                            </p>
+                            <span className="text-xs text-accent-primary bg-accent-primary/20 px-3 py-1 rounded-full font-medium">
                               {script.total_scenes} scenes
                             </span>
                           </div>
-                          <p className="text-xs text-gray-400">
-                            Uploaded: {new Date(script.created_at).toLocaleDateString()}
+                          <p className="text-sm text-text-secondary mb-2">
+                            📅 Uploaded: {new Date(script.created_at).toLocaleDateString()}
                           </p>
                           {script.summary && typeof script.summary === 'object' && (
-                            <div className="text-xs text-gray-300 mt-2">
+                            <div className="text-sm text-accent-primary">
                               <div className="flex gap-4">
-                                <span>{script.summary.total_scenes} scenes</span>
-                                <span>{script.summary.main_characters?.length || 0} characters</span>
-                                <span>{script.summary.primary_locations?.length || 0} locations</span>
+                                <span>🎬 {script.summary.total_scenes} scenes</span>
+                                <span>🎭 {script.summary.main_characters?.length || 0} characters</span>
+                                <span>📍 {script.summary.primary_locations?.length || 0} locations</span>
                               </div>
                             </div>
                           )}
@@ -436,67 +510,69 @@ export default function ProjectDetailPage() {
                     </div>
                   ) : (
                     <div className="text-center py-8">
-                      <Film className="w-12 h-12 text-gray-600 mx-auto mb-3" />
-                      <p className="text-gray-400 mb-2">No scripts uploaded</p>
-                      <p className="text-sm text-gray-500">Upload a PDF script to get started with scene analysis</p>
+                      <div className="text-6xl mb-4">📚</div>
+                      <p className="text-accent-primary mb-2 font-semibold">No scripts uploaded</p>
+                      <p className="text-sm text-text-secondary">Upload a PDF script to get started with scene analysis</p>
                     </div>
                   )}
                 </CardContent>
               </Card>
 
-              {/* Recent Scenes */}
-              <Card className="bg-gray-900/50 border-gray-700">
+              {/* Enhanced Recent Scenes */}
+              <Card className="bg-gradient-to-br from-secondary-bg/80 to-primary-bg/60 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300">
                 <CardHeader>
-                  <CardTitle className="text-white flex items-center">
-                    <Clock className="w-5 h-5 mr-2 text-amber-400" />
-                    Recent Scenes
+                  <CardTitle className="text-accent-secondary flex items-center">
+                    <Clock className="w-6 h-6 mr-3 text-accent-secondary" />
+                    🎬 Recent Scenes
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   {dashboard?.scenes?.length > 0 ? (
                     <div className="space-y-3">
                       {dashboard.scenes.slice(0, 5).map((scene: any) => (
-                        <div key={scene.id} className="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
+                        <div key={scene.id} className="flex items-center justify-between p-3 bg-primary-bg/50 rounded-lg border border-accent-brown/20 hover:border-accent-primary/30 transition-colors">
                           <div className="flex-1 min-w-0">
-                            <p className="text-white font-medium truncate">
-                              Scene {scene.scene_number}: {scene.scene_heading}
+                            <p className="text-accent-secondary font-medium truncate">
+                              🎬 Scene {scene.scene_number}: {scene.scene_heading}
                             </p>
-                            <div className="flex items-center text-xs text-gray-400 mt-1">
-                              <MapPin className="w-3 h-3 mr-1 flex-shrink-0" />
+                            <div className="flex items-center text-sm text-text-secondary mt-1">
+                              <MapPin className="w-4 h-4 mr-1 flex-shrink-0 text-accent-primary" />
                               <span className="truncate">{scene.location_name}</span>
                               {scene.time_of_day && (
                                 <>
                                   <span className="mx-2">•</span>
-                                  <span>{scene.time_of_day}</span>
+                                  <span>🕐 {scene.time_of_day}</span>
                                 </>
                               )}
                             </div>
                           </div>
                           <div className="ml-3 flex flex-col items-end">
-                            <span className={`px-2 py-1 rounded-full text-xs ${
-                              scene.status === 'completed' ? 'bg-green-500/20 text-green-400' :
-                              scene.status === 'in_progress' ? 'bg-blue-500/20 text-blue-400' :
-                              'bg-gray-500/20 text-gray-400'
+                            <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                              scene.status === 'completed' ? 'bg-accent-primary/20 text-accent-primary border border-accent-primary/30' :
+                              scene.status === 'in_progress' ? 'bg-accent-secondary/20 text-accent-secondary border border-accent-secondary/30' :
+                              'bg-accent-brown/20 text-accent-brown border border-accent-brown/30'
                             }`}>
-                              {scene.status?.replace('_', ' ')}
+                              {scene.status === 'completed' ? '✅ Complete' :
+                               scene.status === 'in_progress' ? '🎬 Filming' :
+                               '📋 Planning'}
                             </span>
                             {scene.estimated_cost > 0 && (
-                              <span className="text-xs text-amber-400 mt-1">
-                                ₹{(scene.estimated_cost / 100000).toFixed(1)}L
+                              <span className="text-sm text-accent-primary mt-1 font-medium">
+                                💰 ₹{(scene.estimated_cost / 100000).toFixed(1)}L
                               </span>
                             )}
                           </div>
                         </div>
                       ))}
-                      <Button variant="outline" size="sm" className="w-full mt-2">
-                        View All Scenes
+                      <Button variant="outline" size="sm" className="w-full mt-4 border-accent-primary text-accent-primary hover:bg-accent-primary hover:text-primary-bg transition-all duration-300">
+                        🎭 View All Scenes
                       </Button>
                     </div>
                   ) : (
                     <div className="text-center py-8">
-                      <Clock className="w-12 h-12 text-gray-600 mx-auto mb-3" />
-                      <p className="text-gray-400 mb-2">No scenes found</p>
-                      <p className="text-sm text-gray-500">Upload a script to extract scenes</p>
+                      <div className="text-6xl mb-4">🎬</div>
+                      <p className="text-accent-primary mb-2 font-semibold">No scenes found</p>
+                      <p className="text-sm text-text-secondary">Upload a script to extract scenes</p>
                     </div>
                   )}
                 </CardContent>
