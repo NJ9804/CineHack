@@ -39,9 +39,9 @@ class ScheduleItemResponse(BaseModel):
     notes: Optional[str]
     conflicts: Optional[List[str]] = []
     actors_involved: Optional[List[Dict[str, Any]]] = []
-    estimated_duration: Optional[str]
-    created_at: str
-    updated_at: str
+    estimated_duration: Optional[str] = None
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None
     
     class Config:
         from_attributes = True
@@ -70,7 +70,7 @@ async def create_schedule_item(
     db: Session = Depends(get_db)
 ):
     """Create a new schedule item for a scene."""
-    from app.models import Scene
+    from app.models import Scene, ScheduleItem
     
     # Verify scene exists and belongs to project
     scene = db.query(Scene).filter(
@@ -79,30 +79,48 @@ async def create_schedule_item(
     if not scene:
         raise HTTPException(status_code=404, detail="Scene not found in this project")
     
-    # Create schedule item (we'll add the model later)
-    from datetime import datetime
+    # Check if schedule item already exists for this scene
+    existing_schedule = db.query(ScheduleItem).filter(
+        and_(ScheduleItem.scene_id == schedule_data.scene_id, ScheduleItem.project_id == project_id)
+    ).first()
+    if existing_schedule:
+        raise HTTPException(status_code=409, detail="Schedule item already exists for this scene")
     
-    # For now, we'll use a simple dict structure until we create the ScheduleItem model
-    schedule_item = {
-        "id": schedule_data.scene_id,  # Temporary ID
-        "project_id": project_id,
-        "scene_id": schedule_data.scene_id,
-        "scene_number": scene.scene_number,
-        "scene_heading": scene.scene_heading,
-        "location_name": scene.location_name,
-        "scheduled_date": schedule_data.scheduled_date,
-        "start_time": schedule_data.start_time,
-        "end_time": schedule_data.end_time,
-        "status": schedule_data.status,
-        "notes": schedule_data.notes,
-        "conflicts": [],
-        "actors_involved": scene.actors_data or [],
-        "estimated_duration": scene.estimated_duration,
-        "created_at": datetime.now().isoformat(),
-        "updated_at": datetime.now().isoformat()
-    }
+    # Create new schedule item
+    schedule_item = ScheduleItem(
+        project_id=project_id,
+        scene_id=schedule_data.scene_id,
+        scheduled_date=datetime.combine(schedule_data.scheduled_date, datetime.min.time()),
+        start_time=schedule_data.start_time,
+        end_time=schedule_data.end_time,
+        status=schedule_data.status,
+        notes=schedule_data.notes,
+        conflicts=[]
+    )
     
-    return ScheduleItemResponse(**schedule_item)
+    db.add(schedule_item)
+    db.commit()
+    db.refresh(schedule_item)
+    
+    # Return formatted response
+    return ScheduleItemResponse(
+        id=schedule_item.id,
+        project_id=schedule_item.project_id,
+        scene_id=schedule_item.scene_id,
+        scene_number=scene.scene_number,
+        scene_heading=scene.scene_heading,
+        location_name=scene.location_name,
+        scheduled_date=schedule_item.scheduled_date.date(),
+        start_time=schedule_item.start_time,
+        end_time=schedule_item.end_time,
+        status=schedule_item.status,
+        notes=schedule_item.notes,
+        conflicts=schedule_item.conflicts or [],
+        actors_involved=scene.actors_data or [],
+        estimated_duration=scene.estimated_duration,
+        created_at=schedule_item.created_at.isoformat() if schedule_item.created_at else None,
+        updated_at=schedule_item.updated_at.isoformat() if schedule_item.updated_at else None
+    )
 
 @router.get("/projects/{project_id}/schedule", response_model=List[ScheduleItemResponse])
 async def get_project_schedule(
@@ -112,25 +130,65 @@ async def get_project_schedule(
     db: Session = Depends(get_db)
 ):
     """Get schedule for a project with optional date range filtering."""
-    from app.models import Scene
+    from app.models import Scene, ScheduleItem
     
-    # Get all scenes for the project
-    scenes = db.query(Scene).filter(Scene.project_id == project_id).all()
+    # Get all scheduled items for the project
+    query = db.query(ScheduleItem, Scene).join(Scene, ScheduleItem.scene_id == Scene.id).filter(
+        ScheduleItem.project_id == project_id
+    )
     
-    # For now, return mock schedule data based on scenes
-    schedule_items = []
-    for i, scene in enumerate(scenes):
-        # Create mock schedule dates (every other day starting from today)
+    # Apply date filtering if provided
+    if start_date:
+        start_dt = datetime.strptime(start_date, "%Y-%m-%d").date()
+        query = query.filter(ScheduleItem.scheduled_date >= start_dt)
+    if end_date:
+        end_dt = datetime.strptime(end_date, "%Y-%m-%d").date()
+        query = query.filter(ScheduleItem.scheduled_date <= end_dt)
+    
+    scheduled_items = query.all()
+    
+    # Get all scenes for the project that are NOT scheduled yet
+    scheduled_scene_ids = [item.ScheduleItem.scene_id for item in scheduled_items]
+    unscheduled_scenes = db.query(Scene).filter(
+        and_(Scene.project_id == project_id, ~Scene.id.in_(scheduled_scene_ids))
+    ).all()
+    
+    schedule_responses = []
+    
+    # Add actually scheduled items
+    for schedule_item, scene in scheduled_items:
+        schedule_responses.append(ScheduleItemResponse(
+            id=schedule_item.id,
+            project_id=schedule_item.project_id,
+            scene_id=schedule_item.scene_id,
+            scene_number=scene.scene_number,
+            scene_heading=scene.scene_heading,
+            location_name=scene.location_name,
+            scheduled_date=schedule_item.scheduled_date.date(),
+            start_time=schedule_item.start_time,
+            end_time=schedule_item.end_time,
+            status=schedule_item.status,
+            notes=schedule_item.notes,
+            conflicts=schedule_item.conflicts or [],
+            actors_involved=scene.actors_data or [],
+            estimated_duration=scene.estimated_duration,
+            created_at=schedule_item.created_at.isoformat() if schedule_item.created_at else None,
+            updated_at=schedule_item.updated_at.isoformat() if schedule_item.updated_at else None
+        ))
+    
+    # Add unscheduled scenes as mock entries (for UI purposes)
+    for i, scene in enumerate(unscheduled_scenes):
+        # Create mock schedule dates (every other day starting from today) for unscheduled scenes
         from datetime import timedelta
         base_date = datetime.now().date()
-        scheduled_date = base_date + timedelta(days=i * 2)
+        scheduled_date = base_date + timedelta(days=(len(scheduled_items) + i) * 2)
         
         conflicts = []
         if scene.location_type == "outdoor" and "rain" in (scene.technical_notes or "").lower():
             conflicts.append("Weather dependent")
         
-        schedule_item = ScheduleItemResponse(
-            id=scene.id,
+        schedule_responses.append(ScheduleItemResponse(
+            id=scene.id * 1000,  # Use large ID to avoid conflicts with real schedule items
             project_id=project_id,
             scene_id=scene.id,
             scene_number=scene.scene_number or f"Scene {scene.id}",
@@ -144,12 +202,11 @@ async def get_project_schedule(
             conflicts=conflicts,
             actors_involved=scene.actors_data or [],
             estimated_duration=scene.estimated_duration,
-            created_at=scene.created_at.isoformat() if scene.created_at else datetime.now().isoformat(),
-            updated_at=scene.updated_at.isoformat() if scene.updated_at else datetime.now().isoformat()
-        )
-        schedule_items.append(schedule_item)
+            created_at=scene.created_at.isoformat() if scene.created_at else None,
+            updated_at=scene.updated_at.isoformat() if scene.updated_at else None
+        ))
     
-    return schedule_items
+    return schedule_responses
 
 @router.get("/projects/{project_id}/schedule/calendar", response_model=List[CalendarEventResponse])
 async def get_project_calendar(
@@ -185,40 +242,88 @@ async def update_schedule_item(
     db: Session = Depends(get_db)
 ):
     """Update a schedule item."""
-    # For now, return updated mock data
-    from app.models import Scene
+    from app.models import Scene, ScheduleItem
     
-    scene = db.query(Scene).filter(Scene.id == schedule_id).first()
-    if not scene:
-        raise HTTPException(status_code=404, detail="Schedule item not found")
+    # Find the schedule item
+    schedule_item = db.query(ScheduleItem).filter(
+        and_(ScheduleItem.id == schedule_id, ScheduleItem.project_id == project_id)
+    ).first()
     
-    # Update scene status if provided
+    if not schedule_item:
+        # If no schedule item exists, try to find by scene_id (for drag-and-drop status updates)
+        scene = db.query(Scene).filter(
+            and_(Scene.id == schedule_id, Scene.project_id == project_id)
+        ).first()
+        if not scene:
+            raise HTTPException(status_code=404, detail="Schedule item or scene not found")
+        
+        # Update scene status if it's a status-only update
+        if schedule_data.status and not any([
+            schedule_data.scheduled_date, schedule_data.start_time, 
+            schedule_data.end_time, schedule_data.notes
+        ]):
+            scene.status = schedule_data.status
+            db.commit()
+            db.refresh(scene)
+            
+            # Return a mock schedule response for status-only updates
+            return ScheduleItemResponse(
+                id=scene.id * 1000,  # Mock ID
+                project_id=project_id,
+                scene_id=scene.id,
+                scene_number=scene.scene_number,
+                scene_heading=scene.scene_heading,
+                location_name=scene.location_name,
+                scheduled_date=datetime.now().date(),
+                start_time="09:00",
+                end_time="17:00",
+                status=scene.status,
+                notes=scene.technical_notes,
+                conflicts=[],
+                actors_involved=scene.actors_data or [],
+                estimated_duration=scene.estimated_duration,
+                created_at=scene.created_at.isoformat() if scene.created_at else None,
+                updated_at=scene.updated_at.isoformat() if scene.updated_at else None
+            )
+        else:
+            raise HTTPException(status_code=404, detail="Schedule item not found")
+    
+    # Update the schedule item fields
+    if schedule_data.scheduled_date:
+        schedule_item.scheduled_date = datetime.combine(schedule_data.scheduled_date, datetime.min.time())
+    if schedule_data.start_time:
+        schedule_item.start_time = schedule_data.start_time
+    if schedule_data.end_time:
+        schedule_item.end_time = schedule_data.end_time
     if schedule_data.status:
-        scene.status = schedule_data.status
-        db.commit()
-        db.refresh(scene)
+        schedule_item.status = schedule_data.status
+    if schedule_data.notes:
+        schedule_item.notes = schedule_data.notes
     
-    # Return updated schedule item
-    schedule_item = ScheduleItemResponse(
-        id=scene.id,
-        project_id=project_id,
-        scene_id=scene.id,
-        scene_number=scene.scene_number or f"Scene {scene.id}",
-        scene_heading=scene.scene_heading,
-        location_name=scene.location_name,
-        scheduled_date=schedule_data.scheduled_date or datetime.now().date(),
-        start_time=schedule_data.start_time or "09:00",
-        end_time=schedule_data.end_time or "17:00",
-        status=schedule_data.status or scene.status,
-        notes=schedule_data.notes or scene.technical_notes,
-        conflicts=[],
-        actors_involved=scene.actors_data or [],
-        estimated_duration=scene.estimated_duration,
-        created_at=scene.created_at.isoformat() if scene.created_at else datetime.now().isoformat(),
-        updated_at=datetime.now().isoformat()
+    db.commit()
+    db.refresh(schedule_item)
+    
+    # Get scene data for response
+    scene = db.query(Scene).filter(Scene.id == schedule_item.scene_id).first()
+    
+    return ScheduleItemResponse(
+        id=schedule_item.id,
+        project_id=schedule_item.project_id,
+        scene_id=schedule_item.scene_id,
+        scene_number=scene.scene_number if scene else f"Scene {schedule_item.scene_id}",
+        scene_heading=scene.scene_heading if scene else "Unknown Scene",
+        location_name=scene.location_name if scene else "Unknown Location",
+        scheduled_date=schedule_item.scheduled_date.date(),
+        start_time=schedule_item.start_time,
+        end_time=schedule_item.end_time,
+        status=schedule_item.status,
+        notes=schedule_item.notes,
+        conflicts=schedule_item.conflicts or [],
+        actors_involved=scene.actors_data if scene else [],
+        estimated_duration=scene.estimated_duration if scene else None,
+        created_at=schedule_item.created_at.isoformat() if schedule_item.created_at else None,
+        updated_at=schedule_item.updated_at.isoformat() if schedule_item.updated_at else None
     )
-    
-    return schedule_item
 
 @router.get("/projects/{project_id}/conflicts", response_model=List[ConflictResponse])
 async def get_scheduling_conflicts(project_id: int, db: Session = Depends(get_db)):
