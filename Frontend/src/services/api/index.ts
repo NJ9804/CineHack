@@ -7,7 +7,18 @@ import {
   mockSchedule, 
   mockBudget 
 } from '../mock/data';
-import { GlobalCost, Project, Character, Scene, Alert, ScheduleItem, BudgetItem } from '../../lib/types';
+import { 
+  GlobalCost, 
+  Project, 
+  Character, 
+  Scene, 
+  Alert, 
+  ScheduleItem, 
+  BudgetItem,
+  SchedulingConflict,
+  ScheduleStats,
+  CalendarEvent
+} from '../../lib/types';
 
 // Simulate API delay
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
@@ -92,6 +103,99 @@ export const scheduleApi = {
   async getByProjectId(projectId: string): Promise<ScheduleItem[]> {
     await delay(300);
     return mockSchedule; // In real app, filter by projectId
+  },
+
+  async createScheduleItem(projectId: string, sceneId: string, data: Partial<ScheduleItem>): Promise<ScheduleItem> {
+    await delay(300);
+    const newItem: ScheduleItem = {
+      id: Date.now().toString(),
+      sceneId,
+      scene_number: `Scene ${sceneId}`,
+      scene_heading: 'New Scene',
+      scheduled_date: data.scheduled_date || new Date().toISOString().split('T')[0],
+      start_time: data.start_time || '09:00',
+      end_time: data.end_time || '17:00',
+      status: data.status || 'planned',
+      conflicts: [],
+      actors_involved: [],
+      ...data
+    };
+    mockSchedule.push(newItem);
+    return newItem;
+  },
+
+  async updateScheduleItem(projectId: string, scheduleId: string, data: Partial<ScheduleItem>): Promise<ScheduleItem> {
+    await delay(300);
+    const item = mockSchedule.find(s => s.id === scheduleId);
+    if (!item) throw new Error('Schedule item not found');
+    Object.assign(item, data);
+    return item;
+  },
+
+  async getCalendar(projectId: string): Promise<CalendarEvent[]> {
+    await delay(300);
+    return mockSchedule.map(item => ({
+      id: item.id,
+      title: `${item.scene_number}: ${item.scene_heading || 'Untitled Scene'}`,
+      start: item.scheduled_date,
+      end: item.scheduled_date,
+      scene_id: item.sceneId,
+      status: item.status,
+      location: item.location_name,
+      conflicts: item.conflicts || []
+    }));
+  },
+
+  async getConflicts(projectId: string): Promise<SchedulingConflict[]> {
+    await delay(300);
+    return [
+      {
+        type: 'actor_conflict',
+        message: 'Lead actor scheduled for multiple scenes on same day',
+        affected_scenes: ['1', '3'],
+        date: '2025-10-10',
+        severity: 'high'
+      },
+      {
+        type: 'weather',
+        message: 'Heavy rain expected for outdoor shoot',
+        affected_scenes: ['3'],
+        date: '2025-10-12',
+        severity: 'medium'
+      }
+    ];
+  },
+
+  async getStats(projectId: string): Promise<ScheduleStats> {
+    await delay(300);
+    const scenes = mockScenes;
+    return {
+      total_scenes: scenes.length,
+      planned: scenes.filter(s => s.status === 'planned').length,
+      completed: scenes.filter(s => s.status === 'completed').length,
+      unplanned: scenes.filter(s => !s.status || s.status === 'planned').length,
+      in_progress: scenes.filter(s => s.status === 'in-progress').length,
+      conflicts: 2,
+      shooting_days: 15,
+      estimated_duration: "45 days"
+    };
+  },
+
+  async autoSchedule(projectId: string): Promise<{ message: string; scheduled_scenes: number; total_scenes: number }> {
+    await delay(1000);
+    const scenes = mockScenes;
+    const unscheduled = scenes.filter(s => !s.status || s.status === 'planned');
+    
+    // Simulate auto-scheduling
+    unscheduled.forEach(scene => {
+      scene.status = 'planned';
+    });
+
+    return {
+      message: `Auto-scheduled ${unscheduled.length} scenes`,
+      scheduled_scenes: unscheduled.length,
+      total_scenes: scenes.length
+    };
   }
 };
 
@@ -120,6 +224,12 @@ export const apiClient = {
   getCharacters: charactersApi.getByProjectId,
   getBudget: budgetApi.getByProjectId,
   getSchedule: scheduleApi.getByProjectId,
+  getScheduleCalendar: scheduleApi.getCalendar,
+  getScheduleConflicts: scheduleApi.getConflicts,
+  getScheduleStats: scheduleApi.getStats,
+  createScheduleItem: scheduleApi.createScheduleItem,
+  updateScheduleItem: scheduleApi.updateScheduleItem,
+  autoSchedule: scheduleApi.autoSchedule,
   getAlerts: alertsApi.getByProjectId,
   uploadScript: async (projectId: string, file: File) => {
     await delay(2000); // Simulate script processing

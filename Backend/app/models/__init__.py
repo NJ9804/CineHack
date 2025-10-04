@@ -146,6 +146,46 @@ class BudgetLine(Base):
     project = relationship("Project", back_populates="budget_lines")
 
 
+class ScheduleItem(Base):
+    __tablename__ = "schedule_items"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("projects.id"), nullable=False)
+    scene_id = Column(Integer, ForeignKey("scenes.id"), nullable=False)
+    scheduled_date = Column(DateTime, nullable=False)
+    start_time = Column(String)  # Format: "HH:MM"
+    end_time = Column(String)    # Format: "HH:MM"
+    status = Column(String, default="planned")  # planned, in_progress, completed, cancelled
+    location_id = Column(Integer, ForeignKey("locations.id"), nullable=True)
+    notes = Column(Text)
+    conflicts = Column(JSON, default=[])  # Array of conflict descriptions
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    project = relationship("Project")
+    scene = relationship("Scene")
+    location = relationship("Location")
+
+
+class ActorAvailability(Base):
+    __tablename__ = "actor_availability"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    actor_id = Column(Integer, ForeignKey("actors.id"), nullable=False)
+    date = Column(DateTime, nullable=False)
+    start_time = Column(String)  # Format: "HH:MM"
+    end_time = Column(String)    # Format: "HH:MM"
+    availability_type = Column(String, default="available")  # available, unavailable, preferred
+    notes = Column(Text)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    
+    # Relationships
+    actor = relationship("Actor")
+
+
 class ScriptAnalysis(Base):
     __tablename__ = "script_analyses"
     

@@ -51,7 +51,7 @@ export interface Scene {
   estimatedBudget: number;
   properties: string[];
   equipment: string[];
-  status: 'planned' | 'in-progress' | 'completed';
+  status: 'unplanned' | 'planned' | 'in-progress' | 'shooting' | 'completed';
   alerts?: Alert[];
 }
 
@@ -66,9 +66,47 @@ export interface Alert {
 export interface ScheduleItem {
   id: string;
   sceneId: string;
-  date: string;
-  status: 'planned' | 'in-progress' | 'completed';
+  scene_number?: string;
+  scene_heading?: string;
+  location_name?: string;
+  scheduled_date: string;
+  start_time?: string;
+  end_time?: string;
+  status: 'planned' | 'in_progress' | 'completed' | 'cancelled';
+  notes?: string;
   conflicts?: string[];
+  actors_involved?: any[];
+  estimated_duration?: string;
+}
+
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  start: string;
+  end?: string;
+  scene_id: string;
+  status: string;
+  location?: string;
+  conflicts: string[];
+}
+
+export interface SchedulingConflict {
+  type: 'actor_conflict' | 'location_conflict' | 'resource_conflict' | 'weather';
+  message: string;
+  affected_scenes: string[];
+  date: string;
+  severity: 'low' | 'medium' | 'high';
+}
+
+export interface ScheduleStats {
+  total_scenes: number;
+  planned: number;
+  completed: number;
+  unplanned: number;
+  in_progress: number;
+  conflicts: number;
+  shooting_days: number;
+  estimated_duration: string;
 }
 
 export interface BudgetItem {

@@ -5,10 +5,10 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, Users, AlertTriangle, MapPin, Target, Play, CheckCircle, Plus, BarChart3, GitCommit } from 'lucide-react';
-import { Scene, ScheduleItem, Alert, SchedulingConflict, ScheduleStats } from '@/lib/types';
+import { Scene, ScheduleItem, Alert, SchedulingConflict, ScheduleStats, CalendarEvent } from '@/lib/types';
 import ScheduleSceneModal from './ScheduleSceneModal';
 import ScheduleTimeline from './ScheduleTimeline';
-import { scheduleApi } from '@/services/api/real';
+import { apiClient } from '@/services/api';
 
 interface ScheduleTabProps {
   projectId: string;
@@ -33,8 +33,8 @@ export default function ScheduleTab({ projectId, scenes, schedule, alerts }: Sch
     const fetchScheduleData = async () => {
       try {
         const [stats, conflictsData] = await Promise.all([
-          scheduleApi.getStats(projectId),
-          scheduleApi.getConflicts(projectId)
+          apiClient.getScheduleStats(projectId),
+          apiClient.getScheduleConflicts(projectId)
         ]);
         setScheduleStats(stats);
         setConflicts(conflictsData);
@@ -47,19 +47,11 @@ export default function ScheduleTab({ projectId, scenes, schedule, alerts }: Sch
   }, [projectId]);
 
   // Group scenes by status for Kanban view
-  // Note: Backend uses 'shooting' status, frontend uses 'in-progress'
-  // Add null checks to prevent runtime errors
-  const safeScenes = scenes || [];
-  
-  // Debug: Log the scenes to see what we're getting
-  console.log('ScheduleTab - Received scenes:', safeScenes);
-  console.log('ScheduleTab - Scene statuses:', safeScenes.map(s => ({ id: s.id, name: s.name, status: s.status })));
-  
   const groupedScenes = {
-    unplanned: safeScenes.filter(s => !s.status || s.status === 'unplanned'),
-    planned: safeScenes.filter(s => s.status === 'planned'),
-    'in-progress': safeScenes.filter(s => s.status === 'in-progress' || s.status === 'shooting'),
-    completed: safeScenes.filter(s => s.status === 'completed')
+    unplanned: scenes.filter(s => !s.status || s.status === 'planned'),
+    planned: scenes.filter(s => s.status === 'planned'),
+    'in-progress': scenes.filter(s => s.status === 'in-progress'),
+    completed: scenes.filter(s => s.status === 'completed')
   };
 
   const getStatusColor = (status: string) => {
@@ -93,7 +85,9 @@ export default function ScheduleTab({ projectId, scenes, schedule, alerts }: Sch
     e.preventDefault();
     if (draggedScene) {
       try {
-        await scheduleApi.updateScheduleItem(projectId, draggedScene.id, { status: newStatus as any });
+        // Update scene status through API
+        await apiClient.updateScheduleItem(projectId, draggedScene.id, { status: newStatus as any });
+        // Update local state
         draggedScene.status = newStatus as any;
         setDraggedScene(null);
       } catch (error) {
@@ -110,8 +104,9 @@ export default function ScheduleTab({ projectId, scenes, schedule, alerts }: Sch
   const handleSaveSchedule = async (scheduleData: Partial<ScheduleItem>) => {
     try {
       if (selectedScene) {
-        await scheduleApi.createScheduleItem(projectId, selectedScene.id, scheduleData);
-        const stats = await scheduleApi.getStats(projectId);
+        await apiClient.createScheduleItem(projectId, selectedScene.id, scheduleData);
+        // Refresh data
+        const stats = await apiClient.getScheduleStats(projectId);
         setScheduleStats(stats);
       }
     } catch (error) {
@@ -122,9 +117,10 @@ export default function ScheduleTab({ projectId, scenes, schedule, alerts }: Sch
   const handleAutoSchedule = async () => {
     setIsAutoScheduling(true);
     try {
-      const result = await scheduleApi.autoSchedule(projectId);
+      const result = await apiClient.autoSchedule(projectId);
       console.log('Auto-schedule result:', result);
-      const stats = await scheduleApi.getStats(projectId);
+      // Refresh data
+      const stats = await apiClient.getScheduleStats(projectId);
       setScheduleStats(stats);
     } catch (error) {
       console.error('Failed to auto-schedule:', error);
@@ -134,9 +130,9 @@ export default function ScheduleTab({ projectId, scenes, schedule, alerts }: Sch
   };
 
   const SceneCard = ({ scene }: { scene: Scene }) => {
-    const safeConflicts = conflicts || [];
-    const sceneConflicts = safeConflicts.filter(conflict => 
-      conflict.affected_scenes && conflict.affected_scenes.includes(scene.id)
+    const sceneAlerts = alerts.filter(alert => alert.sceneId === scene.id);
+    const sceneConflicts = conflicts.filter(conflict => 
+      conflict.affected_scenes.includes(scene.id)
     );
     
     return (
@@ -173,15 +169,15 @@ export default function ScheduleTab({ projectId, scenes, schedule, alerts }: Sch
           <div className="space-y-1 text-xs text-gray-400">
             <div className="flex items-center">
               <MapPin className="w-3 h-3 mr-1" />
-              {scene.location || 'Unknown Location'}
+              {scene.location}
             </div>
             <div className="flex items-center">
               <Users className="w-3 h-3 mr-1" />
-              {(scene.characters || []).length} characters
+              {scene.characters.length} characters
             </div>
             <div className="flex items-center">
               <Clock className="w-3 h-3 mr-1" />
-              Est. Budget: ₹{((scene.estimatedBudget || 0) / 100000).toFixed(1)}L
+              Est. Budget: ₹{(scene.estimatedBudget / 100000).toFixed(1)}L
             </div>
           </div>
 
@@ -277,7 +273,7 @@ export default function ScheduleTab({ projectId, scenes, schedule, alerts }: Sch
       )}
 
       {/* Conflicts Alert */}
-      {(conflicts || []).length > 0 && (
+      {conflicts.length > 0 && (
         <Card className="bg-red-500/10 border-red-500/20">
           <CardContent className="p-4">
             <div className="flex items-center text-red-400 mb-2">
@@ -285,9 +281,9 @@ export default function ScheduleTab({ projectId, scenes, schedule, alerts }: Sch
               <h3 className="font-medium">Scheduling Conflicts Detected</h3>
             </div>
             <div className="space-y-2">
-              {(conflicts || []).map((conflict, index) => (
+              {conflicts.map((conflict, index) => (
                 <div key={index} className="text-sm text-red-300">
-                  {conflict.message} (Scenes: {(conflict.affected_scenes || []).join(', ')})
+                  {conflict.message} (Scenes: {conflict.affected_scenes.join(', ')})
                 </div>
               ))}
             </div>
@@ -372,9 +368,9 @@ export default function ScheduleTab({ projectId, scenes, schedule, alerts }: Sch
 
       {viewMode === 'timeline' && (
         <ScheduleTimeline
-          scenes={safeScenes}
-          schedule={schedule || []}
-          conflicts={conflicts || []}
+          scenes={scenes}
+          schedule={schedule}
+          conflicts={conflicts}
           onEditSchedule={handleScheduleScene}
         />
       )}
@@ -427,6 +423,20 @@ export default function ScheduleTab({ projectId, scenes, schedule, alerts }: Sch
         </CardContent>
       </Card>
 
+      {/* Schedule Scene Modal */}
+      {selectedScene && (
+        <ScheduleSceneModal
+          open={isScheduleModalOpen}
+          onClose={() => {
+            setIsScheduleModalOpen(false);
+            setSelectedScene(null);
+          }}
+          scene={selectedScene}
+          onSave={handleSaveSchedule}
+        />
+      )}
+    </div>
+  );
       {/* Schedule Scene Modal */}
       {selectedScene && (
         <ScheduleSceneModal

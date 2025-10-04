@@ -10,6 +10,7 @@ from app.controllers import catalog
 from app.controllers import budget
 from app.controllers import scenes
 from app.controllers import characters
+from app.controllers import scheduling
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -35,6 +36,7 @@ app.include_router(catalog.router, prefix="/api", tags=["catalog"])
 app.include_router(budget.router, prefix="/api", tags=["budget"])
 app.include_router(scenes.router, prefix="/api", tags=["scenes"])
 app.include_router(characters.router, prefix="/api", tags=["characters"])
+app.include_router(scheduling.router, prefix="/api", tags=["scheduling"])
 
 @app.get("/")
 def root():
