@@ -5,6 +5,7 @@ from app.services.llm_service import llm_service
 from app.services.database_service import ScriptAnalysisService, SceneService
 from app.utils.pdf_parser import extract_text_from_pdf, split_text_into_chunks
 import json
+from pathlib import Path
 
 router = APIRouter(prefix="/scripts", tags=["scripts"])
 
@@ -179,3 +180,58 @@ async def create_scenes_from_analysis(
             for scene in scenes
         ]
     }
+
+@router.get("/main-characters")
+async def get_main_characters():
+    """Get main characters from the extracted combined JSON file."""
+    try:
+        # Path to the combined main characters file
+        backend_dir = Path(__file__).parent.parent.parent  # Go up to Backend directory
+        main_chars_file = backend_dir / "main_characters_combined.json"
+        
+        if not main_chars_file.exists():
+            raise HTTPException(
+                status_code=404, 
+                detail="Main characters file not found. Please extract characters first using the extraction script."
+            )
+        
+        # Read the combined main characters file
+        with open(main_chars_file, 'r', encoding='utf-8') as f:
+            characters_data = json.load(f)
+        
+        # Format the response for frontend consumption
+        response = {
+            "success": True,
+            "total_characters": characters_data['summary']['total_unique_characters'],
+            "extraction_info": characters_data['extraction_info'],
+            "characters": [
+                {
+                    "id": idx + 1,  # Add an ID for frontend mapping
+                    "name": char['name'],
+                    "role": char['role'],
+                    "total_scenes": char['total_scenes'],
+                    "first_appearance": char['first_appearance_scene'],
+                    "source_files": char.get('source_file', ''),
+                    "description": char['descriptions'][0] if char['descriptions'] else ''
+                }
+                for idx, char in enumerate(characters_data['main_characters'])
+            ]
+        }
+        
+        return response
+        
+    except FileNotFoundError:
+        raise HTTPException(
+            status_code=404,
+            detail="Main characters file not found"
+        )
+    except json.JSONDecodeError:
+        raise HTTPException(
+            status_code=500,
+            detail="Error reading main characters file"
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error retrieving main characters: {str(e)}"
+        )

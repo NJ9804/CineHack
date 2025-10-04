@@ -1,0 +1,265 @@
+{
+  "source_file": "script_analysis_20251003_205915.json",
+  "extraction_summary": {
+    "total_main_characters": 12,
+    "characters_found": [
+      "Mukundan Unni",
+      "RESHMA GEORGE (MLA)",
+      "GANGADHARAN (Vakkeel)",
+      "ROBIN",
+      "JYOTHI",
+      "Mani",
+      "Unni",
+      "Meenakshi",
+      "Unni's Amma (Jaanaki)",
+      "Venu Vakkeel",
+      "Venu Vakkeel (Advocate Venu AV)",
+      "Jaanaki Amma"
+    ]
+  },
+  "main_characters": [
+    {
+      "name": "Mukundan Unni",
+      "role": "main",
+      "first_appearance_scene": 1,
+      "total_scenes": 18,
+      "scenes": [
+        1,
+        2,
+        "2A",
+        "2B",
+        "2C",
+        "2D",
+        3,
+        "3A",
+        "3B",
+        4,
+        "4B",
+        5,
+        "5A",
+        "6/6A",
+        7,
+        8,
+        "8A",
+        9
+      ],
+      "descriptions": [
+        "27-year-old, wearing a white shirt and white pants, glasses, carrying a laptop bag. Appears observant, looking at an expensive car.",
+        "Arrives at the MLA's house on a bike, sends a message on WhatsApp.",
+        "Observes the scene, attempts to initiate a conversation with George, stands in the background.",
+        "Takes his bike, then deliberately turns it off after seeing the MLA's car leave. Appears thoughtful.",
+        "Enters the room, confidently pitches his strategy to George, emphasizing his personal stake in the case.",
+        "Walks alongside George, detailing his plan to prove a fake order, introduces himself as Mukundan Unni, gets a negative reaction from George and Chaakkappan.",
+        "Parks his bike in the parking area.",
+        "Enters the office.",
+        "Enters Gangadharan's room, shows documents, denies giving advice, then confronts Gangadharan, is fired, and defiantly responds.",
+        "Enters a shop, partially wet from the rain, writes his name and designation on paper.",
+        "Riding his bike, wet from the rain, climbing the Wayanad churam (hairpin bends).",
+        "Seriously examining a case file, attempts to secure a new client, but is rejected.",
+        "Walks with Robin, sits with Jyothi, observes Robin's situation, and engages in a cynical discussion about legal practice with Jyothi.",
+        "Follows a disciplined morning routine: wakes at 5 AM, exercises, washes/irons clothes, tidies his room, watches news, eats breakfast, reacts calmly to a snake, and secures the outhouse.",
+        "Sits in the waiting area, then approaches the cashier, expresses surprise and concern about the high advance payment for his mother's operation.",
+        "Stands in the ATM queue, listening to Robin.",
+        "Withdraws all his available balance (7500 INR) from the ATM.",
+        "Presents 7500 INR to the hospital staff, suggesting it for the payment."
+      ]
+    },
+    {
+      "name": "RESHMA GEORGE (MLA)",
+      "role": "main",
+      "first_appearance_scene": "2A",
+      "total_scenes": 1,
+      "scenes": [
+        "2A"
+      ],
+      "descriptions": [
+        "Sitting, receives legal documents, signs them, asks about the lawyers."
+      ]
+    },
+    {
+      "name": "GANGADHARAN (Vakkeel)",
+      "role": "main",
+      "first_appearance_scene": "3B",
+      "total_scenes": 1,
+      "scenes": [
+        "3B"
+      ],
+      "descriptions": [
+        "A senior lawyer, questions Unni about the affidavit, hears out his junior, then confronts and fires Unni for interfering with the MLA's case, reacting strongly to Unni's disrespect."
+      ]
+    },
+    {
+      "name": "ROBIN",
+      "role": "main",
+      "first_appearance_scene": "5A",
+      "total_scenes": 2,
+      "scenes": [
+        "5A",
+        8
+      ],
+      "descriptions": [
+        "Suggests Unni join him, orders coffee, comments on Jyothi's cases, displays a shabby appearance (worn shirt, dirty shoes), goes to meet his client.",
+        "Stands in the ATM queue, explains why he's not in court (took an acting gig for 500 INR), winks at Unni."
+      ]
+    },
+    {
+      "name": "JYOTHI",
+      "role": "main",
+      "first_appearance_scene": "5A",
+      "total_scenes": 1,
+      "scenes": [
+        "5A"
+      ],
+      "descriptions": [
+        "Drinks coffee, orders more, cynically comments on her cases, expresses 'manushyatham' (humanity), and argues with Unni about the ethics of law."
+      ]
+    },
+    {
+      "name": "Mani",
+      "role": "main",
+      "first_appearance_scene": 1,
+      "total_scenes": 13,
+      "scenes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        12,
+        13,
+        15
+      ],
+      "descriptions": [
+        "An agent handling cash transactions for various individuals.",
+        "Continuing to pay large sums of cash.",
+        "Exiting the billing section after collecting receipts.",
+        "An agent, inquiring about patient details.",
+        "An agent, getting a document signed by a patient.",
+        "An agent, paying a bill and ordering tea.",
+        "An agent, getting Vakkaalath signed by Unni's mother.",
+        "An agent, calling the advocate.",
+        "An agent, convincing the doctor to alter medical reports.",
+        "An agent, providing Unni with details of the accident vehicle and further instructions.",
+        "N/A",
+        "An agent, influencing the doctor to add specific details to the wound certificate.",
+        "An agent, explaining the claim distribution process."
+      ]
+    },
+    {
+      "name": "Unni",
+      "role": "main",
+      "first_appearance_scene": 1,
+      "total_scenes": 16,
+      "scenes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15,
+        17,
+        20,
+        21,
+        22
+      ],
+      "descriptions": [
+        "Observing Mani and Meenakshi, asking questions.",
+        "Observing Mani with growing curiosity.",
+        "Confused then enlightened by Meenakshi's explanation.",
+        "Following and observing Mani's activities.",
+        "Observing Mani from the hallway through a partially open door.",
+        "Following Mani, offers to pay for tea and asks a pointed question.",
+        "Observing the manipulation unfold.",
+        "Receiving instructions and vehicle details from Mani.",
+        "Implied, initiating the FIR process.",
+        "Observing the manipulation of evidence, unfazed.",
+        "N/A",
+        "Receiving a notification on his phone.",
+        "Receiving a notification on his phone while in the bathroom."
+      ]
+    },
+    {
+      "name": "Meenakshi",
+      "role": "main",
+      "first_appearance_scene": 1,
+      "total_scenes": 3,
+      "scenes": [
+        1,
+        2,
+        3
+      ],
+      "descriptions": [
+        "Hospital employee, handles receipts and discounts, shows empathy.",
+        "Hospital employee, handling receipts.",
+        "Hospital employee, explains Mani's role."
+      ]
+    },
+    {
+      "name": "Unni's Amma (Jaanaki)",
+      "role": "main",
+      "first_appearance_scene": 7,
+      "total_scenes": 2,
+      "scenes": [
+        7,
+        17
+      ],
+      "descriptions": [
+        "Unni's mother, subject of the claim, lying in a hospital ward.",
+        "Has a hand plaster, wears a watch and spectacles."
+      ]
+    },
+    {
+      "name": "Venu Vakkeel",
+      "role": "main",
+      "first_appearance_scene": 8,
+      "total_scenes": 4,
+      "scenes": [
+        8,
+        9,
+        19,
+        20
+      ],
+      "descriptions": [
+        "Advocate, on speaker phone, shows interest in more severe cases.",
+        "Advocate, instructing the doctor on speaker phone to exaggerate injuries.",
+        "Presents his case and witnesses.",
+        "N/A"
+      ]
+    },
+    {
+      "name": "Venu Vakkeel (Advocate Venu AV)",
+      "role": "main",
+      "first_appearance_scene": 17,
+      "total_scenes": 1,
+      "scenes": [
+        17
+      ],
+      "descriptions": [
+        "40 years old, lawyer, orchestrates the intentional damage of personal items for claim."
+      ]
+    },
+    {
+      "name": "Jaanaki Amma",
+      "role": "main",
+      "first_appearance_scene": 20,
+      "total_scenes": 1,
+      "scenes": [
+        20
+      ],
+      "descriptions": [
+        "Signing legal documents."
+      ]
+    }
+  ]
+}

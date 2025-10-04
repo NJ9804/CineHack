@@ -1,14 +1,15 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { User, Users, Calendar, DollarSign, Film } from 'lucide-react';
+import { User, Users, Calendar, DollarSign, Film, UserPlus } from 'lucide-react';
 import { Character, Actor } from '@/lib/types';
 import { mockActors } from '@/services/mock/data';
 import { useButtonActions } from '@/hooks/useButtonActions';
+import { apiClient } from '@/services/api/client';
 
 interface CharactersTabProps {
   projectId: string;
@@ -19,6 +20,35 @@ export default function CharactersTab({ projectId, characters }: CharactersTabPr
   const actors = mockActors;
   const actions = useButtonActions();
   const [selectedCharacter, setSelectedCharacter] = useState<Character | null>(null);
+  const [mainCharacters, setMainCharacters] = useState<any[]>([]);
+  const [characterMappings, setCharacterMappings] = useState<Record<number, string>>({});
+  const [loadingMainCharacters, setLoadingMainCharacters] = useState(false);
+
+  // Fetch main characters from script analysis
+  useEffect(() => {
+    async function fetchMainCharacters() {
+      setLoadingMainCharacters(true);
+      try {
+        const response = await apiClient.getMainCharacters();
+        if (response.success && response.characters) {
+          setMainCharacters(response.characters);
+        }
+      } catch (error) {
+        console.warn('Failed to fetch main characters:', error);
+      } finally {
+        setLoadingMainCharacters(false);
+      }
+    }
+
+    fetchMainCharacters();
+  }, []);
+
+  const handleCharacterMapping = (characterId: number, actorId: string) => {
+    setCharacterMappings(prev => ({
+      ...prev,
+      [characterId]: actorId
+    }));
+  };
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-IN', {
@@ -68,6 +98,85 @@ export default function CharactersTab({ projectId, characters }: CharactersTabPr
           </CardContent>
         </Card>
       </div>
+
+      {/* Main Characters from Script Analysis - Character Mapping Section */}
+      <Card className="bg-gray-900/50 border-gray-700">
+        <CardHeader>
+          <CardTitle className="text-white flex items-center">
+            <UserPlus className="w-5 h-5 mr-2 text-amber-400" />
+            Main Characters ({mainCharacters.length})
+          </CardTitle>
+          <p className="text-sm text-gray-400">
+            Map script characters to actors from your catalog.
+          </p>
+        </CardHeader>
+        <CardContent>
+          {loadingMainCharacters ? (
+            <div className="text-center py-4">
+              <div className="text-gray-400">Loading characters...</div>
+            </div>
+          ) : mainCharacters.length > 0 ? (
+            <div className="space-y-3">
+              {mainCharacters.map((character) => (
+                <div key={character.id} className="flex items-center justify-between p-3 bg-gray-800/30 rounded-lg">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full flex items-center justify-center">
+                      <User className="w-4 h-4 text-white" />
+                    </div>
+                    <h4 className="font-medium text-white">{character.name}</h4>
+                  </div>
+                  
+                  <div className="flex items-center space-x-3">
+                    <select
+                      className="bg-gray-700 text-white px-3 py-2 rounded border border-gray-600 min-w-[180px]"
+                      value={characterMappings[character.id] || ''}
+                      onChange={(e) => {
+                        const actorId = e.target.value;
+                        if (actorId) {
+                          handleCharacterMapping(character.id, actorId);
+                        }
+                      }}
+                    >
+                      <option value="">Select Actor</option>
+                      {actors.map(actor => (
+                        <option key={actor.id} value={actor.id}>
+                          {actor.name}
+                        </option>
+                      ))}
+                    </select>
+                    
+                    {characterMappings[character.id] && (
+                      <Button
+                        variant="cinematic"
+                        size="sm"
+                        onClick={() => {
+                          const actorId = characterMappings[character.id];
+                          const actor = actors.find(a => a.id === actorId);
+                          if (actor) {
+                            console.log(`Mapping ${character.name} to ${actor.name}`);
+                            // Here you would call an API to save the mapping
+                            // actions.handleAssignActor(actorId, projectId);
+                          }
+                        }}
+                      >
+                        Assign
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <UserPlus className="w-12 h-12 text-gray-600 mx-auto mb-3" />
+              <p className="text-gray-400 mb-2">No main characters found</p>
+              <p className="text-sm text-gray-500">
+                Upload and analyze a script to extract main characters for mapping.
+              </p>
+            </div>
+          )}
+        </CardContent>
+      </Card>
 
       {/* Character Management */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
