@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Layout from '@/components/layout/Layout';
 import { Button } from '@/components/ui/button';
@@ -20,16 +20,48 @@ export default function NewProjectPage() {
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [lottieLoaded, setLottieLoaded] = useState(false);
+  const [processingMessage, setProcessingMessage] = useState('');
+  const [processingStep, setProcessingStep] = useState(0);
 
-  // Remove auth check for now since we haven't implemented authentication
-  // useEffect(() => {
-  //   if (typeof window !== 'undefined') {
-  //     const token = localStorage.getItem('token');
-  //     if (!token) {
-  //       router.push('/login');
-  //     }
-  //   }
-  // }, [router]);
+  // Load lottie player for camera animation
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      import('@lottiefiles/lottie-player').then(() => {
+        setLottieLoaded(true);
+        console.log('Lottie player loaded for camera animation');
+      }).catch((error) => {
+        console.error('Failed to load lottie player:', error);
+      });
+    }
+  }, []);
+
+  // Processing messages cycle
+  useEffect(() => {
+    if (isProcessing) {
+      const messages = [
+        '🎬 Breaking down your script...',
+        '🎭 Analyzing character arcs...',
+        '📍 Identifying filming locations...',
+        '💰 Calculating budget estimates...',
+        '📅 Planning shooting schedule...',
+        '🎯 Setting up project structure...',
+        '✨ Adding final touches...'
+      ];
+      
+      let stepIndex = 0;
+      setProcessingMessage(messages[0]);
+      setProcessingStep(0);
+      
+      const interval = setInterval(() => {
+        stepIndex = (stepIndex + 1) % messages.length;
+        setProcessingMessage(messages[stepIndex]);
+        setProcessingStep(Math.min(stepIndex * 15, 95)); // Progress from 0 to 95%
+      }, 2000);
+      
+      return () => clearInterval(interval);
+    }
+  }, [isProcessing]);
 
   const handleInputChange = (field: string, value: string | number) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -148,60 +180,127 @@ export default function NewProjectPage() {
 
   if (isProcessing) {
     return (
-      <Layout title="Creating Project" subtitle="Processing script and setting up project structure">
-        <div className="flex items-center justify-center min-h-[60vh]">
-          <Card className="bg-gray-900/50 border-gray-700 max-w-md w-full">
-            <CardContent className="p-8 text-center">
-              <div className="mb-6">
-                <Loader2 className="w-16 h-16 text-amber-400 mx-auto animate-spin" />
+      <div className="min-h-screen bg-gradient-to-br from-primary-bg via-secondary-bg to-primary-bg flex items-center justify-center relative overflow-hidden">
+        {/* Background film strip pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-full h-8 bg-accent-brown transform -rotate-12"></div>
+          <div className="absolute bottom-0 right-0 w-full h-8 bg-accent-brown transform rotate-12"></div>
+        </div>
+        
+        <div className="text-center relative z-10 max-w-lg">
+          {/* Camera Animation Card */}
+          <Card className="bg-gradient-to-br from-secondary-bg/90 to-primary-bg/70 border-accent-brown/30 shadow-2xl backdrop-blur-sm mb-6">
+            <CardContent className="p-8">
+              {lottieLoaded ? (
+                <div className="text-center">
+                  {/* Camera Animation */}
+                  <div className="mb-6">
+                    {React.createElement('lottie-player', {
+                      autoplay: true,
+                      loop: true,
+                      src: "/assets/Camera.json",
+                      style: { 
+                        width: "280px", 
+                        height: "280px",
+                        margin: "0 auto",
+                        filter: "drop-shadow(0 10px 25px rgba(0, 0, 0, 0.2))"
+                      },
+                      onLoad: () => console.log('🎥 Camera is rolling!'),
+                      onError: (e) => console.error('Camera animation error:', e)
+                    })}
+                  </div>
+                  
+                  {/* Processing Message */}
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold text-accent-primary">
+                      Processing Your Script
+                    </h3>
+                    <p className="text-lg text-accent-secondary font-medium">
+                      {processingMessage}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                /* Fallback Animation */
+                <div className="text-center">
+                  <div className="relative w-32 h-32 mx-auto mb-6">
+                    <div className="absolute inset-0 border-4 border-accent-brown rounded-full animate-spin-slow"></div>
+                    <div className="absolute inset-6 border-2 border-accent-secondary rounded-full animate-spin"></div>
+                    <div className="absolute inset-12 bg-accent-primary rounded-full flex items-center justify-center">
+                      <div className="text-2xl">🎥</div>
+                    </div>
+                  </div>
+                  <div className="space-y-3">
+                    <h3 className="text-xl font-bold text-accent-primary">
+                      Processing Your Script
+                    </h3>
+                    <p className="text-lg text-accent-secondary font-medium">
+                      {processingMessage}
+                    </p>
+                  </div>
+                </div>
+              )}
+              {/* Cinema quotes */}
+              <div className="text-center">
+                <p className="text-text-secondary italic text-sm">
+                  "Every great film starts with a great script..."
+                </p>
+                <p className="text-xs text-text-secondary/70 mt-2">
+                  � Setting up your cinematic masterpiece
+                </p>
               </div>
-              <h3 className="text-xl font-semibold text-white mb-2">Breaking Script...</h3>
-              <p className="text-gray-400 mb-4">
-                Analyzing script and creating project structure
-              </p>
-              <div className="w-full bg-gray-700 rounded-full h-2">
-                <div className="bg-gradient-to-r from-amber-400 to-yellow-600 h-2 rounded-full animate-pulse" style={{ width: '65%' }}></div>
-              </div>
-              <p className="text-xs text-gray-500 mt-2">This may take a few moments...</p>
             </CardContent>
           </Card>
+          
+          
         </div>
-      </Layout>
+      </div>
     );
   }
 
   return (
-    <Layout title="Create New Project" subtitle="Start a new film production project">
+    <Layout title="🎬 Create New Project" subtitle="Start a new film production project">
       <div className="max-w-2xl mx-auto space-y-6">
+        {/* Welcome Header */}
+        <div className="text-center py-6">
+          <h1 className="text-3xl md:text-4xl font-bold text-accent-secondary mb-2">
+            🎬 Create Your Next Blockbuster
+          </h1>
+          <p className="text-text-secondary text-lg">
+            Set up a new film production project and bring your vision to life
+          </p>
+        </div>
+
         {/* Project Setup Form */}
-        <Card className="bg-gray-900/50 border-gray-700">
+        <Card className="bg-gradient-to-br from-secondary-bg/80 to-primary-bg/60 border-accent-brown/30 shadow-2xl backdrop-blur-sm">
           <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Film className="w-6 h-6 mr-2 text-amber-400" />
-              Project Details
+            <CardTitle className="text-accent-secondary flex items-center text-xl">
+              <Film className="w-6 h-6 mr-3 text-accent-primary" />
+               Project Details
             </CardTitle>
+            <p className="text-text-secondary mt-2">Fill in the basic information about your film project</p>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Movie Title */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Movie Title *
+                <label className="flex items-center text-sm font-medium text-accent-secondary mb-3">
+                  🎬 Movie Title *
                 </label>
                 <Input
                   type="text"
                   value={formData.title}
                   onChange={(e) => handleInputChange('title', e.target.value)}
-                  placeholder="Enter movie title..."
-                  className="bg-gray-800 border-gray-700 text-white placeholder-gray-400"
+                  placeholder="Enter your movie title..."
+                  className="bg-primary-bg/50 border-accent-brown/30 text-accent-secondary placeholder-text-secondary/50 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/30 h-12"
                   required
                 />
               </div>
 
               {/* Year */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Release Year
+                <label className="flex items-center text-sm font-medium text-accent-secondary mb-3">
+                  📅 Release Year
                 </label>
                 <Input
                   type="number"
@@ -209,32 +308,34 @@ export default function NewProjectPage() {
                   onChange={(e) => handleInputChange('year', parseInt(e.target.value))}
                   min="2020"
                   max="2030"
-                  className="bg-gray-800 border-gray-700 text-white"
+                  className="bg-primary-bg/50 border-accent-brown/30 text-accent-secondary focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/30 h-12"
                 />
               </div>
 
               {/* Estimated Budget */}
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Estimated Budget (in Crores) *
+                <label className="flex items-center text-sm font-medium text-accent-secondary mb-3">
+                  💰 Estimated Budget (in Crores) *
                 </label>
                 <div className="relative">
-                  <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-accent-primary w-5 h-5" />
                   <Input
                     type="number"
                     value={formData.estimatedBudget}
                     onChange={(e) => handleInputChange('estimatedBudget', e.target.value)}
-                    placeholder="0"
-                    className="pl-10 bg-gray-800 border-gray-700 text-white placeholder-gray-400"
+                    placeholder="0.0"
+                    className="pl-12 bg-primary-bg/50 border-accent-brown/30 text-accent-secondary placeholder-text-secondary/50 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/30 h-12"
                     step="0.1"
                     min="0.1"
                     required
                   />
                 </div>
                 {formData.estimatedBudget && (
-                  <p className="text-sm text-amber-400 mt-1">
-                    Budget: {formatCurrency(formData.estimatedBudget)}
-                  </p>
+                  <div className="mt-3 p-3 bg-accent-primary/10 rounded-lg border border-accent-primary/20">
+                    <p className="text-sm text-accent-primary font-semibold">
+                      💸 Total Budget: {formatCurrency(formData.estimatedBudget)}
+                    </p>
+                  </div>
                 )}
               </div>
 

@@ -30,16 +30,11 @@ export default function Home() {
         console.error('Failed to load lottie player:', error);
       });
 
-      // Authentication disabled for now - allow access to dashboard
-      // TODO: Implement proper authentication system
-      setLoading(false);
-      
-      // const token = localStorage.getItem('token');
-      // if (!token) {
-      //   router.push('/login');
-      // } else {
-      //   setLoading(false);
-      // }
+     
+      setTimeout(() => {
+        setLoading(false);
+      }, 4000); // Show panda animation for 4 seconds
+   
     }
   }, [router]);
 
@@ -122,18 +117,9 @@ export default function Home() {
               </div>
             )}
           </div>
-          
-          
-            
-            {/* Progress indicator */}
-            <div className="flex justify-center items-center space-x-2">
-              <div className="w-2 h-2 bg-accent-primary rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
-              <div className="w-2 h-2 bg-accent-secondary rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-              <div className="w-2 h-2 bg-accent-brown rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
-            </div>
-          </div>
+
         </div>
-    
+      </div>
     );
   }
 

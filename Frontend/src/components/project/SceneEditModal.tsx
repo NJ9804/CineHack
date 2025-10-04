@@ -77,130 +77,146 @@ export default function SceneEditModal({ scene, isOpen, onClose, onSave }: Scene
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[700px] bg-gray-900 border-gray-700 max-h-[90vh] overflow-y-auto">
+      <DialogContent className="sm:max-w-[700px] bg-gradient-to-br from-primary-bg to-secondary-bg border-accent-brown shadow-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-white text-xl">
-            Edit Scene {scene.seq}
+          <DialogTitle className="text-accent-secondary text-xl font-bold flex items-center">
+            🎬 Edit Scene {scene.seq}
           </DialogTitle>
-          <DialogDescription className="text-gray-400">
-            Review and modify AI-extracted scene details
+          <DialogDescription className="text-text-secondary">
+            📝 Review and modify AI-extracted scene details
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-6 py-4">
-          {/* Basic Info */}
+          {/* Enhanced Basic Info */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <Label className="text-gray-300">Scene Number</Label>
+              <Label className="text-accent-secondary font-medium flex items-center">
+                🎯 Scene Number
+              </Label>
               <Input
                 type="number"
                 value={formData.seq}
                 onChange={(e) => setFormData({ ...formData, seq: parseInt(e.target.value) })}
-                className="bg-gray-800 border-gray-700 text-white"
+                className="bg-secondary-bg/50 border-accent-brown/30 text-accent-secondary focus:border-accent-primary transition-colors"
               />
             </div>
             <div>
-              <Label className="text-gray-300">Interior/Exterior</Label>
+              <Label className="text-accent-secondary font-medium flex items-center">
+                🏗️ Interior/Exterior
+              </Label>
               <Select
                 value={formData.interior ? 'interior' : 'exterior'}
                 onValueChange={(value) => setFormData({ ...formData, interior: value === 'interior' })}
               >
-                <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
+                <SelectTrigger className="bg-secondary-bg/50 border-accent-brown/30 text-accent-secondary focus:border-accent-primary">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-gray-800 border-gray-700">
-                  <SelectItem value="interior">Interior (INT.)</SelectItem>
-                  <SelectItem value="exterior">Exterior (EXT.)</SelectItem>
+                <SelectContent className="bg-primary-bg border-accent-brown">
+                  <SelectItem value="interior">🏠 Interior (INT.)</SelectItem>
+                  <SelectItem value="exterior">🌅 Exterior (EXT.)</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
 
-          {/* Location */}
+          {/* Enhanced Location */}
           <div>
-            <Label className="text-gray-300">Location</Label>
+            <Label className="text-accent-secondary font-medium flex items-center">
+              📍 Location
+            </Label>
             <Input
               value={formData.location}
               onChange={(e) => setFormData({ ...formData, location: e.target.value })}
               placeholder="e.g., Kuttanad Backwater, Police Station"
-              className="bg-gray-800 border-gray-700 text-white"
+              className="bg-secondary-bg/50 border-accent-brown/30 text-accent-secondary focus:border-accent-primary transition-colors"
             />
           </div>
 
-          {/* Slugline */}
+          {/* Enhanced Slugline */}
           <div>
-            <Label className="text-gray-300">Slugline</Label>
+            <Label className="text-accent-secondary font-medium flex items-center">
+              🎞️ Slugline
+            </Label>
             <Input
               value={formData.slugline}
               onChange={(e) => setFormData({ ...formData, slugline: e.target.value })}
               placeholder="Full scene heading"
-              className="bg-gray-800 border-gray-700 text-white font-mono text-sm"
+              className="bg-secondary-bg/50 border-accent-brown/30 text-accent-secondary font-mono text-sm focus:border-accent-primary transition-colors"
             />
           </div>
 
-          {/* Time & Duration */}
+          {/* Enhanced Time & Duration */}
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <Label className="text-gray-300">Time of Day</Label>
+              <Label className="text-accent-secondary font-medium flex items-center">
+                🕐 Time of Day
+              </Label>
               <Select
                 value={formData.time_of_day}
                 onValueChange={(value) => setFormData({ ...formData, time_of_day: value })}
               >
-                <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
+                <SelectTrigger className="bg-secondary-bg/50 border-accent-brown/30 text-accent-secondary focus:border-accent-primary">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="bg-gray-800 border-gray-700">
-                  <SelectItem value="day">Day</SelectItem>
-                  <SelectItem value="night">Night</SelectItem>
-                  <SelectItem value="morning">Morning</SelectItem>
-                  <SelectItem value="evening">Evening</SelectItem>
-                  <SelectItem value="dawn">Dawn</SelectItem>
-                  <SelectItem value="dusk">Dusk</SelectItem>
+                <SelectContent className="bg-primary-bg border-accent-brown">
+                  <SelectItem value="day">☀️ Day</SelectItem>
+                  <SelectItem value="night">🌙 Night</SelectItem>
+                  <SelectItem value="morning">🌅 Morning</SelectItem>
+                  <SelectItem value="evening">🌇 Evening</SelectItem>
+                  <SelectItem value="dawn">🌄 Dawn</SelectItem>
+                  <SelectItem value="dusk">🌆 Dusk</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div>
-              <Label className="text-gray-300">Duration (min)</Label>
+              <Label className="text-accent-secondary font-medium flex items-center">
+                ⏱️ Duration (min)
+              </Label>
               <Input
                 type="number"
                 value={formData.duration_minutes}
                 onChange={(e) => setFormData({ ...formData, duration_minutes: parseInt(e.target.value) })}
-                className="bg-gray-800 border-gray-700 text-white"
+                className="bg-secondary-bg/50 border-accent-brown/30 text-accent-secondary focus:border-accent-primary transition-colors"
               />
             </div>
             <div>
-              <Label className="text-gray-300">Crowd Size</Label>
+              <Label className="text-accent-secondary font-medium flex items-center">
+                👥 Crowd Size
+              </Label>
               <Input
                 type="number"
                 value={formData.crowd_estimate}
                 onChange={(e) => setFormData({ ...formData, crowd_estimate: parseInt(e.target.value) })}
-                className="bg-gray-800 border-gray-700 text-white"
+                className="bg-secondary-bg/50 border-accent-brown/30 text-accent-secondary focus:border-accent-primary transition-colors"
               />
             </div>
           </div>
 
-          {/* Actors */}
+          {/* Enhanced Cast / Actors */}
           <div>
-            <Label className="text-gray-300 mb-2 block">Cast / Actors</Label>
-            <div className="flex gap-2 mb-2">
+            <Label className="text-accent-secondary font-medium mb-2 flex items-center">
+              🎭 Cast / Actors
+            </Label>
+            <div className="flex gap-2 mb-3">
               <Input
                 value={newActor}
                 onChange={(e) => setNewActor(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && addActor()}
                 placeholder="Add character name..."
-                className="bg-gray-800 border-gray-700 text-white"
+                className="bg-secondary-bg/50 border-accent-brown/30 text-accent-secondary focus:border-accent-primary transition-colors"
               />
-              <Button onClick={addActor} type="button" size="sm" className="bg-blue-600">
+              <Button onClick={addActor} type="button" size="sm" className="bg-accent-primary text-primary-bg hover:bg-accent-primary/80 transition-colors">
                 <Plus className="w-4 h-4" />
               </Button>
             </div>
             <div className="flex flex-wrap gap-2">
               {formData.actors.map((actor, idx) => (
-                <Badge key={idx} className="bg-blue-500/20 text-blue-400 border-blue-500/30">
-                  {actor}
+                <Badge key={idx} className="bg-accent-primary/20 text-accent-primary border-accent-primary/30 hover:bg-accent-primary/30 transition-colors">
+                  🎭 {actor}
                   <button
                     onClick={() => removeActor(actor)}
-                    className="ml-2 hover:text-red-400"
+                    className="ml-2 hover:text-red-400 transition-colors"
                   >
                     <X className="w-3 h-3" />
                   </button>
@@ -209,28 +225,30 @@ export default function SceneEditModal({ scene, isOpen, onClose, onSave }: Scene
             </div>
           </div>
 
-          {/* Props */}
+          {/* Enhanced Props */}
           <div>
-            <Label className="text-gray-300 mb-2 block">Props</Label>
-            <div className="flex gap-2 mb-2">
+            <Label className="text-accent-secondary font-medium mb-2 flex items-center">
+              🎪 Props
+            </Label>
+            <div className="flex gap-2 mb-3">
               <Input
                 value={newProp}
                 onChange={(e) => setNewProp(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && addProp()}
                 placeholder="Add prop name..."
-                className="bg-gray-800 border-gray-700 text-white"
+                className="bg-secondary-bg/50 border-accent-brown/30 text-accent-secondary focus:border-accent-primary transition-colors"
               />
-              <Button onClick={addProp} type="button" size="sm" className="bg-blue-600">
+              <Button onClick={addProp} type="button" size="sm" className="bg-accent-secondary text-primary-bg hover:bg-accent-secondary/80 transition-colors">
                 <Plus className="w-4 h-4" />
               </Button>
             </div>
             <div className="flex flex-wrap gap-2">
               {formData.props.map((prop, idx) => (
-                <Badge key={idx} className="bg-purple-500/20 text-purple-400 border-purple-500/30">
-                  {prop}
+                <Badge key={idx} className="bg-accent-secondary/20 text-accent-secondary border-accent-secondary/30 hover:bg-accent-secondary/30 transition-colors">
+                  🎪 {prop}
                   <button
                     onClick={() => removeProp(prop)}
-                    className="ml-2 hover:text-red-400"
+                    className="ml-2 hover:text-red-400 transition-colors"
                   >
                     <X className="w-3 h-3" />
                   </button>
@@ -239,48 +257,61 @@ export default function SceneEditModal({ scene, isOpen, onClose, onSave }: Scene
             </div>
           </div>
 
-          {/* VFX */}
-          <div className="flex items-center gap-2">
+          {/* Enhanced VFX */}
+          <div className="flex items-center gap-3 p-3 bg-secondary-bg/30 rounded-lg border border-accent-brown/20">
             <input
               type="checkbox"
               id="vfx"
               checked={formData.vfx}
               onChange={(e) => setFormData({ ...formData, vfx: e.target.checked })}
-              className="w-4 h-4 rounded border-gray-700 bg-gray-800"
+              className="w-5 h-5 rounded border-accent-brown/30 bg-secondary-bg/50 text-accent-primary focus:border-accent-primary transition-colors"
             />
-            <Label htmlFor="vfx" className="text-gray-300 cursor-pointer">
-              VFX Required
+            <Label htmlFor="vfx" className="text-accent-secondary font-medium cursor-pointer flex items-center">
+              ✨ VFX Required
             </Label>
           </div>
 
-          {/* Notes */}
+          {/* Enhanced Notes */}
           <div>
-            <Label className="text-gray-300">Notes</Label>
+            <Label className="text-accent-secondary font-medium flex items-center">
+              📝 Notes
+            </Label>
             <Textarea
               value={formData.notes || ''}
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
               placeholder="Additional notes about this scene..."
-              className="bg-gray-800 border-gray-700 text-white min-h-[80px]"
+              className="bg-secondary-bg/50 border-accent-brown/30 text-accent-secondary min-h-[80px] focus:border-accent-primary transition-colors resize-none"
             />
           </div>
 
-          {/* AI Confidence */}
-          <div className="bg-gray-800/50 rounded p-3 text-sm">
+          {/* Enhanced AI Confidence */}
+          <div className="bg-gradient-to-r from-secondary-bg/50 to-primary-bg/30 rounded-lg p-4 border border-accent-brown/20">
             <div className="flex items-center justify-between">
-              <span className="text-gray-400">AI Extraction Confidence</span>
-              <span className={`font-medium ${scene.ai_confidence > 0.8 ? 'text-green-400' : 'text-yellow-400'}`}>
-                {Math.round(scene.ai_confidence * 100)}%
+              <span className="text-accent-secondary font-medium flex items-center">
+                🤖 AI Extraction Confidence
+              </span>
+              <span className={`font-bold text-lg ${scene.ai_confidence > 0.8 ? 'text-accent-primary' : 'text-accent-secondary'}`}>
+                {scene.ai_confidence > 0.8 ? '✅' : '⚠️'} {Math.round(scene.ai_confidence * 100)}%
               </span>
             </div>
           </div>
         </div>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={onClose} disabled={saving}>
-            Cancel
+        <DialogFooter className="pt-6">
+          <Button 
+            variant="outline" 
+            onClick={onClose} 
+            disabled={saving}
+            className="border-accent-brown text-accent-secondary hover:bg-accent-brown/20 transition-colors"
+          >
+            ❌ Cancel
           </Button>
-          <Button onClick={handleSave} disabled={saving} className="bg-blue-600 hover:bg-blue-700">
-            {saving ? 'Saving...' : 'Save Changes'}
+          <Button 
+            onClick={handleSave} 
+            disabled={saving} 
+            className="bg-accent-primary text-primary-bg hover:bg-accent-primary/80 font-medium transition-colors"
+          >
+            {saving ? '⏳ Saving...' : '💾 Save Changes'}
           </Button>
         </DialogFooter>
       </DialogContent>
