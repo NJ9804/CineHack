@@ -347,6 +347,18 @@ class ApiClient {
     }
   }
 
+  async updateScene(sceneId: number, data: any) {
+    try {
+      return await this.request<any>(`/api/scenes/${sceneId}`, {
+        method: 'PUT',
+        body: JSON.stringify(data),
+      });
+    } catch (error) {
+      console.error('Failed to update scene:', error);
+      throw error;
+    }
+  }
+
   // Characters endpoints
   async getCharacters(projectId: string) {
     if (this.shouldUseMockData()) {
