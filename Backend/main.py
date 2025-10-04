@@ -18,6 +18,7 @@ from app.controllers import notifications
 from app.controllers import schedule
 from app.controllers import global_costs
 from app.controllers import invoice
+from app.controllers import promotions
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -51,6 +52,7 @@ app.include_router(notifications.router, prefix="/api", tags=["notifications"])
 app.include_router(schedule.router, prefix="/api", tags=["schedule"])
 app.include_router(global_costs.router, prefix="/api", tags=["global-costs"])
 app.include_router(invoice.router, tags=["invoice"])
+app.include_router(promotions.router, prefix="/api", tags=["promotions"])
 
 @app.get("/")
 def root():

@@ -8,7 +8,6 @@ import {
   DollarSign, 
   Film, 
   User, 
-  Bell,
   Settings,
   Menu,
   X
