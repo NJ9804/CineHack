@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { mockApiClient } from './mockClient';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
@@ -124,7 +125,7 @@ class ApiClient {
         try {
           const errorData = await response.json();
           errorMessage = errorData.detail || errorData.message || `HTTP ${response.status}: ${response.statusText}`;
-        } catch (parseError) {
+        } catch {
           errorMessage = `HTTP ${response.status}: ${response.statusText}`;
         }
         
@@ -281,6 +282,15 @@ class ApiClient {
 
   async getScripts(projectId: string) {
     return this.request<any[]>(`/api/projects/${projectId}/scripts`);
+  }
+
+  async getMainCharacters() {
+    try {
+      return await this.request<any>('/api/scripts/main-characters');
+    } catch (error) {
+      console.warn('Failed to fetch main characters:', error);
+      return { success: false, characters: [] };
+    }
   }
 
   async getParseStatus(projectId: string, scriptId: string) {

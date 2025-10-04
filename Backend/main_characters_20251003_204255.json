@@ -1,0 +1,163 @@
+{
+  "source_file": "script_analysis_20251003_204255.json",
+  "extraction_summary": {
+    "total_main_characters": 5,
+    "characters_found": [
+      "Mukundan Unni",
+      "Mani",
+      "Unni",
+      "Meenakshi",
+      "Venu Vakkeel"
+    ]
+  },
+  "main_characters": [
+    {
+      "name": "Mukundan Unni",
+      "role": "main",
+      "first_appearance_scene": 1,
+      "total_scenes": 19,
+      "scenes": [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        4,
+        4,
+        4,
+        5,
+        5,
+        6,
+        7,
+        8,
+        8,
+        9
+      ],
+      "descriptions": [
+        "27-year-old lawyer, wearing a white shirt, white pants, glasses, and carrying a laptop bag.",
+        "Lawyer, arriving at the MLA's house.",
+        "Lawyer, observing the situation.",
+        "Lawyer, taking instructions.",
+        "Lawyer, trying to get involved in the case.",
+        "Lawyer, persistent in his efforts to join the case.",
+        "Lawyer, parking his bike.",
+        "Lawyer, entering the office.",
+        "Lawyer, facing his senior.",
+        "Lawyer, drenched in rain, entering the shop.",
+        "Lawyer, watching his name being engraved.",
+        "Lawyer, riding his bike in the rain.",
+        "Lawyer, studying a case file seriously.",
+        "Lawyer, walking with Robin and then sitting with Jyothi.",
+        "Lawyer, performing his morning routine with discipline, reacting to news and a domestic emergency.",
+        "Lawyer, waiting at the hospital, concerned about payment.",
+        "Lawyer, waiting in the ATM queue.",
+        "Lawyer, withdrawing all available money.",
+        "Lawyer, attempting to pay with insufficient funds."
+      ]
+    },
+    {
+      "name": "Mani",
+      "role": "main",
+      "first_appearance_scene": 1,
+      "total_scenes": 11,
+      "scenes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        11,
+        13
+      ],
+      "descriptions": [
+        "Pays large sums of cash, observed by Unni, later revealed as an agent.",
+        "Walking, asking for room directions.",
+        "Arranging for a patient to sign documents.",
+        "Buys tea after paying a bill, looks surprised by Unni's interaction.",
+        "Gets Unni's mother to sign a document.",
+        "Paying a bill, making a call to Venu Vakkeel.",
+        "Enters doctor's room with Unni, hands over phone to doctor.",
+        "Shows Unni a photo of the car and gives instructions.",
+        "Present during the scene mahasar, having instructed Unni to file a complaint.",
+        "Reminds the doctor about the 'ookku' (force) to be added to the report.",
+        "Explains the process of claim payout and distribution to Unni and Robin."
+      ]
+    },
+    {
+      "name": "Unni",
+      "role": "main",
+      "first_appearance_scene": 1,
+      "total_scenes": 15,
+      "scenes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        7,
+        8,
+        9,
+        10,
+        11,
+        13,
+        15,
+        18,
+        19,
+        20
+      ],
+      "descriptions": [
+        "Observant, curious about discounts and Mani's activities.",
+        "Following and observing Mani's actions.",
+        "Observing the scene from a partially open doorway.",
+        "Initiates conversation with Mani, trying to understand his actions.",
+        "Observing Mani's actions with his mother.",
+        "Observing the conversation and manipulation unfold.",
+        "Receives instructions from Mani regarding the accident vehicle.",
+        "The montage implies Unni is the one visiting the police station to file the complaint.",
+        "Observing the manipulation of evidence without reaction.",
+        "Present with Mani.",
+        "Present during Mani's explanation of the process.",
+        "Present, observes the manipulation of evidence.",
+        "Present in the chamber.",
+        "Receives a bank credit notification on his mobile.",
+        "Receives a bank debit notification on his mobile while in the bathroom."
+      ]
+    },
+    {
+      "name": "Meenakshi",
+      "role": "main",
+      "first_appearance_scene": 1,
+      "total_scenes": 1,
+      "scenes": [
+        1
+      ],
+      "descriptions": [
+        "Billing section staff, handles receipts, initially stoic, shows empathy for Unni's mother, has a PSC exam."
+      ]
+    },
+    {
+      "name": "Venu Vakkeel",
+      "role": "main",
+      "first_appearance_scene": 15,
+      "total_scenes": 3,
+      "scenes": [
+        15,
+        17,
+        18
+      ],
+      "descriptions": [
+        "40 years old, advocate, actively breaks watch and glasses to inflate claim value.",
+        "Stands up to present the case, calls witnesses.",
+        "Present during the signing."
+      ]
+    }
+  ]
+}
