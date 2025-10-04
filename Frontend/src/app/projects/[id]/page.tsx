@@ -14,6 +14,7 @@ import BudgetTabEnhanced from '@/components/project/BudgetTabEnhanced';
 import CharactersTab from '@/components/project/CharactersTab';
 import RisksTab from '@/components/project/RisksTab';
 import PromotionsTab from '@/components/project/PromotionsTab';
+import { TicketList, TicketDashboard, TicketWidget } from '@/components/project/tickets';
 import { 
   Users, 
   DollarSign, 
@@ -366,6 +367,9 @@ export default function ProjectDetailPage() {
             <TabsTrigger value="promotions" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400">
               Promotions
             </TabsTrigger>
+            <TabsTrigger value="tickets" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
+              🎫 Tickets
+            </TabsTrigger>
             <TabsTrigger value="risks" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400">
               Risks
             </TabsTrigger>
@@ -642,6 +646,19 @@ export default function ProjectDetailPage() {
 
           <TabsContent value="promotions" className="mt-6">
             <PromotionsTab projectId={projectId} projectName={project.title} />
+          </TabsContent>
+
+          <TabsContent value="tickets" className="mt-6">
+            <div className="space-y-6">
+              {/* Ticket Widget Summary */}
+              <TicketWidget 
+                projectId={parseInt(projectId)}
+                compact={false}
+              />
+              
+              {/* Full Ticket List */}
+              <TicketList projectId={parseInt(projectId)} />
+            </div>
           </TabsContent>
 
           <TabsContent value="risks" className="mt-6">

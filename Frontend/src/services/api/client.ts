@@ -96,6 +96,7 @@ class ApiClient {
 
       const url = `${this.baseUrl}${endpoint}`;
       console.log(`🌐 [HTTP] ${options.method || 'GET'} ${url}`);
+      console.log(`🔑 [AUTH] Token present: ${this.token ? 'YES' : 'NO'}`, this.token ? `(${this.token.substring(0, 20)}...)` : '');
 
       // Check if fetch is available
       if (typeof fetch === 'undefined') {
@@ -691,6 +692,113 @@ class ApiClient {
   async getPromotions(projectId: string) {
     const response = await this.request<any>(`/api/promotions/projects/${projectId}`);
     return response.promotions || [];
+  }
+
+  // ============= Ticket System Methods =============
+  
+  // Ticket CRUD operations
+  async createTicket(projectId: number, data: any) {
+    return this.request<any>(`/api/projects/${projectId}/tickets`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async getProjectTickets(projectId: number, filters?: any) {
+    const params = new URLSearchParams();
+    if (filters) {
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== null && value !== '') {
+          params.append(key, value.toString());
+        }
+      });
+    }
+    const queryString = params.toString();
+    return this.request<any>(`/api/projects/${projectId}/tickets${queryString ? `?${queryString}` : ''}`);
+  }
+
+  async getTicket(ticketId: number) {
+    return this.request<any>(`/api/tickets/${ticketId}`);
+  }
+
+  async updateTicket(ticketId: number, data: any) {
+    return this.request<any>(`/api/tickets/${ticketId}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async deleteTicket(ticketId: number) {
+    return this.request<any>(`/api/tickets/${ticketId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  // Ticket Comments
+  async addTicketComment(ticketId: number, data: any) {
+    return this.request<any>(`/api/tickets/${ticketId}/comments`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async getTicketComments(ticketId: number) {
+    return this.request<any>(`/api/tickets/${ticketId}/comments`);
+  }
+
+  async updateTicketComment(commentId: number, content: string) {
+    return this.request<any>(`/api/tickets/comments/${commentId}`, {
+      method: 'PUT',
+      body: JSON.stringify({ content }),
+    });
+  }
+
+  async deleteTicketComment(commentId: number) {
+    return this.request<any>(`/api/tickets/comments/${commentId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  // Ticket Reminders
+  async createTicketReminder(ticketId: number, data: any) {
+    return this.request<any>(`/api/tickets/${ticketId}/reminders`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async getTicketReminders(ticketId: number) {
+    return this.request<any>(`/api/tickets/${ticketId}/reminders`);
+  }
+
+  async getPendingTicketReminders() {
+    return this.request<any>('/api/reminders/pending');
+  }
+
+  async markTicketReminderSent(reminderId: number) {
+    return this.request<any>(`/api/reminders/${reminderId}/mark-sent`, {
+      method: 'PUT',
+      body: JSON.stringify({}),
+    });
+  }
+
+  async deleteTicketReminder(reminderId: number) {
+    return this.request<any>(`/api/reminders/${reminderId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  // Ticket Analytics
+  async getTicketAnalytics(projectId: number) {
+    return this.request<any>(`/api/projects/${projectId}/tickets/analytics`);
+  }
+
+  // Ticket Bulk Operations
+  async bulkUpdateTickets(ticketIds: number[], updates: any) {
+    return this.request<any>('/api/tickets/bulk-update', {
+      method: 'POST',
+      body: JSON.stringify({ ticket_ids: ticketIds, ...updates }),
+    });
   }
 }
 

@@ -443,3 +443,149 @@ class Promotion(Base):
     
     # Relationships
     project = relationship("Project")
+
+
+# ============= Ticketing System for Post-Production =============
+
+class Ticket(Base):
+    __tablename__ = "tickets"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("projects.id"))
+    task_id = Column(Integer, ForeignKey("production_tasks.id"), nullable=True)
+    stage_id = Column(Integer, ForeignKey("production_stages.id"), nullable=True)
+    
+    ticket_number = Column(String, unique=True, nullable=False)  # Auto-generated: TICK-001, TICK-002
+    title = Column(String, nullable=False)
+    description = Column(Text)
+    
+    # Categorization
+    ticket_type = Column(String, nullable=False)  # file_request, feedback, issue, question, asset_delivery
+    priority = Column(String, default="medium")  # low, medium, high, urgent
+    category = Column(String)  # editing, vfx, color_grading, sound, music, graphics
+    
+    # Status tracking
+    status = Column(String, default="open")  # open, in_progress, waiting_response, resolved, closed
+    
+    # Assignment
+    created_by = Column(Integer, ForeignKey("users.id"))
+    assigned_to = Column(Integer, ForeignKey("users.id"), nullable=True)
+    watchers = Column(JSON)  # Array of user IDs who should be notified
+    
+    # Collaboration
+    source_department = Column(String)  # editing, vfx, color, etc.
+    target_department = Column(String)  # The department this ticket is directed to
+    
+    # Files and assets
+    attachments = Column(JSON)  # Array of file references {name: str, url: str, type: str}
+    related_files = Column(JSON)  # Files that need to be shared/requested
+    
+    # Timing
+    due_date = Column(DateTime, nullable=True)
+    resolved_at = Column(DateTime, nullable=True)
+    closed_at = Column(DateTime, nullable=True)
+    
+    # Metrics
+    response_time = Column(Float)  # Hours taken for first response
+    resolution_time = Column(Float)  # Hours taken to resolve
+    
+    # Tags and metadata
+    tags = Column(JSON)  # Array of tags for better organization
+    ticket_metadata = Column(JSON)  # Additional custom fields (renamed from metadata to avoid conflict)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    project = relationship("Project")
+    task = relationship("ProductionTask")
+    stage = relationship("ProductionStage")
+    creator = relationship("User", foreign_keys=[created_by])
+    assignee = relationship("User", foreign_keys=[assigned_to])
+    comments = relationship("TicketComment", back_populates="ticket", cascade="all, delete-orphan")
+    reminders = relationship("TicketReminder", back_populates="ticket", cascade="all, delete-orphan")
+    activities = relationship("TicketActivity", back_populates="ticket", cascade="all, delete-orphan")
+
+
+class TicketComment(Base):
+    __tablename__ = "ticket_comments"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    ticket_id = Column(Integer, ForeignKey("tickets.id", ondelete="CASCADE"))
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
+    
+    content = Column(Text, nullable=False)
+    comment_type = Column(String, default="comment")  # comment, status_change, internal_note
+    
+    # For file sharing in comments
+    attachments = Column(JSON)  # Array of file references
+    
+    # Mentions
+    mentions = Column(JSON)  # Array of user IDs mentioned in the comment
+    
+    is_internal = Column(Boolean, default=False)  # Internal notes only visible to production team
+    is_edited = Column(Boolean, default=False)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    ticket = relationship("Ticket", back_populates="comments")
+    user = relationship("User")
+
+
+class TicketReminder(Base):
+    __tablename__ = "ticket_reminders"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    ticket_id = Column(Integer, ForeignKey("tickets.id", ondelete="CASCADE"))
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
+    
+    reminder_type = Column(String, nullable=False)  # due_date, follow_up, custom
+    reminder_time = Column(DateTime, nullable=False)
+    message = Column(Text)
+    
+    # Recurrence
+    is_recurring = Column(Boolean, default=False)
+    recurrence_pattern = Column(String)  # daily, weekly, custom
+    recurrence_end = Column(DateTime)
+    
+    # Status
+    is_sent = Column(Boolean, default=False)
+    sent_at = Column(DateTime)
+    is_active = Column(Boolean, default=True)
+    
+    # Notification channels
+    notify_email = Column(Boolean, default=False)
+    notify_in_app = Column(Boolean, default=True)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    ticket = relationship("Ticket", back_populates="reminders")
+    user = relationship("User")
+
+
+class TicketActivity(Base):
+    __tablename__ = "ticket_activities"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    ticket_id = Column(Integer, ForeignKey("tickets.id", ondelete="CASCADE"))
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
+    
+    activity_type = Column(String, nullable=False)  # created, updated, assigned, status_changed, commented, closed
+    description = Column(Text)
+    
+    # Store what changed
+    field_name = Column(String)  # Which field was changed
+    old_value = Column(String)
+    new_value = Column(String)
+    
+    activity_metadata = Column(JSON)  # Additional activity metadata (renamed from metadata to avoid conflict)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    
+    # Relationships
+    ticket = relationship("Ticket", back_populates="activities")
+    user = relationship("User")
