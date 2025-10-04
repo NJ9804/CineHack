@@ -576,6 +576,85 @@ class ApiClient {
   async getRisks(projectId: string) {
     return this.request<any[]>(`/api/projects/${projectId}/risks`);
   }
+
+  // Production Stages endpoints
+  async initializeProductionStages(projectId: string) {
+    return this.request<any>(`/api/projects/${projectId}/production-stages/initialize`, {
+      method: 'POST',
+    });
+  }
+
+  async getProductionStages(projectId: string) {
+    return this.request<any[]>(`/api/projects/${projectId}/production-stages`);
+  }
+
+  async getProductionOverview(projectId: string) {
+    return this.request<any>(`/api/projects/${projectId}/production-overview`);
+  }
+
+  async createProductionStage(projectId: string, data: any) {
+    return this.request<any>(`/api/projects/${projectId}/production-stages`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async updateProductionStage(stageId: number, data: any) {
+    return this.request<any>(`/api/production-stages/${stageId}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async deleteProductionStage(stageId: number) {
+    return this.request<any>(`/api/production-stages/${stageId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  async createProductionSubStage(stageId: number, data: any) {
+    return this.request<any>(`/api/production-stages/${stageId}/sub-stages`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async updateProductionSubStage(subStageId: number, data: any) {
+    return this.request<any>(`/api/production-substages/${subStageId}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async deleteProductionSubStage(subStageId: number) {
+    return this.request<any>(`/api/production-substages/${subStageId}`, {
+      method: 'DELETE',
+    });
+  }
+
+  async createProductionTask(stageId: number, data: any, subStageId?: number) {
+    const url = subStageId
+      ? `/api/production-stages/${stageId}/tasks?sub_stage_id=${subStageId}`
+      : `/api/production-stages/${stageId}/tasks`;
+    
+    return this.request<any>(url, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async updateProductionTask(taskId: number, data: any) {
+    return this.request<any>(`/api/production-tasks/${taskId}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async deleteProductionTask(taskId: number) {
+    return this.request<any>(`/api/production-tasks/${taskId}`, {
+      method: 'DELETE',
+    });
+  }
 }
 
 export const apiClient = new ApiClient();

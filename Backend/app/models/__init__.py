@@ -159,3 +159,86 @@ class ScriptAnalysis(Base):
     
     created_at = Column(DateTime, server_default=func.now())
     updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+
+
+class ProductionStage(Base):
+    __tablename__ = "production_stages"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("projects.id"))
+    name = Column(String, nullable=False)  # Development, Pre-Production, Production, Post-Production, Distribution
+    description = Column(Text)
+    order = Column(Integer, nullable=False)  # Display order
+    status = Column(String, default="not_started")  # not_started, in_progress, completed, on_hold
+    progress = Column(Integer, default=0)  # 0-100 percentage
+    start_date = Column(DateTime)
+    end_date = Column(DateTime)
+    estimated_duration_days = Column(Integer)
+    actual_duration_days = Column(Integer)
+    budget_allocated = Column(Float, default=0.0)
+    budget_spent = Column(Float, default=0.0)
+    notes = Column(Text)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    project = relationship("Project")
+    sub_stages = relationship("ProductionSubStage", back_populates="stage", cascade="all, delete-orphan")
+    tasks = relationship("ProductionTask", back_populates="stage", cascade="all, delete-orphan")
+
+
+class ProductionSubStage(Base):
+    __tablename__ = "production_substages"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    stage_id = Column(Integer, ForeignKey("production_stages.id"))
+    name = Column(String, nullable=False)
+    description = Column(Text)
+    order = Column(Integer, nullable=False)
+    status = Column(String, default="not_started")  # not_started, in_progress, completed, blocked
+    progress = Column(Integer, default=0)  # 0-100 percentage
+    priority = Column(String, default="medium")  # low, medium, high, critical
+    assigned_to = Column(String)  # Team member or department
+    start_date = Column(DateTime)
+    end_date = Column(DateTime)
+    estimated_hours = Column(Integer)
+    actual_hours = Column(Integer)
+    dependencies = Column(JSON)  # Array of substage IDs that must be completed first
+    deliverables = Column(JSON)  # Array of expected deliverables
+    notes = Column(Text)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    stage = relationship("ProductionStage", back_populates="sub_stages")
+    tasks = relationship("ProductionTask", back_populates="sub_stage", cascade="all, delete-orphan")
+
+
+class ProductionTask(Base):
+    __tablename__ = "production_tasks"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    stage_id = Column(Integer, ForeignKey("production_stages.id"))
+    sub_stage_id = Column(Integer, ForeignKey("production_substages.id"), nullable=True)
+    title = Column(String, nullable=False)
+    description = Column(Text)
+    status = Column(String, default="todo")  # todo, in_progress, review, completed, blocked
+    priority = Column(String, default="medium")  # low, medium, high, critical
+    assigned_to = Column(String)
+    due_date = Column(DateTime)
+    completed_date = Column(DateTime)
+    estimated_hours = Column(Float)
+    actual_hours = Column(Float)
+    tags = Column(JSON)  # Array of tags
+    checklist = Column(JSON)  # Array of checklist items {item: str, completed: bool}
+    attachments = Column(JSON)  # Array of file references
+    notes = Column(Text)
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    stage = relationship("ProductionStage", back_populates="tasks")
+    sub_stage = relationship("ProductionSubStage", back_populates="tasks")

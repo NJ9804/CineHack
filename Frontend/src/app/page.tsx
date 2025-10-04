@@ -41,12 +41,16 @@ export default function Home() {
         setLottieLoaded(true);
       }).catch(console.error);
 
-      const token = localStorage.getItem('token');
-      if (!token) {
-        router.push('/login');
-      } else {
-        setLoading(false);
-      }
+      // Authentication disabled for now - allow access to dashboard
+      // TODO: Implement proper authentication system
+      setLoading(false);
+      
+      // const token = localStorage.getItem('token');
+      // if (!token) {
+      //   router.push('/login');
+      // } else {
+      //   setLoading(false);
+      // }
     }
   }, [router]);
 

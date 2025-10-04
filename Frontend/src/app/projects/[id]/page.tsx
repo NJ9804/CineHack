@@ -218,6 +218,27 @@ export default function ProjectDetailPage() {
   return (
     <Layout title={project.title} subtitle={`${project.year} • ${project.status.replace('-', ' ')}`}>
       <div className="space-y-6">
+        {/* Quick Access Banner */}
+        <Card className="bg-gradient-to-r from-amber-500/10 via-purple-500/10 to-blue-500/10 border-amber-500/20">
+          <CardContent className="py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Target className="w-6 h-6 text-amber-400" />
+                <div>
+                  <h3 className="text-lg font-semibold text-white">Production Management</h3>
+                  <p className="text-sm text-gray-400">Track all stages of your film production</p>
+                </div>
+              </div>
+              <Link href={`/projects/${projectId}/production-stages`}>
+                <Button className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700">
+                  <Clock className="w-4 h-4 mr-2" />
+                  View Production Timeline
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Project Overview Stats */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <Card className="bg-gradient-to-br from-blue-500/10 to-cyan-600/10 border-blue-500/20">
