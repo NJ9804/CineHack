@@ -12,20 +12,6 @@ import { Film, Plus, Calendar, DollarSign, AlertTriangle, Loader2, WifiOff } fro
 import { mockProjects, mockAlerts } from '@/services/mock/data';
 import DashboardAnalytics from '@/components/dashboard/DashboardAnalytics';
 
-// Add custom element type for lottie-player
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'lottie-player': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
-        autoplay?: boolean;
-        loop?: boolean;
-        src?: string;
-        style?: React.CSSProperties;
-      };
-    }
-  }
-}
-
 export default function Home() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
@@ -39,70 +25,114 @@ export default function Home() {
       // Load lottie-player dynamically on client side
       import('@lottiefiles/lottie-player').then(() => {
         setLottieLoaded(true);
-      }).catch(console.error);
+        console.log('Lottie player loaded successfully');
+      }).catch((error) => {
+        console.error('Failed to load lottie player:', error);
+      });
 
       const token = localStorage.getItem('token');
       if (!token) {
         router.push('/login');
       } else {
-        setLoading(false);
+        // Add a minimum loading time to show the panda animation
+        setTimeout(() => {
+          setLoading(false);
+        }, 6000); // Show loading screen for 6 seconds to enjoy the panda
       }
     }
   }, [router]);
 
-  // 🎥 Loading with Enhanced Animation
+  // 🎥 Loading with Enhanced Panda Animation
   if (loading) {
     return (
-      <div className="min-h-screen bg-primary-bg flex items-center justify-center">
-        <div className="text-center">
-          <div className="relative mb-8">
-            {/* Lottie Animation (when available) */}
-            {lottieLoaded && (
-              <div className="mb-6">
-                <lottie-player
-                  autoplay
-                  loop
-                  src="public/assets/pandas-popcorn.lottie"
-                  style={{ width: "280px", height: "280px" }}
-                ></lottie-player>
-              </div>
-            )}
-            
-            {/* Beautiful Film Reel Animation */}
-            <div className="mb-6">
-              <div className="relative w-32 h-32 mx-auto">
-                {/* Outer film reel */}
-                <div className="absolute inset-0 border-4 border-accent-brown rounded-full animate-spin-slow"></div>
-                {/* Inner film reel */}
-                <div className="absolute inset-4 border-2 border-accent-secondary rounded-full animate-spin"></div>
-                {/* Center hub */}
-                <div className="absolute inset-12 bg-accent-primary rounded-full flex items-center justify-center">
-                  <div className="text-2xl">🎬</div>
+      <div className="min-h-screen bg-gradient-to-br from-primary-bg via-secondary-bg to-primary-bg flex items-center justify-center relative overflow-hidden">
+        {/* Background film strip pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 left-0 w-full h-8 bg-accent-brown transform -rotate-12"></div>
+          <div className="absolute bottom-0 right-0 w-full h-8 bg-accent-brown transform rotate-12"></div>
+        </div>
+        
+        <div className="text-center relative z-10">
+          {/* Main Panda Animation Container */}
+          <div className="mb-12">
+            {lottieLoaded ? (
+              <div className="relative">
+                {/* Cinematic Background */}
+                <div className="absolute -inset-16 bg-gradient-to-r from-accent-primary/10 via-accent-secondary/15 to-accent-brown/10 rounded-full blur-3xl animate-pulse"></div>
+                
+                {/* Panda Box Container */}
+                <div className="relative bg-gradient-to-br from-secondary-bg/80 to-primary-bg/60 rounded-3xl p-8 backdrop-blur-sm border-2 border-accent-brown/30 shadow-2xl">
+                  {/* Panda Animation */}
+                  <div className="text-center">
+                    {React.createElement('lottie-player', {
+                      autoplay: true,
+                      loop: true,
+                      src: "/assets/panda.json",
+                      style: { 
+                        width: "500px", 
+                        height: "500px",
+                        filter: "drop-shadow(0 25px 50px rgba(0, 0, 0, 0.4))"
+                      },
+                      onLoad: () => console.log('🐼 Panda is ready with popcorn!'),
+                      onError: (e) => console.error('Panda animation error:', e)
+                    })}
+                  </div>
+                  
+                  {/* Floating popcorn emojis inside the box */}
+                  <div className="absolute top-12 left-12 text-2xl animate-bounce" style={{ animationDelay: '0s' }}>🍿</div>
+                  <div className="absolute top-20 right-16 text-xl animate-bounce" style={{ animationDelay: '0.5s' }}>🍿</div>
+                  <div className="absolute bottom-24 left-20 text-2xl animate-bounce" style={{ animationDelay: '1s' }}>🍿</div>
+                  <div className="absolute bottom-16 right-12 text-xl animate-bounce" style={{ animationDelay: '1.5s' }}>🍿</div>
+                  
+                  {/* Text at the bottom of the box */}
+                  <div className="mt-4 text-center">
+                    <p className="text-xl text-accent-primary animate-pulse font-semibold">
+                      🐼 Please wait until panda finishes the popcorn...
+                    </p>
+                  </div>
+                  
+                  {/* Decorative corners */}
+                  <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-accent-primary rounded-tl-lg"></div>
+                  <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-accent-primary rounded-tr-lg"></div>
+                  <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-accent-primary rounded-bl-lg"></div>
+                  <div className="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-accent-primary rounded-br-lg"></div>
                 </div>
-                {/* Film perforations */}
-                <div className="absolute top-2 left-1/2 w-1 h-1 bg-accent-primary rounded-full transform -translate-x-1/2"></div>
-                <div className="absolute bottom-2 left-1/2 w-1 h-1 bg-accent-primary rounded-full transform -translate-x-1/2"></div>
-                <div className="absolute left-2 top-1/2 w-1 h-1 bg-accent-primary rounded-full transform -translate-y-1/2"></div>
-                <div className="absolute right-2 top-1/2 w-1 h-1 bg-accent-primary rounded-full transform -translate-y-1/2"></div>
               </div>
-            </div>
-            
-            {/* Bouncing Dots */}
-            <div className="flex items-center justify-center space-x-2 mb-4">
-              <div className="w-3 h-3 bg-accent-primary rounded-full animate-bounce"></div>
-              <div className="w-3 h-3 bg-accent-secondary rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-              <div className="w-3 h-3 bg-accent-brown rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-            </div>
-          </div>
-          <div className="space-y-2">
-            <p className="text-2xl font-bold text-accent-secondary">Loading your film universe…</p>
-            <p className="text-text-secondary">🎬 Preparing your production dashboard</p>
-            {lottieLoaded && (
-              <p className="text-sm text-accent-primary animate-pulse">🐼 Panda is getting ready with popcorn!</p>
+            ) : (
+              /* Fallback Film Reel Animation while Lottie loads */
+              <div className="relative">
+                <div className="bg-gradient-to-br from-secondary-bg/80 to-primary-bg/60 rounded-3xl p-16 backdrop-blur-sm border border-accent-brown/20 shadow-2xl">
+                  <div className="relative w-40 h-40 mx-auto">
+                    {/* Outer film reel */}
+                    <div className="absolute inset-0 border-4 border-accent-brown rounded-full animate-spin-slow"></div>
+                    {/* Inner film reel */}
+                    <div className="absolute inset-6 border-2 border-accent-secondary rounded-full animate-spin"></div>
+                    {/* Center hub */}
+                    <div className="absolute inset-16 bg-accent-primary rounded-full flex items-center justify-center">
+                      <div className="text-3xl">🎬</div>
+                    </div>
+                    {/* Film perforations */}
+                    <div className="absolute top-2 left-1/2 w-2 h-2 bg-accent-primary rounded-full transform -translate-x-1/2"></div>
+                    <div className="absolute bottom-2 left-1/2 w-2 h-2 bg-accent-primary rounded-full transform -translate-x-1/2"></div>
+                    <div className="absolute left-2 top-1/2 w-2 h-2 bg-accent-primary rounded-full transform -translate-y-1/2"></div>
+                    <div className="absolute right-2 top-1/2 w-2 h-2 bg-accent-primary rounded-full transform -translate-y-1/2"></div>
+                  </div>
+                </div>
+              </div>
             )}
+          </div>
+          
+          
+            
+            {/* Progress indicator */}
+            <div className="flex justify-center items-center space-x-2">
+              <div className="w-2 h-2 bg-accent-primary rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+              <div className="w-2 h-2 bg-accent-secondary rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+              <div className="w-2 h-2 bg-accent-brown rounded-full animate-bounce" style={{ animationDelay: '0.4s' }}></div>
+            </div>
           </div>
         </div>
-      </div>
+    
     );
   }
 

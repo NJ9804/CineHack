@@ -4,9 +4,27 @@ import { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, Users, AlertTriangle, MapPin } from 'lucide-react';
+import { Calendar, Clock, Users, AlertTriangle, MapPin, CheckCircle } from 'lucide-react';
 import { Scene, ScheduleItem, Alert } from '@/lib/types';
 import CompactSceneCard from './CompactSceneCard';
+
+// Define SchedulingConflict type if not imported
+type SchedulingConflict = {
+  id: string;
+  sceneId: string;
+  conflictType: string;
+  description?: string;
+  // Add other fields as needed based on your backend response
+};
+
+// Define ScheduleStats type if not already imported
+type ScheduleStats = {
+  totalScenes: number;
+  planned: number;
+  inProgress: number;
+  completed: number;
+  // Add other fields as needed based on your backend response
+};
 
 interface ScheduleTabProps {
   projectId: string;
