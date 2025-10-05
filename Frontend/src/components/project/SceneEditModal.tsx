@@ -1,6 +1,6 @@
 ﻿"use client"
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -9,85 +9,167 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { X, Plus } from 'lucide-react';
+import { scenesService, SceneUpdateRequest } from '@/services/api/scenesService';
 
-interface Scene {
-  id: string;
-  seq: number;
-  slugline: string;
-  interior: boolean;
-  location: string;
-  time_of_day: string;
-  actors: string[];
-  props: string[];
-  crowd_estimate: number;
-  duration_minutes: number;
-  vfx: boolean;
-  ai_confidence: number;
-  status?: string;
-  notes?: string;
+// Interface for the scene data passed to this modal
+export interface SceneEditData {
+  id: number;
+  scene_number: string;
+  scene_heading?: string;
+  location_name: string;
+  location_type?: string;
+  time_of_day?: string;
+  estimated_duration?: string;
+  status: string;
+  actors_data?: Array<{ name?: string; [key: string]: any }>;
+  props_data?: string[];
+  technical_notes?: string;
 }
 
 interface SceneEditModalProps {
-  scene: Scene;
+  scene: SceneEditData;
   isOpen: boolean;
   onClose: () => void;
-  onSave: () => void;
+  onSave: (updatedScene: SceneEditData) => void;
 }
 
 export default function SceneEditModal({ scene, isOpen, onClose, onSave }: SceneEditModalProps) {
-  const [formData, setFormData] = useState<Scene>(scene);
+  const [formData, setFormData] = useState<SceneEditData>(scene);
   const [saving, setSaving] = useState(false);
   const [newActor, setNewActor] = useState('');
   const [newProp, setNewProp] = useState('');
 
+  // Update form data when scene prop changes
+  useEffect(() => {
+    setFormData(scene);
+  }, [scene]);
+
   const handleSave = async () => {
     setSaving(true);
     try {
-      onSave();
+      console.log('Starting scene save...', formData);
+      
+      // Prepare the update request
+      const updateRequest: SceneUpdateRequest = {
+        scene_heading: formData.scene_heading,
+        location_name: formData.location_name,
+        location_type: formData.location_type,
+        time_of_day: formData.time_of_day,
+        status: formData.status,
+        estimated_duration: formData.estimated_duration,
+        actors_data: formData.actors_data || [],
+        props_data: formData.props_data || [],
+        technical_notes: formData.technical_notes
+      };
+
+      console.log('Update request:', updateRequest);
+      console.log('Scene ID:', formData.id);
+
+      // Call the API to update the scene
+      const updatedScene = await scenesService.updateScene(formData.id, updateRequest);
+      
+      console.log('Scene updated successfully:', updatedScene);
+      
+      // Map the response back to our interface
+      const mappedScene: SceneEditData = {
+        id: updatedScene.id,
+        scene_number: updatedScene.scene_number,
+        scene_heading: updatedScene.scene_heading,
+        location_name: updatedScene.location_name,
+        location_type: updatedScene.location_type,
+        time_of_day: updatedScene.time_of_day,
+        estimated_duration: updatedScene.estimated_duration,
+        status: updatedScene.status,
+        actors_data: updatedScene.actors_data,
+        props_data: updatedScene.props_data,
+        technical_notes: updatedScene.technical_notes
+      };
+
+      onSave(mappedScene);
       onClose();
-    } catch (error) {
-      console.error('Save error:', error);
-      alert('Failed to save scene');
+    } catch (error: any) {
+      console.error('Save error details:', error);
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+      if (error.response) {
+        console.error('Response status:', error.response.status);
+        console.error('Response data:', error.response.data);
+      }
+      alert(`Failed to save scene: ${error.message || 'Unknown error'}`);
     } finally {
       setSaving(false);
     }
   };
 
   const addActor = () => {
-    if (newActor.trim() && !formData.actors.includes(newActor.trim())) {
-      setFormData({ ...formData, actors: [...formData.actors, newActor.trim()] });
-      setNewActor('');
+    if (newActor.trim()) {
+      const currentActors = formData.actors_data || [];
+      const actorExists = currentActors.some(actor => 
+        (typeof actor === 'string' ? actor : actor.name || '') === newActor.trim()
+      );
+      
+      if (!actorExists) {
+        const newActorData = { name: newActor.trim() };
+        setFormData({ 
+          ...formData, 
+          actors_data: [...currentActors, newActorData] 
+        });
+        setNewActor('');
+      }
     }
   };
 
-  const removeActor = (actor: string) => {
-    setFormData({ ...formData, actors: formData.actors.filter(a => a !== actor) });
+  const removeActor = (actorToRemove: any) => {
+    const currentActors = formData.actors_data || [];
+    const actorName = typeof actorToRemove === 'string' ? actorToRemove : actorToRemove.name || '';
+    setFormData({ 
+      ...formData, 
+      actors_data: currentActors.filter((actor: any) => {
+        const currentActorName = typeof actor === 'string' ? actor : actor.name || '';
+        return currentActorName !== actorName;
+      })
+    });
   };
 
   const addProp = () => {
-    if (newProp.trim() && !formData.props.includes(newProp.trim())) {
-      setFormData({ ...formData, props: [...formData.props, newProp.trim()] });
-      setNewProp('');
+    if (newProp.trim()) {
+      const currentProps = formData.props_data || [];
+      if (!currentProps.includes(newProp.trim())) {
+        setFormData({ 
+          ...formData, 
+          props_data: [...currentProps, newProp.trim()] 
+        });
+        setNewProp('');
+      }
     }
   };
 
   const removeProp = (prop: string) => {
-    setFormData({ ...formData, props: formData.props.filter(p => p !== prop) });
+    const currentProps = formData.props_data || [];
+    setFormData({ 
+      ...formData, 
+      props_data: currentProps.filter((p: string) => p !== prop) 
+    });
+  };
+
+  // Helper function to get actor display name
+  const getActorDisplayName = (actor: any): string => {
+    return typeof actor === 'string' ? actor : actor.name || 'Unknown Actor';
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[900px] bg-secondary-bg/95 backdrop-blur-sm border-accent-brown shadow-2xl max-h-[90vh] overflow-hidden">
-        <DialogHeader className="pb-4 border-b border-accent-brown">
+      <DialogContent className="sm:max-w-[900px] bg-secondary-bg/95 backdrop-blur-sm border-accent-brown shadow-2xl max-h-[90vh] flex flex-col">
+        <DialogHeader className="pb-4 border-b border-accent-brown flex-shrink-0">
           <DialogTitle className="text-accent-primary text-2xl font-bold flex items-center gap-3">
-            🎬 Edit Scene {scene.seq}
+            🎬 Edit Scene {formData.scene_number}
           </DialogTitle>
           <DialogDescription className="text-white text-base">
-            📝 Review and modify AI-extracted scene details
+            📝 Review and modify scene details
           </DialogDescription>
         </DialogHeader>
 
-        <div className="overflow-y-auto max-h-[calc(90vh-120px)] py-6">
+        <div className="overflow-y-auto flex-1 py-6">
           <div className="space-y-8">
             {/* Enhanced Basic Info */}
             <div className="bg-primary-bg border border-accent-brown rounded-lg p-6 shadow-lg">
@@ -100,26 +182,25 @@ export default function SceneEditModal({ scene, isOpen, onClose, onSave }: Scene
                     🎯 Scene Number
                   </Label>
                   <Input
-                    type="number"
-                    value={formData.seq}
-                    onChange={(e) => setFormData({ ...formData, seq: parseInt(e.target.value) })}
+                    value={formData.scene_number}
+                    onChange={(e) => setFormData({ ...formData, scene_number: e.target.value })}
                     className="bg-secondary-bg border-accent-brown/50 text-text-primary focus:border-accent-primary transition-colors"
                   />
                 </div>
                 <div>
                   <Label className="text-white font-medium flex items-center mb-2">
-                    🏗️ Interior/Exterior
+                    🏗️ Location Type
                   </Label>
                   <Select
-                    value={formData.interior ? 'interior' : 'exterior'}
-                    onValueChange={(value) => setFormData({ ...formData, interior: value === 'interior' })}
+                    value={formData.location_type || 'indoor'}
+                    onValueChange={(value) => setFormData({ ...formData, location_type: value })}
                   >
                     <SelectTrigger className="bg-secondary-bg border-accent-brown/50 text-text-primary focus:border-accent-primary">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent className="bg-secondary-bg border-accent-brown">
-                      <SelectItem value="interior">🏠 Interior (INT.)</SelectItem>
-                      <SelectItem value="exterior">🌅 Exterior (EXT.)</SelectItem>
+                      <SelectItem value="indoor">🏠 Indoor (INT.)</SelectItem>
+                      <SelectItem value="outdoor">🌅 Outdoor (EXT.)</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -137,20 +218,20 @@ export default function SceneEditModal({ scene, isOpen, onClose, onSave }: Scene
                     📍 Location
                   </Label>
                   <Input
-                    value={formData.location}
-                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                    value={formData.location_name}
+                    onChange={(e) => setFormData({ ...formData, location_name: e.target.value })}
                     placeholder="e.g., Kuttanad Backwater, Police Station"
                     className="bg-secondary-bg border-accent-brown/50 text-text-primary focus:border-accent-primary transition-colors placeholder-text-secondary/70"
                   />
                 </div>
                 <div>
                   <Label className="text-white font-medium flex items-center mb-2">
-                    🎞️ Slugline
+                    🎞️ Scene Heading
                   </Label>
                   <Input
-                    value={formData.slugline}
-                    onChange={(e) => setFormData({ ...formData, slugline: e.target.value })}
-                    placeholder="Full scene heading"
+                    value={formData.scene_heading || ''}
+                    onChange={(e) => setFormData({ ...formData, scene_heading: e.target.value })}
+                    placeholder="Scene heading/description"
                     className="bg-secondary-bg border-accent-brown/50 text-text-primary font-mono text-sm focus:border-accent-primary transition-colors placeholder-text-secondary/70"
                   />
                 </div>
@@ -168,7 +249,7 @@ export default function SceneEditModal({ scene, isOpen, onClose, onSave }: Scene
                     🕐 Time of Day
                   </Label>
                   <Select
-                    value={formData.time_of_day}
+                    value={formData.time_of_day || 'day'}
                     onValueChange={(value) => setFormData({ ...formData, time_of_day: value })}
                   >
                     <SelectTrigger className="bg-secondary-bg border-accent-brown/50 text-text-primary focus:border-accent-primary">
@@ -186,25 +267,33 @@ export default function SceneEditModal({ scene, isOpen, onClose, onSave }: Scene
                 </div>
                 <div>
                   <Label className="text-white font-medium flex items-center mb-2">
-                    ⏱️ Duration (min)
+                    ⏱️ Duration
                   </Label>
                   <Input
-                    type="number"
-                    value={formData.duration_minutes}
-                    onChange={(e) => setFormData({ ...formData, duration_minutes: parseInt(e.target.value) })}
+                    value={formData.estimated_duration || ''}
+                    onChange={(e) => setFormData({ ...formData, estimated_duration: e.target.value })}
+                    placeholder="e.g., 30 minutes"
                     className="bg-secondary-bg border-accent-brown/50 text-text-primary focus:border-accent-primary transition-colors"
                   />
                 </div>
                 <div>
                   <Label className="text-white font-medium flex items-center mb-2">
-                    👥 Crowd Size
+                    � Status
                   </Label>
-                  <Input
-                    type="number"
-                    value={formData.crowd_estimate}
-                    onChange={(e) => setFormData({ ...formData, crowd_estimate: parseInt(e.target.value) })}
-                    className="bg-secondary-bg border-accent-brown/50 text-text-primary focus:border-accent-primary transition-colors"
-                  />
+                  <Select
+                    value={formData.status}
+                    onValueChange={(value) => setFormData({ ...formData, status: value })}
+                  >
+                    <SelectTrigger className="bg-secondary-bg border-accent-brown/50 text-text-primary focus:border-accent-primary">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent className="bg-secondary-bg border-accent-brown">
+                      <SelectItem value="unplanned">📋 Unplanned</SelectItem>
+                      <SelectItem value="planned">📅 Planned</SelectItem>
+                      <SelectItem value="shooting">🎬 Shooting</SelectItem>
+                      <SelectItem value="completed">✅ Completed</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
             </div>
@@ -227,9 +316,9 @@ export default function SceneEditModal({ scene, isOpen, onClose, onSave }: Scene
                 </Button>
               </div>
               <div className="flex flex-wrap gap-2">
-                {formData.actors.map((actor, idx) => (
+                {(formData.actors_data || []).map((actor: any, idx: number) => (
                   <Badge key={idx} className="bg-accent-primary/20 text-accent-primary border-accent-primary/50 hover:bg-accent-primary/30 transition-colors">
-                    🎭 {actor}
+                    🎭 {getActorDisplayName(actor)}
                     <button
                       onClick={() => removeActor(actor)}
                       className="ml-2 hover:text-red-400 transition-colors"
@@ -259,7 +348,7 @@ export default function SceneEditModal({ scene, isOpen, onClose, onSave }: Scene
                 </Button>
               </div>
               <div className="flex flex-wrap gap-2">
-                {formData.props.map((prop, idx) => (
+                {(formData.props_data || []).map((prop: string, idx: number) => (
                   <Badge key={idx} className="bg-accent-secondary/20 text-accent-secondary border-accent-secondary/50 hover:bg-accent-secondary/30 transition-colors">
                     🎪 {prop}
                     <button
@@ -273,7 +362,7 @@ export default function SceneEditModal({ scene, isOpen, onClose, onSave }: Scene
               </div>
             </div>
 
-            {/* Enhanced Notes & VFX */}
+            {/* Enhanced Notes */}
             <div className="bg-primary-bg border border-accent-brown rounded-lg p-6 shadow-lg">
               <h3 className="text-accent-secondary text-lg font-semibold mb-4 flex items-center gap-2">
                 📝 Additional Details
@@ -281,45 +370,21 @@ export default function SceneEditModal({ scene, isOpen, onClose, onSave }: Scene
               <div className="space-y-4">
                 <div>
                   <Label className="text-white font-medium flex items-center mb-2">
-                    📝 Notes
+                    📝 Technical Notes
                   </Label>
                   <Textarea
-                    value={formData.notes || ''}
-                    onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                    value={formData.technical_notes || ''}
+                    onChange={(e) => setFormData({ ...formData, technical_notes: e.target.value })}
                     placeholder="Additional notes about this scene..."
                     className="bg-secondary-bg border-accent-brown/50 text-text-primary min-h-[80px] focus:border-accent-primary transition-colors resize-none placeholder-text-secondary/70"
                   />
                 </div>
-                <div className="flex items-center gap-3 p-4 bg-white rounded-lg border border-accent-brown">
-                  <input
-                    type="checkbox"
-                    id="vfx"
-                    checked={formData.vfx}
-                    onChange={(e) => setFormData({ ...formData, vfx: e.target.checked })}
-                    className="w-5 h-5 rounded border-accent-brown bg-white text-accent-primary focus:border-accent-primary transition-colors"
-                  />
-                  <Label htmlFor="vfx" className="text-gray-900 font-medium cursor-pointer flex items-center">
-                    ✨ VFX Required
-                  </Label>
-                </div>
-              </div>
-            </div>
-
-            {/* Enhanced AI Confidence */}
-            <div className="bg-primary-bg rounded-lg p-6 border border-accent-brown shadow-lg">
-              <div className="flex items-center justify-between">
-                <span className="text-white font-medium flex items-center">
-                  🤖 AI Extraction Confidence
-                </span>
-                <span className={`font-bold text-lg ${scene.ai_confidence > 0.8 ? 'text-accent-primary' : 'text-accent-secondary'}`}>
-                  {scene.ai_confidence > 0.8 ? '✅' : '⚠️'} {Math.round(scene.ai_confidence * 100)}%
-                </span>
               </div>
             </div>
           </div>
         </div>
 
-        <DialogFooter className="pt-6 border-t border-accent-brown mt-6">
+        <DialogFooter className="pt-6 border-t border-accent-brown mt-6 flex-shrink-0">
           <Button 
             variant="outline" 
             onClick={onClose} 

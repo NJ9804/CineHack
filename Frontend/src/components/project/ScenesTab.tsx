@@ -7,9 +7,10 @@ import { Badge } from '@/components/ui/badge';
 import { MapPin, Clock, AlertTriangle, Users, DollarSign, Plus } from 'lucide-react';
 import { Scene, Alert } from '@/lib/types';
 import CreateSceneModal from './CreateSceneModal';
-import { apiClient } from '@/services/api/client';
+import { scenesService, SceneResponse } from '@/services/api/scenesService';
 import { useButtonActions } from '@/hooks/useButtonActions';
-import SceneEditModal from './SceneEditModal';
+import SceneEditModal, { SceneEditData } from './SceneEditModal';
+import { sceneToEditData, sceneToCreateRequest } from '@/lib/sceneUtils';
 
 interface ScenesTabProps {
   projectId: string;
@@ -21,7 +22,7 @@ interface ScenesTabProps {
 export default function ScenesTab({ projectId, scenes, alerts, onScenesUpdate }: ScenesTabProps) {
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [selectedScene, setSelectedScene] = useState<Scene | null>(null);
+  const [selectedScene, setSelectedScene] = useState<SceneEditData | null>(null);
   const actions = useButtonActions();
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -155,7 +156,9 @@ export default function ScenesTab({ projectId, scenes, alerts, onScenesUpdate }:
                       size="sm" 
                       className="flex-1 text-xs"
                       onClick={() => {
-                        setSelectedScene(scene);
+                        // Use utility function to convert Scene to SceneEditData
+                        const editData = sceneToEditData(scene);
+                        setSelectedScene(editData);
                         setEditModalOpen(true);
                       }}
                     >
@@ -215,23 +218,8 @@ export default function ScenesTab({ projectId, scenes, alerts, onScenesUpdate }:
             setEditModalOpen(false);
             setSelectedScene(null);
           }}
-          onSave={() => handleEditScene(selectedScene)}
-          scene={{
-            id: selectedScene.id,
-            seq: selectedScene.number,
-            slugline: selectedScene.name,
-            interior: true,
-            location: selectedScene.location,
-            time_of_day: 'Day',
-            actors: selectedScene.characters,
-            props: selectedScene.properties,
-            crowd_estimate: 0,
-            duration_minutes: 60,
-            vfx: false,
-            ai_confidence: 0.8,
-            status: selectedScene.status,
-            notes: ''
-          }}
+          onSave={handleEditScene}
+          scene={selectedScene}
         />
       )}
     </div>
@@ -239,7 +227,9 @@ export default function ScenesTab({ projectId, scenes, alerts, onScenesUpdate }:
 
   async function handleCreateScene(sceneData: Partial<Scene>) {
     try {
-      await apiClient.createScene(projectId, sceneData);
+      // Use utility function to convert Scene data to SceneCreateRequest format
+      const createRequest = sceneToCreateRequest(sceneData);
+      await scenesService.createScene(parseInt(projectId), createRequest);
       if (onScenesUpdate) {
         onScenesUpdate();
       }
@@ -249,10 +239,9 @@ export default function ScenesTab({ projectId, scenes, alerts, onScenesUpdate }:
     }
   }
 
-  async function handleEditScene(sceneData: Partial<Scene>) {
+  async function handleEditScene(updatedScene: SceneEditData) {
     try {
-      // TODO: Implement update scene API call
-      console.log('Updating scene:', sceneData);
+      console.log('Scene updated successfully:', updatedScene);
       if (onScenesUpdate) {
         onScenesUpdate();
       }
