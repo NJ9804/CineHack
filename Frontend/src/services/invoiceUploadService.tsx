@@ -253,8 +253,8 @@ function InvoiceSuccessModal({ result, onClose }: {
   if (!result) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-secondary-bg border border-accent-brown/30 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50 p-4">
+      <div className="bg-secondary-bg border border-accent-brown rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
         <div className="p-6">
           {/* Header */}
           <div className="text-center mb-6">
@@ -445,16 +445,16 @@ export function InvoiceUploadForm({ projectId, userId, onSuccess }: {
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="block w-full border border-accent-brown/30 bg-white text-gray-900 rounded-md p-3 hover:border-accent-primary/50 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/20 transition-colors font-medium [&>option]:bg-white [&>option]:text-gray-900 [&>option]:font-medium"
+            className="block w-full border border-accent-brown/30 bg-secondary-bg text-text-primary rounded-md p-3 hover:border-accent-primary/50 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/20 transition-colors font-medium [&>option]:bg-gray-800 [&>option]:text-white [&>option]:font-medium"
           >
-            <option value="" className="text-gray-500">Select category...</option>
-            <option value="catering" className="text-gray-900 font-medium">🍽️ Catering</option>
-            <option value="equipment" className="text-gray-900 font-medium">📹 Equipment</option>
-            <option value="props" className="text-gray-900 font-medium">🎭 Props</option>
-            <option value="accommodation" className="text-gray-900 font-medium">🏨 Accommodation</option>
-            <option value="transport" className="text-gray-900 font-medium">🚐 Transport</option>
-            <option value="services" className="text-gray-900 font-medium">🛠️ Services</option>
-            <option value="utilities" className="text-gray-900 font-medium">⚡ Utilities</option>
+            <option value="" className="text-gray-400 bg-gray-800">Select category...</option>
+            <option value="catering" className="text-white bg-gray-800 font-medium">🍽️ Catering</option>
+            <option value="equipment" className="text-white bg-gray-800 font-medium">📹 Equipment</option>
+            <option value="props" className="text-white bg-gray-800 font-medium">🎭 Props</option>
+            <option value="accommodation" className="text-white bg-gray-800 font-medium">🏨 Accommodation</option>
+            <option value="transport" className="text-white bg-gray-800 font-medium">🚐 Transport</option>
+            <option value="services" className="text-white bg-gray-800 font-medium">🛠️ Services</option>
+            <option value="utilities" className="text-white bg-gray-800 font-medium">⚡ Utilities</option>
           </select>
         </div>
 
