@@ -1068,3 +1068,193 @@ class JuniorArtistAttendance(Base):
     junior_artist = relationship("JuniorArtist", back_populates="attendance_records")
     project = relationship("Project")
     marked_by_user = relationship("User", foreign_keys=[marked_by])
+
+
+# ============= Invoice Upload & Processing System =============
+
+class UploadedInvoice(Base):
+    """Tracks uploaded invoices with AI-extracted details and approval workflow"""
+    __tablename__ = "uploaded_invoices"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"))
+    
+    # Invoice identification
+    invoice_number = Column(String, unique=True, nullable=False)  # Auto-generated or extracted
+    invoice_type = Column(String, default="expense")  # expense, purchase, rental, service
+    
+    # File storage
+    original_filename = Column(String, nullable=False)
+    file_path = Column(String, nullable=False)  # Local storage path for the image
+    file_size = Column(Integer)  # File size in bytes
+    mime_type = Column(String)  # image/jpeg, image/png, application/pdf
+    
+    # AI-extracted details (from Gemini)
+    vendor_name = Column(String)
+    vendor_address = Column(Text)
+    vendor_contact = Column(String)
+    vendor_gstin = Column(String)
+    invoice_date = Column(DateTime)
+    due_date = Column(DateTime)
+    
+    # Financial details extracted by AI
+    subtotal = Column(Float)
+    tax_amount = Column(Float)
+    discount_amount = Column(Float, default=0.0)
+    total_amount = Column(Float, nullable=False)
+    currency = Column(String, default="INR")
+    
+    # Line items extracted (JSON array)
+    line_items = Column(JSON)  # [{description: str, quantity: int, unit_price: float, amount: float}]
+    
+    # AI processing metadata
+    ai_extraction_status = Column(String, default="pending")  # pending, processing, completed, failed
+    ai_confidence_score = Column(Float)  # 0.0 to 1.0
+    ai_raw_response = Column(JSON)  # Full AI response for debugging
+    extraction_timestamp = Column(DateTime)
+    
+    # Categorization
+    category = Column(String)  # props, equipment, catering, transport, accommodation, etc.
+    department = Column(String)  # art, camera, costume, production, etc.
+    purpose = Column(Text)
+    scene_ids = Column(JSON)  # Related scene IDs if applicable
+    
+    # Approval workflow
+    approval_required = Column(Boolean, default=False)  # True if amount exceeds threshold
+    approval_threshold = Column(Float)  # The threshold amount that triggered approval
+    approval_status = Column(String, default="pending")  # pending, approved, rejected, auto_approved
+    
+    # Approval chain
+    submitted_by = Column(Integer, ForeignKey("users.id"), nullable=False)
+    approved_by = Column(Integer, ForeignKey("users.id"))
+    approval_date = Column(DateTime)
+    rejection_reason = Column(Text)
+    
+    # Payment tracking
+    payment_status = Column(String, default="pending")  # pending, processing, paid, failed
+    payment_method = Column(String)  # cash, card, bank_transfer, upi
+    payment_date = Column(DateTime)
+    payment_reference = Column(String)
+    paid_by = Column(Integer, ForeignKey("users.id"))
+    
+    # Verification and audit
+    is_verified = Column(Boolean, default=False)  # Manual verification flag
+    verified_by = Column(Integer, ForeignKey("users.id"))
+    verification_date = Column(DateTime)
+    verification_notes = Column(Text)
+    
+    # Status and flags
+    status = Column(String, default="uploaded")  # uploaded, processing, approved, paid, archived, disputed
+    is_duplicate = Column(Boolean, default=False)
+    is_recurring = Column(Boolean, default=False)
+    recurrence_pattern = Column(String)  # monthly, quarterly, etc.
+    
+    # Budget linkage
+    budget_line_id = Column(Integer, ForeignKey("budget_lines.id"))
+    
+    # Notes and attachments
+    notes = Column(Text)
+    internal_notes = Column(Text)  # Only visible to finance/production team
+    additional_attachments = Column(JSON)  # Array of additional file paths
+    
+    # Timestamps
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    project = relationship("Project")
+    budget_line = relationship("BudgetLine")
+    submitter = relationship("User", foreign_keys=[submitted_by])
+    approver = relationship("User", foreign_keys=[approved_by])
+    verifier = relationship("User", foreign_keys=[verified_by])
+    payer = relationship("User", foreign_keys=[paid_by])
+    approval_history = relationship("InvoiceApprovalHistory", back_populates="invoice", cascade="all, delete-orphan")
+    comments = relationship("InvoiceComment", back_populates="invoice", cascade="all, delete-orphan")
+
+
+class InvoiceApprovalHistory(Base):
+    """Tracks the approval history and workflow for invoices"""
+    __tablename__ = "invoice_approval_history"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    invoice_id = Column(Integer, ForeignKey("uploaded_invoices.id", ondelete="CASCADE"))
+    
+    # Approval action details
+    action = Column(String, nullable=False)  # submitted, approved, rejected, revised, escalated
+    action_by = Column(Integer, ForeignKey("users.id"), nullable=False)
+    action_date = Column(DateTime, server_default=func.now())
+    
+    # Role and level
+    approver_role = Column(String)  # production_manager, finance_head, producer, director
+    approval_level = Column(Integer, default=1)  # For multi-level approvals
+    
+    # Details
+    comments = Column(Text)
+    previous_status = Column(String)
+    new_status = Column(String)
+    
+    # Metadata
+    ip_address = Column(String)
+    user_agent = Column(String)
+    
+    # Relationships
+    invoice = relationship("UploadedInvoice", back_populates="approval_history")
+    user = relationship("User")
+
+
+class InvoiceComment(Base):
+    """Comments and discussions on uploaded invoices"""
+    __tablename__ = "invoice_comments"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    invoice_id = Column(Integer, ForeignKey("uploaded_invoices.id", ondelete="CASCADE"))
+    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"))
+    
+    content = Column(Text, nullable=False)
+    comment_type = Column(String, default="general")  # general, query, clarification, approval_note
+    
+    is_internal = Column(Boolean, default=False)  # Only visible to team
+    mentions = Column(JSON)  # Array of user IDs mentioned
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    is_edited = Column(Boolean, default=False)
+    
+    # Relationships
+    invoice = relationship("UploadedInvoice", back_populates="comments")
+    user = relationship("User")
+
+
+class InvoiceApprovalSettings(Base):
+    """Configurable approval thresholds and workflow settings"""
+    __tablename__ = "invoice_approval_settings"
+    
+    id = Column(Integer, primary_key=True, index=True)
+    project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"))
+    
+    # Threshold settings
+    auto_approve_threshold = Column(Float, default=5000.0)  # Auto-approve if amount is below this
+    manager_approval_threshold = Column(Float, default=25000.0)  # Requires manager approval
+    director_approval_threshold = Column(Float, default=100000.0)  # Requires director approval
+    
+    # Category-specific thresholds (JSON)
+    category_thresholds = Column(JSON)  # {catering: 10000, equipment: 50000, etc.}
+    
+    # Approval workflow
+    require_dual_approval = Column(Boolean, default=False)  # Require two approvers for high amounts
+    dual_approval_threshold = Column(Float, default=200000.0)
+    
+    # Notification settings
+    notify_on_submission = Column(Boolean, default=True)
+    notify_approvers = Column(JSON)  # Array of user IDs to notify
+    escalation_hours = Column(Integer, default=48)  # Hours before escalation
+    
+    # Payment settings
+    payment_terms_days = Column(Integer, default=30)  # Default payment terms
+    require_verification = Column(Boolean, default=True)  # Require manual verification
+    
+    created_at = Column(DateTime, server_default=func.now())
+    updated_at = Column(DateTime, server_default=func.now(), onupdate=func.now())
+    
+    # Relationships
+    project = relationship("Project")
