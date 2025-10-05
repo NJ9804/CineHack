@@ -244,7 +244,7 @@ export default function ProjectDetailPage() {
         </div>
 
         {/* Quick Access Banners */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Card className="bg-gradient-to-r from-accent-primary/10 via-accent-secondary/10 to-accent-brown/10 border-accent-primary/30 backdrop-blur-sm">
             <CardContent className="py-6">
               <div className="flex items-center justify-between">
@@ -279,6 +279,26 @@ export default function ProjectDetailPage() {
                   <Button variant="cinematic" size="lg" className="hover:scale-105 transition-transform bg-green-600 hover:bg-green-700">
                     <Target className="w-5 h-5 mr-2" />
                     Manage Operations
+                  </Button>
+                </Link>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-r from-yellow-500/10 via-orange-500/10 to-red-500/10 border-yellow-500/30 backdrop-blur-sm">
+            <CardContent className="py-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <Clock className="w-8 h-8 text-yellow-500" />
+                  <div>
+                    <h3 className="text-xl font-bold text-accent-secondary">⚡ Smart Schedule</h3>
+                    <p className="text-text-secondary">AI-Powered Scheduling</p>
+                  </div>
+                </div>
+                <Link href={`/projects/${projectId}/schedule`}>
+                  <Button variant="cinematic" size="lg" className="hover:scale-105 transition-transform bg-yellow-600 hover:bg-yellow-700">
+                    <Film className="w-5 h-5 mr-2" />
+                    Auto-Schedule
                   </Button>
                 </Link>
               </div>
