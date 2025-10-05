@@ -14,6 +14,7 @@ import BudgetTabEnhanced from '@/components/project/BudgetTabEnhanced';
 import CharactersTab from '@/components/project/CharactersTab';
 import RisksTab from '@/components/project/RisksTab';
 import PromotionsTab from '@/components/project/PromotionsTab';
+import PermissionsTab from '@/components/project/PermissionsTab';
 import { IssueList, IssueDashboard, IssueWidget } from '@/components/project/tickets';
 import { 
   Users, 
@@ -408,7 +409,7 @@ export default function ProjectDetailPage() {
         {/* Enhanced Project Tabs */}
         <Tabs defaultValue="overview" className="w-full">
           <div className="overflow-x-auto">
-            <TabsList className="grid w-full min-w-[800px] grid-cols-9 bg-gray-900 border border-gray-700">
+            <TabsList className="grid w-full min-w-[900px] grid-cols-10 bg-gray-900 border border-gray-700">
               <TabsTrigger value="overview" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400 text-xs md:text-sm px-2 py-2">
                 <span className="hidden sm:inline">Overview</span>
                 <span className="sm:hidden">📊</span>
@@ -444,6 +445,10 @@ export default function ProjectDetailPage() {
               <TabsTrigger value="risks" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400 text-xs md:text-sm px-2 py-2">
                 <span className="hidden sm:inline">Risks</span>
                 <span className="sm:hidden">⚠️</span>
+              </TabsTrigger>
+              <TabsTrigger value="permissions" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium text-xs md:text-sm px-2 py-2">
+                <span className="hidden sm:inline">🔐 Permissions</span>
+                <span className="sm:hidden">🔐</span>
               </TabsTrigger>
             </TabsList>
           </div>
@@ -736,6 +741,10 @@ export default function ProjectDetailPage() {
 
           <TabsContent value="risks" className="mt-6">
             <RisksTab projectId={projectId} alerts={alerts} scenes={scenes} />
+          </TabsContent>
+
+          <TabsContent value="permissions" className="mt-6">
+            <PermissionsTab projectId={projectId} />
           </TabsContent>
         </Tabs>
       </div>

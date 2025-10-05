@@ -66,7 +66,7 @@ export default function Home() {
                 <lottie-player
                   autoplay
                   loop
-                  src="public/assets/pandas-popcorn.lottie"
+                  src="public/assets/panda.json"
                   style={{ width: "280px", height: "280px" }}
                 ></lottie-player>
               </div>
