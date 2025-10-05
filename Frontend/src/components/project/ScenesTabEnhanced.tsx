@@ -10,7 +10,9 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 import { MapPin, Clock, AlertTriangle, Users, Upload, FileText, Edit, Calendar, Search, Filter, RefreshCw } from 'lucide-react';
 import api from '@/services/api/client';
 import ScriptUploadModal from './ScriptUploadModal';
-import SceneEditModal from './SceneEditModal';
+import SceneEditModal, { SceneEditData } from './SceneEditModal';
+import { scenesService } from '@/services/api/scenesService';
+import { sceneResponseToEditData } from '@/lib/sceneUtils';
 
 interface Scene {
   id: string | number;
@@ -56,7 +58,7 @@ export default function ScenesTab({ projectId, scenes: passedScenes }: ScenesTab
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [viewModalOpen, setViewModalOpen] = useState(false);
-  const [selectedScene, setSelectedScene] = useState<Scene | null>(null);
+  const [selectedScene, setSelectedScene] = useState<SceneEditData | null>(null);
   const [viewScene, setViewScene] = useState<Scene | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [locationFilter, setLocationFilter] = useState('all');
@@ -122,8 +124,36 @@ export default function ScenesTab({ projectId, scenes: passedScenes }: ScenesTab
   };
 
   const handleSceneEdit = (scene: Scene) => {
-    setSelectedScene(scene);
+    // Convert Scene to SceneEditData for editing
+    const editData: SceneEditData = {
+      id: typeof scene.id === 'string' ? parseInt(scene.id) : scene.id,
+      scene_number: scene.scene_number || scene.seq?.toString() || 'Scene',
+      scene_heading: scene.scene_heading || scene.slugline,
+      location_name: scene.location_name || scene.location || 'Unknown Location',
+      location_type: scene.location_type || (scene.interior ? 'indoor' : 'outdoor'),
+      time_of_day: scene.time_of_day,
+      estimated_duration: scene.estimated_duration || (scene.duration_minutes ? `${scene.duration_minutes} minutes` : undefined),
+      status: scene.status || 'unplanned',
+      actors_data: scene.actors_data || scene.actors?.map(actor => ({ name: actor })) || [],
+      props_data: scene.props_data || scene.props || [],
+      technical_notes: scene.technical_notes || scene.notes
+    };
+    
+    setSelectedScene(editData);
     setEditModalOpen(true);
+  };
+
+  const handleSceneSave = async (updatedScene: SceneEditData) => {
+    try {
+      console.log('Saving scene updates:', updatedScene);
+      
+      // The scene editing modal already calls the API, just refresh the scenes
+      await loadScenes();
+      
+      console.log('Scene updated and refreshed successfully');
+    } catch (error) {
+      console.error('Failed to refresh scenes after update:', error);
+    }
   };
 
   const handleSceneView = (scene: Scene) => {
@@ -650,28 +680,13 @@ export default function ScenesTab({ projectId, scenes: passedScenes }: ScenesTab
 
       {selectedScene && (
         <SceneEditModal
-          scene={{
-            ...selectedScene,
-            id: String(selectedScene.id),
-            seq: selectedScene.seq || 0,
-            slugline: selectedScene.scene_heading || selectedScene.slugline || '',
-            interior: selectedScene.location_type === 'indoor' || selectedScene.interior || false,
-            location: selectedScene.location_name || selectedScene.location || '',
-            time_of_day: selectedScene.time_of_day || 'day',
-            actors: selectedScene.actors || (selectedScene.actors_data?.map(a => typeof a === 'string' ? a : a.name) || []),
-            props: selectedScene.props || (selectedScene.props_data?.map(p => typeof p === 'string' ? p : p.name) || []),
-            crowd_estimate: selectedScene.crowd_data?.people_needed || 0,
-            duration_minutes: 0,
-            vfx: false,
-            ai_confidence: 0.8,
-            status: selectedScene.status || 'unplanned'
-          }}
+          scene={selectedScene}
           isOpen={editModalOpen}
           onClose={() => {
             setEditModalOpen(false);
             setSelectedScene(null);
           }}
-          onSave={loadScenes}
+          onSave={handleSceneSave}
         />
       )}
     </div>
