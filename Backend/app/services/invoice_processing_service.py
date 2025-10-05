@@ -28,6 +28,16 @@ logger = logging.getLogger(__name__)
 UPLOAD_DIRECTORY = Path("uploaded_invoices")
 UPLOAD_DIRECTORY.mkdir(exist_ok=True)
 
+# Currency conversion rates (to INR)
+CURRENCY_TO_INR = {
+    'INR': 1.0,
+    'USD': 83.0,  # Approximate rate
+    'EUR': 90.0,
+    'GBP': 105.0,
+    'AED': 22.6,
+    'SGD': 62.0,
+}
+
 
 class InvoiceProcessingService:
     """Service for processing invoices with AI extraction and approval workflow"""
@@ -233,7 +243,8 @@ class InvoiceProcessingService:
         total_amount: float,
         category: Optional[str],
         project_id: int,
-        db: Session
+        db: Session,
+        currency: str = 'INR'
     ) -> Tuple[bool, Optional[float], str]:
         """
         Check if invoice requires approval based on amount and category
@@ -243,10 +254,17 @@ class InvoiceProcessingService:
             category: Invoice category
             project_id: Project ID
             db: Database session
+            currency: Invoice currency code
             
         Returns:
             Tuple of (requires_approval, threshold_amount, approval_level)
         """
+        # Convert amount to INR for comparison
+        conversion_rate = CURRENCY_TO_INR.get(currency.upper(), 1.0)
+        amount_in_inr = total_amount * conversion_rate
+        
+        logger.info(f"Currency conversion: {total_amount} {currency} = {amount_in_inr} INR (rate: {conversion_rate})")
+        
         # Get approval settings for project
         settings = db.query(InvoiceApprovalSettings).filter(
             InvoiceApprovalSettings.project_id == project_id
@@ -256,23 +274,23 @@ class InvoiceProcessingService:
         if not settings:
             settings = InvoiceApprovalSettings(
                 project_id=project_id,
-                auto_approve_threshold=5000.0,
-                manager_approval_threshold=25000.0,
-                director_approval_threshold=100000.0
+                auto_approve_threshold=1000.0,  # ₹1000 (~$12) - Small expenses only
+                manager_approval_threshold=10000.0,  # ₹10,000 (~$120)
+                director_approval_threshold=50000.0  # ₹50,000 (~$600)
             )
         
         # Check category-specific threshold first
         if category and settings.category_thresholds:
             category_threshold = settings.category_thresholds.get(category)
-            if category_threshold and total_amount >= category_threshold:
+            if category_threshold and amount_in_inr >= category_threshold:
                 return True, category_threshold, "category_manager"
         
-        # Check general thresholds
-        if total_amount < settings.auto_approve_threshold:
+        # Check general thresholds (using INR-converted amount)
+        if amount_in_inr < settings.auto_approve_threshold:
             return False, settings.auto_approve_threshold, "auto_approved"
-        elif total_amount < settings.manager_approval_threshold:
+        elif amount_in_inr < settings.manager_approval_threshold:
             return True, settings.manager_approval_threshold, "manager"
-        elif total_amount < settings.director_approval_threshold:
+        elif amount_in_inr < settings.director_approval_threshold:
             return True, settings.director_approval_threshold, "director"
         else:
             return True, settings.director_approval_threshold, "director_and_producer"
@@ -336,8 +354,9 @@ class InvoiceProcessingService:
         # Check if approval is required
         total_amount = extracted_data.get('total_amount', 0.0)
         category = extracted_data.get('category')
+        currency = extracted_data.get('currency', 'INR')
         requires_approval, threshold, approval_level = self.check_approval_required(
-            total_amount, category, project_id, db
+            total_amount, category, project_id, db, currency
         )
         
         # Create invoice record

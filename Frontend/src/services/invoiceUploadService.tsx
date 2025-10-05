@@ -259,7 +259,27 @@ export function InvoiceUploadForm({ projectId, userId, onSuccess }: {
         notes: notes || undefined,
       });
 
-      alert(`Invoice uploaded successfully!\nInvoice #: ${response.invoice_number}\nApproval required: ${response.approval_required ? 'Yes' : 'No'}`);
+      // Show detailed extraction results
+      const extracted = response.extracted_data || {};
+      const details = `
+✅ Invoice Uploaded Successfully!
+
+📄 Invoice Number: ${response.invoice_number}
+💰 Amount: ${extracted.currency || ''} ${extracted.total_amount?.toLocaleString() || 'N/A'}
+🏢 Vendor: ${extracted.vendor_name || 'N/A'}
+📅 Date: ${extracted.invoice_date || 'N/A'}
+📂 Category: ${extracted.category || 'Uncategorized'}
+🤖 AI Confidence: ${extracted.confidence_score ? (extracted.confidence_score * 100).toFixed(0) + '%' : 'N/A'}
+
+${response.approval_required ? 
+  '⚠️ APPROVAL REQUIRED\nThis invoice needs manager approval before processing.' : 
+  '✓ AUTO-APPROVED\nInvoice is below the approval threshold.'
+}
+
+Status: ${response.approval_status.toUpperCase()}
+      `.trim();
+      
+      alert(details);
       
       // Reset form
       setFile(null);
@@ -407,7 +427,7 @@ export function InvoiceList({ projectId }: { projectId: number }) {
 }
 
 /**
- * Invoice Card Component
+ * Invoice Card Component - Enhanced with more details
  */
 function InvoiceCard({ invoice, onUpdate }: { invoice: Invoice; onUpdate: () => void }) {
   const statusColors: Record<string, string> = {
@@ -417,59 +437,109 @@ function InvoiceCard({ invoice, onUpdate }: { invoice: Invoice; onUpdate: () => 
     auto_approved: 'bg-blue-100 text-blue-800',
   };
 
+  const formatDate = (dateStr: string | null) => {
+    if (!dateStr) return 'N/A';
+    return new Date(dateStr).toLocaleDateString('en-IN', { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric' 
+    });
+  };
+
   return (
-    <div className="border rounded-lg p-4 hover:shadow-lg transition-shadow">
-      <div className="flex justify-between items-start">
-        <div>
-          <h3 className="font-semibold text-lg">{invoice.invoice_number}</h3>
-          <p className="text-gray-600">{invoice.vendor_name}</p>
-          <p className="text-sm text-gray-500">{invoice.category}</p>
+    <div className="border rounded-lg p-5 hover:shadow-lg transition-shadow bg-white">
+      {/* Header Section */}
+      <div className="flex justify-between items-start mb-4">
+        <div className="flex-1">
+          <div className="flex items-center gap-2 mb-1">
+            <h3 className="font-bold text-lg text-gray-900">{invoice.invoice_number}</h3>
+            {invoice.approval_required && (
+              <span className="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded">
+                Requires Approval
+              </span>
+            )}
+          </div>
+          <p className="text-gray-700 font-medium">{invoice.vendor_name}</p>
+          <div className="flex gap-3 mt-2 text-sm text-gray-600">
+            <span className="flex items-center gap-1">
+              📂 {invoice.category || 'Uncategorized'}
+            </span>
+            <span className="flex items-center gap-1">
+              🏢 {invoice.department || 'General'}
+            </span>
+          </div>
         </div>
         <div className="text-right">
-          <p className="text-2xl font-bold">{invoice.currency} {invoice.total_amount.toLocaleString()}</p>
-          <span className={`inline-block px-2 py-1 rounded text-xs ${statusColors[invoice.approval_status] || 'bg-gray-100'}`}>
-            {invoice.approval_status}
+          <p className="text-3xl font-bold text-gray-900">
+            {invoice.currency} {invoice.total_amount.toLocaleString()}
+          </p>
+          <span className={`inline-block mt-2 px-3 py-1 rounded-full text-xs font-semibold ${statusColors[invoice.approval_status] || 'bg-gray-100'}`}>
+            {invoice.approval_status.replace('_', ' ').toUpperCase()}
           </span>
         </div>
       </div>
 
+      {/* Details Grid */}
+      <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
+        <div>
+          <span className="text-gray-500">Invoice Date:</span>
+          <span className="ml-2 text-gray-900 font-medium">{formatDate(invoice.invoice_date)}</span>
+        </div>
+        <div>
+          <span className="text-gray-500">Submitted:</span>
+          <span className="ml-2 text-gray-900 font-medium">{formatDate(invoice.created_at)}</span>
+        </div>
+        <div>
+          <span className="text-gray-500">AI Confidence:</span>
+          <span className={`ml-2 font-medium ${invoice.ai_confidence_score >= 0.8 ? 'text-green-600' : 'text-orange-600'}`}>
+            {(invoice.ai_confidence_score * 100).toFixed(0)}%
+          </span>
+        </div>
+        <div>
+          <span className="text-gray-500">Status:</span>
+          <span className="ml-2 text-gray-900 font-medium">{invoice.status}</span>
+        </div>
+      </div>
+
+      {/* Warnings */}
       {invoice.ai_confidence_score < 0.8 && (
-        <div className="mt-2 text-sm text-orange-600">
-          ⚠️ Low AI confidence ({(invoice.ai_confidence_score * 100).toFixed(0)}%) - Please verify
+        <div className="mb-3 p-3 bg-orange-50 border border-orange-200 rounded text-sm text-orange-800">
+          ⚠️ <strong>Low AI Confidence:</strong> Please verify all extracted details manually
         </div>
       )}
 
-      <div className="mt-4 flex gap-2">
+      {/* Action Buttons */}
+      <div className="flex gap-2 pt-3 border-t">
         <button
-          onClick={() => window.open(`${API_BASE}/api/invoice/invoice/${invoice.id}/download`, '_blank')}
-          className="px-3 py-1 text-sm bg-gray-200 rounded hover:bg-gray-300"
+          onClick={() => window.open(`${API_BASE}/invoice/invoice/${invoice.id}/download`, '_blank')}
+          className="flex-1 px-4 py-2 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 font-medium"
         >
-          View Invoice
+          📄 View Invoice
         </button>
         {invoice.approval_status === 'pending' && (
           <>
             <button
               onClick={async () => {
                 const userId = 1; // Get from auth context
-                await approveInvoice(invoice.id, userId, 'Approved');
+                await approveInvoice(invoice.id, userId, 'Approved via review');
                 onUpdate();
               }}
-              className="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600"
+              className="px-4 py-2 text-sm bg-green-500 text-white rounded hover:bg-green-600 font-medium"
             >
-              Approve
+              ✓ Approve
             </button>
             <button
               onClick={async () => {
                 const userId = 1; // Get from auth context
-                const reason = prompt('Rejection reason:');
+                const reason = prompt('Please provide rejection reason:');
                 if (reason) {
                   await rejectInvoice(invoice.id, userId, reason);
                   onUpdate();
                 }
               }}
-              className="px-3 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600"
+              className="px-4 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-600 font-medium"
             >
-              Reject
+              ✗ Reject
             </button>
           </>
         )}
