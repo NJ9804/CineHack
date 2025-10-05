@@ -25,7 +25,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import {
-  Ticket,
+  AlertTriangle,
   Clock,
   CheckCircle2,
   AlertCircle,
@@ -33,7 +33,7 @@ import {
   Activity,
 } from 'lucide-react';
 
-interface TicketDashboardProps {
+interface IssueDashboardProps {
   projectId: number;
 }
 
@@ -52,7 +52,7 @@ const PRIORITY_COLORS: Record<string, string> = {
   urgent: '#DC2626',
 };
 
-export default function TicketDashboard({ projectId }: TicketDashboardProps) {
+export default function IssueDashboard({ projectId }: IssueDashboardProps) {
   const [analytics, setAnalytics] = useState<TicketAnalytics | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -75,7 +75,7 @@ export default function TicketDashboard({ projectId }: TicketDashboardProps) {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-gray-500">Loading analytics...</div>
+        <div className="text-text-secondary">Loading analytics...</div>
       </div>
     );
   }
@@ -83,7 +83,7 @@ export default function TicketDashboard({ projectId }: TicketDashboardProps) {
   if (!analytics) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-gray-500">No analytics data available</div>
+        <div className="text-text-secondary">No analytics data available</div>
       </div>
     );
   }
@@ -106,30 +106,30 @@ export default function TicketDashboard({ projectId }: TicketDashboardProps) {
   }));
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 bg-primary-bg min-h-screen p-6">
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
+        <Card className="bg-secondary-bg/95 border-accent-brown/40 shadow-lg backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Tickets</CardTitle>
-            <Ticket className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-accent-secondary">Total Issues</CardTitle>
+            <AlertTriangle className="h-4 w-4 text-accent-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{analytics.total_tickets}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-bold text-text-primary">{analytics.total_tickets}</div>
+            <p className="text-xs text-text-secondary">
               {analytics.open_tickets} open
             </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-secondary-bg/95 border-accent-brown/40 shadow-lg backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">In Progress</CardTitle>
-            <Activity className="h-4 w-4 text-yellow-500" />
+            <CardTitle className="text-sm font-medium text-accent-secondary">In Progress</CardTitle>
+            <Activity className="h-4 w-4 text-accent-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{analytics.in_progress_tickets}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-bold text-text-primary">{analytics.in_progress_tickets}</div>
+            <p className="text-xs text-text-secondary">
               {analytics.total_tickets > 0
                 ? ((analytics.in_progress_tickets / analytics.total_tickets) * 100).toFixed(1)
                 : 0}
@@ -138,14 +138,14 @@ export default function TicketDashboard({ projectId }: TicketDashboardProps) {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-secondary-bg/95 border-accent-brown/40 shadow-lg backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Resolved</CardTitle>
-            <CheckCircle2 className="h-4 w-4 text-green-500" />
+            <CardTitle className="text-sm font-medium text-accent-secondary">Resolved</CardTitle>
+            <CheckCircle2 className="h-4 w-4 text-accent-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{analytics.resolved_tickets}</div>
-            <p className="text-xs text-muted-foreground">
+            <div className="text-2xl font-bold text-text-primary">{analytics.resolved_tickets}</div>
+            <p className="text-xs text-text-secondary">
               {analytics.total_tickets > 0
                 ? ((analytics.resolved_tickets / analytics.total_tickets) * 100).toFixed(1)
                 : 0}
@@ -154,16 +154,16 @@ export default function TicketDashboard({ projectId }: TicketDashboardProps) {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-secondary-bg/95 border-accent-brown/40 shadow-lg backdrop-blur-sm">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg Response Time</CardTitle>
-            <Clock className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-accent-secondary">Avg Response Time</CardTitle>
+            <Clock className="h-4 w-4 text-accent-primary" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
+            <div className="text-2xl font-bold text-text-primary">
               {analytics.avg_response_time_hours.toFixed(1)}h
             </div>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-text-secondary">
               Resolution: {analytics.avg_resolution_time_hours.toFixed(1)}h
             </p>
           </CardContent>
@@ -173,12 +173,12 @@ export default function TicketDashboard({ projectId }: TicketDashboardProps) {
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Status Distribution */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Status Distribution</CardTitle>
-            <CardDescription>Tickets by current status</CardDescription>
+        <Card className="bg-secondary-bg/95 border-accent-brown/40 shadow-lg backdrop-blur-sm">
+          <CardHeader className="border-b border-accent-brown/20">
+            <CardTitle className="text-accent-secondary">Status Distribution</CardTitle>
+            <CardDescription className="text-text-secondary">Issues by current status</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-6">
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
                 <Pie
@@ -186,7 +186,7 @@ export default function TicketDashboard({ projectId }: TicketDashboardProps) {
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={({ name, percent }) =>
+                  label={({ name, percent }: { name: string; percent: number }) =>
                     `${name} (${(percent * 100).toFixed(0)}%)`
                   }
                   outerRadius={100}
@@ -204,18 +204,25 @@ export default function TicketDashboard({ projectId }: TicketDashboardProps) {
         </Card>
 
         {/* Priority Distribution */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Priority Distribution</CardTitle>
-            <CardDescription>Tickets by priority level</CardDescription>
+        <Card className="bg-secondary-bg/95 border-accent-brown/40 shadow-lg backdrop-blur-sm">
+          <CardHeader className="border-b border-accent-brown/20">
+            <CardTitle className="text-accent-secondary">Priority Distribution</CardTitle>
+            <CardDescription className="text-text-secondary">Issues by priority level</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-6">
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={priorityData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
+                <CartesianGrid strokeDasharray="3 3" stroke="#5A3825/20" />
+                <XAxis dataKey="name" stroke="#E5D5B5" />
+                <YAxis stroke="#E5D5B5" />
+                <Tooltip 
+                  contentStyle={{
+                    backgroundColor: '#1a1a1a',
+                    border: '1px solid #5A3825',
+                    borderRadius: '8px',
+                    color: '#FFC107'
+                  }}
+                />
                 <Bar dataKey="value" fill="#8884d8">
                   {priorityData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
@@ -228,19 +235,26 @@ export default function TicketDashboard({ projectId }: TicketDashboardProps) {
 
         {/* Department Activity */}
         {departmentData.length > 0 && (
-          <Card>
-            <CardHeader>
-              <CardTitle>Department Activity</CardTitle>
-              <CardDescription>Tickets by department</CardDescription>
+          <Card className="bg-secondary-bg/95 border-accent-brown/40 shadow-lg backdrop-blur-sm">
+            <CardHeader className="border-b border-accent-brown/20">
+              <CardTitle className="text-accent-secondary">Department Activity</CardTitle>
+              <CardDescription className="text-text-secondary">Issues by department</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-6">
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={departmentData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="value" fill="#3B82F6" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#5A3825/20" />
+                  <XAxis dataKey="name" stroke="#E5D5B5" />
+                  <YAxis stroke="#E5D5B5" />
+                  <Tooltip 
+                    contentStyle={{
+                      backgroundColor: '#1a1a1a',
+                      border: '1px solid #5A3825',
+                      borderRadius: '8px',
+                      color: '#FFC107'
+                    }}
+                  />
+                  <Bar dataKey="value" fill="#FFC107" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -249,30 +263,30 @@ export default function TicketDashboard({ projectId }: TicketDashboardProps) {
 
         {/* Category Breakdown */}
         {Object.keys(analytics.category_breakdown).length > 0 && (
-          <Card>
-            <CardHeader>
-              <CardTitle>Category Breakdown</CardTitle>
-              <CardDescription>Tickets by category</CardDescription>
+          <Card className="bg-secondary-bg/95 border-accent-brown/40 shadow-lg backdrop-blur-sm">
+            <CardHeader className="border-b border-accent-brown/20">
+              <CardTitle className="text-accent-secondary">Category Breakdown</CardTitle>
+              <CardDescription className="text-text-secondary">Issues by category</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-6">
               <div className="space-y-2">
                 {Object.entries(analytics.category_breakdown).map(([category, count]) => (
                   <div key={category} className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <Badge variant="outline">
+                      <Badge className="bg-accent-primary/20 text-accent-primary border-accent-primary/40">
                         {category.replace('_', ' ').toUpperCase()}
                       </Badge>
                     </div>
                     <div className="flex items-center gap-2">
-                      <div className="w-32 bg-gray-200 rounded-full h-2">
+                      <div className="w-32 bg-accent-brown/20 rounded-full h-2">
                         <div
-                          className="bg-blue-600 h-2 rounded-full"
+                          className="bg-accent-primary h-2 rounded-full"
                           style={{
                             width: `${(count / analytics.total_tickets) * 100}%`,
                           }}
                         />
                       </div>
-                      <span className="text-sm font-medium w-8 text-right">{count}</span>
+                      <span className="text-sm font-medium w-8 text-right text-text-primary">{count}</span>
                     </div>
                   </div>
                 ))}
@@ -283,27 +297,27 @@ export default function TicketDashboard({ projectId }: TicketDashboardProps) {
       </div>
 
       {/* Performance Metrics */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Performance Metrics</CardTitle>
-          <CardDescription>Ticket handling efficiency</CardDescription>
+      <Card className="bg-secondary-bg/95 border-accent-brown/40 shadow-lg backdrop-blur-sm">
+        <CardHeader className="border-b border-accent-brown/20">
+          <CardTitle className="text-accent-secondary">Performance Metrics</CardTitle>
+          <CardDescription className="text-text-secondary">Issue handling efficiency</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="text-center p-4 border rounded-lg">
-              <div className="text-3xl font-bold text-blue-600">
+            <div className="text-center p-4 border border-accent-brown/30 bg-primary-bg/50 rounded-lg">
+              <div className="text-3xl font-bold text-accent-primary">
                 {analytics.avg_response_time_hours.toFixed(1)}h
               </div>
-              <div className="text-sm text-gray-600 mt-1">Average Response Time</div>
+              <div className="text-sm text-text-secondary mt-1">Average Response Time</div>
             </div>
-            <div className="text-center p-4 border rounded-lg">
-              <div className="text-3xl font-bold text-green-600">
+            <div className="text-center p-4 border border-accent-brown/30 bg-primary-bg/50 rounded-lg">
+              <div className="text-3xl font-bold text-accent-secondary">
                 {analytics.avg_resolution_time_hours.toFixed(1)}h
               </div>
-              <div className="text-sm text-gray-600 mt-1">Average Resolution Time</div>
+              <div className="text-sm text-text-secondary mt-1">Average Resolution Time</div>
             </div>
-            <div className="text-center p-4 border rounded-lg">
-              <div className="text-3xl font-bold text-purple-600">
+            <div className="text-center p-4 border border-accent-brown/30 bg-primary-bg/50 rounded-lg">
+              <div className="text-3xl font-bold text-accent-primary">
                 {analytics.total_tickets > 0
                   ? (
                       ((analytics.resolved_tickets + analytics.closed_tickets) /
@@ -313,7 +327,7 @@ export default function TicketDashboard({ projectId }: TicketDashboardProps) {
                   : 0}
                 %
               </div>
-              <div className="text-sm text-gray-600 mt-1">Resolution Rate</div>
+              <div className="text-sm text-text-secondary mt-1">Resolution Rate</div>
             </div>
           </div>
         </CardContent>

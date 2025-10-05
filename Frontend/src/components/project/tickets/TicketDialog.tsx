@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 
-interface TicketDialogProps {
+interface IssueDialogProps {
   projectId: number;
   taskId?: number;
   stageId?: number;
@@ -107,35 +107,36 @@ export default function TicketDialog({
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle>Create New Ticket</DialogTitle>
-          <DialogDescription>
-            Create a ticket to communicate with other departments and track work requests
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-secondary-bg/98 border-2 border-accent-brown/70 shadow-2xl backdrop-blur-md">
+        <DialogHeader className="bg-primary-bg/95 -m-6 mb-4 p-6 rounded-t-lg border-b border-accent-brown/30">
+          <DialogTitle className="text-xl text-accent-secondary">Create New Issue</DialogTitle>
+          <DialogDescription className="text-text-secondary">
+            Create an issue to communicate with other departments and track work requests
           </DialogDescription>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Title */}
           <div>
-            <Label htmlFor="title">Title *</Label>
+            <Label htmlFor="title" className="text-text-secondary">Title *</Label>
             <Input
               id="title"
               value={formData.title}
               onChange={(e) => handleChange('title', e.target.value)}
               placeholder="Brief description of the request"
               required
+              className="bg-secondary-bg border-accent-brown/50 text-text-primary placeholder-text-secondary/70"
             />
           </div>
 
-          {/* Ticket Type */}
+          {/* Issue Type */}
           <div>
-            <Label htmlFor="ticket_type">Type *</Label>
+            <Label htmlFor="ticket_type" className="text-text-secondary">Type *</Label>
             <Select
               value={formData.ticket_type}
               onValueChange={(value) => handleChange('ticket_type', value)}
             >
-              <SelectTrigger>
+              <SelectTrigger className="bg-secondary-bg border-accent-brown/50 text-text-primary">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>

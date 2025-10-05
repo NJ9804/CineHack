@@ -14,7 +14,7 @@ import BudgetTabEnhanced from '@/components/project/BudgetTabEnhanced';
 import CharactersTab from '@/components/project/CharactersTab';
 import RisksTab from '@/components/project/RisksTab';
 import PromotionsTab from '@/components/project/PromotionsTab';
-import { TicketList, TicketDashboard, TicketWidget } from '@/components/project/tickets';
+import { IssueList, IssueDashboard, IssueWidget } from '@/components/project/tickets';
 import { 
   Users, 
   DollarSign, 
@@ -437,9 +437,9 @@ export default function ProjectDetailPage() {
                 <span className="hidden sm:inline">Promotions</span>
                 <span className="sm:hidden">📢</span>
               </TabsTrigger>
-              <TabsTrigger value="tickets" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium text-xs md:text-sm px-2 py-2">
-                <span className="hidden sm:inline">🎫 Tickets</span>
-                <span className="sm:hidden">🎫</span>
+              <TabsTrigger value="issues" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium text-xs md:text-sm px-2 py-2">
+                <span className="hidden sm:inline">⚠️ Issues</span>
+                <span className="sm:hidden">⚠️</span>
               </TabsTrigger>
               <TabsTrigger value="risks" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400 text-xs md:text-sm px-2 py-2">
                 <span className="hidden sm:inline">Risks</span>
@@ -721,16 +721,16 @@ export default function ProjectDetailPage() {
             <PromotionsTab projectId={projectId} projectName={project.title} />
           </TabsContent>
 
-          <TabsContent value="tickets" className="mt-6">
+          <TabsContent value="issues" className="mt-6">
             <div className="space-y-6">
-              {/* Ticket Widget Summary */}
-              <TicketWidget 
+              {/* Issue Widget Summary */}
+              <IssueWidget 
                 projectId={parseInt(projectId)}
                 compact={false}
               />
               
-              {/* Full Ticket List */}
-              <TicketList projectId={parseInt(projectId)} />
+              {/* Full Issue List */}
+              <IssueList projectId={parseInt(projectId)} />
             </div>
           </TabsContent>
 

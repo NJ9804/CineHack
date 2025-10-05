@@ -25,7 +25,7 @@ import { Plus, Filter, Search, Clock, AlertCircle, CheckCircle2, Circle } from '
 import TicketDialog from './TicketDialog';
 import TicketDetailsDialog from './TicketDetailsDialog';
 
-interface TicketListProps {
+interface IssueListProps {
   projectId: number;
 }
 
@@ -38,18 +38,18 @@ const TICKET_TYPES = [
 ];
 
 const PRIORITIES = [
-  { value: 'low', label: 'Low', color: 'bg-blue-100 text-blue-800' },
-  { value: 'medium', label: 'Medium', color: 'bg-yellow-100 text-yellow-800' },
-  { value: 'high', label: 'High', color: 'bg-orange-100 text-orange-800' },
-  { value: 'urgent', label: 'Urgent', color: 'bg-red-100 text-red-800' },
+  { value: 'low', label: 'Low', color: 'bg-accent-primary/20 text-accent-primary border-accent-primary/40' },
+  { value: 'medium', label: 'Medium', color: 'bg-accent-secondary/20 text-accent-secondary border-accent-secondary/40' },
+  { value: 'high', label: 'High', color: 'bg-orange-500/20 text-orange-400 border-orange-500/40' },
+  { value: 'urgent', label: 'Urgent', color: 'bg-red-500/20 text-red-400 border-red-500/40' },
 ];
 
 const STATUSES = [
-  { value: 'open', label: 'Open', icon: Circle, color: 'text-blue-500' },
-  { value: 'in_progress', label: 'In Progress', icon: Clock, color: 'text-yellow-500' },
-  { value: 'waiting_response', label: 'Waiting Response', icon: AlertCircle, color: 'text-orange-500' },
-  { value: 'resolved', label: 'Resolved', icon: CheckCircle2, color: 'text-green-500' },
-  { value: 'closed', label: 'Closed', icon: CheckCircle2, color: 'text-gray-500' },
+  { value: 'open', label: 'Open', icon: Circle, color: 'text-accent-primary' },
+  { value: 'in_progress', label: 'In Progress', icon: Clock, color: 'text-accent-secondary' },
+  { value: 'waiting_response', label: 'Waiting Response', icon: AlertCircle, color: 'text-orange-400' },
+  { value: 'resolved', label: 'Resolved', icon: CheckCircle2, color: 'text-green-400' },
+  { value: 'closed', label: 'Closed', icon: CheckCircle2, color: 'text-text-secondary' },
 ];
 
 const CATEGORIES = [
@@ -61,7 +61,7 @@ const CATEGORIES = [
   { value: 'graphics', label: 'Graphics' },
 ];
 
-export default function TicketList({ projectId }: TicketListProps) {
+export default function IssueList({ projectId }: IssueListProps) {
   const [tickets, setTickets] = useState<Ticket[]>([]);
   const [filteredTickets, setFilteredTickets] = useState<Ticket[]>([]);
   const [loading, setLoading] = useState(true);
@@ -89,8 +89,8 @@ export default function TicketList({ projectId }: TicketListProps) {
       const data = await apiClient.getProjectTickets(projectId);
       setTickets(data);
     } catch (error) {
-      console.error('Failed to load tickets:', error);
-      toast.error('Failed to load tickets');
+      console.error('Failed to load issues:', error);
+      toast.error('Failed to load issues');
     } finally {
       setLoading(false);
     }
@@ -147,23 +147,23 @@ export default function TicketList({ projectId }: TicketListProps) {
   const handleTicketCreated = () => {
     setShowCreateDialog(false);
     loadTickets();
-    toast.success('Ticket created successfully');
+    toast.success('Issue created successfully');
   };
 
   const handleTicketUpdated = () => {
     setShowDetailsDialog(false);
     loadTickets();
-    toast.success('Ticket updated successfully');
+    toast.success('Issue updated successfully');
   };
 
   const getPriorityColor = (priority: string) => {
-    return PRIORITIES.find((p) => p.value === priority)?.color || 'bg-gray-100 text-gray-800';
+    return PRIORITIES.find((p) => p.value === priority)?.color || 'bg-accent-brown/20 text-text-secondary border-accent-brown/40';
   };
 
   const getStatusIcon = (status: string) => {
     const statusObj = STATUSES.find((s) => s.value === status);
     const Icon = statusObj?.icon || Circle;
-    return <Icon className={`h-4 w-4 ${statusObj?.color || 'text-gray-500'}`} />;
+    return <Icon className={`h-4 w-4 ${statusObj?.color || 'text-text-secondary'}`} />;
   };
 
   const formatDate = (date: string) => {
@@ -182,7 +182,7 @@ export default function TicketList({ projectId }: TicketListProps) {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-gray-500">Loading tickets...</div>
+        <div className="text-text-secondary">Loading issues...</div>
       </div>
     );
   }
@@ -192,31 +192,32 @@ export default function TicketList({ projectId }: TicketListProps) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Tickets</h2>
-          <p className="text-sm text-gray-500">
-            {filteredTickets.length} {filteredTickets.length === 1 ? 'ticket' : 'tickets'}
+          <h2 className="text-2xl font-bold text-accent-secondary">Issues</h2>
+          <p className="text-sm text-text-secondary">
+            {filteredTickets.length} {filteredTickets.length === 1 ? 'issue' : 'issues'}
           </p>
         </div>
-        <Button onClick={() => setShowCreateDialog(true)}>
+        <Button onClick={() => setShowCreateDialog(true)} className="bg-accent-primary hover:bg-accent-primary/80 text-accent-brown">
           <Plus className="h-4 w-4 mr-2" />
-          New Ticket
+          New Issue
         </Button>
       </div>
 
       {/* Search and Filters */}
       <div className="flex gap-2">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-text-secondary" />
           <Input
-            placeholder="Search tickets..."
+            placeholder="Search issues..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
+            className="pl-10 bg-secondary-bg border-accent-brown/30 text-text-primary placeholder-text-secondary/70"
           />
         </div>
         <Button
           variant="outline"
           onClick={() => setShowFilters(!showFilters)}
+          className="border-accent-brown/50 text-text-secondary hover:bg-accent-primary/20 hover:text-accent-primary"
         >
           <Filter className="h-4 w-4 mr-2" />
           Filters
@@ -225,21 +226,21 @@ export default function TicketList({ projectId }: TicketListProps) {
 
       {/* Filter Panel */}
       {showFilters && (
-        <Card>
-          <CardHeader>
-            <CardTitle>Filters</CardTitle>
+        <Card className="bg-secondary-bg/95 border-accent-brown/40 shadow-lg backdrop-blur-sm">
+          <CardHeader className="border-b border-accent-brown/20">
+            <CardTitle className="text-accent-secondary">Filters</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="pt-6">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div>
-                <label className="text-sm font-medium mb-2 block">Status</label>
+                <label className="text-sm font-medium mb-2 block text-text-secondary">Status</label>
                 <Select
                   value={filters.status || ''}
                   onValueChange={(value) =>
                     setFilters({ ...filters, status: value || undefined })
                   }
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-secondary-bg border-accent-brown/30 text-text-primary">
                     <SelectValue placeholder="All Statuses" />
                   </SelectTrigger>
                   <SelectContent>
@@ -254,14 +255,14 @@ export default function TicketList({ projectId }: TicketListProps) {
               </div>
 
               <div>
-                <label className="text-sm font-medium mb-2 block">Priority</label>
+                <label className="text-sm font-medium mb-2 block text-text-secondary">Priority</label>
                 <Select
                   value={filters.priority || ''}
                   onValueChange={(value) =>
                     setFilters({ ...filters, priority: value || undefined })
                   }
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-secondary-bg border-accent-brown/30 text-text-primary">
                     <SelectValue placeholder="All Priorities" />
                   </SelectTrigger>
                   <SelectContent>
@@ -276,14 +277,14 @@ export default function TicketList({ projectId }: TicketListProps) {
               </div>
 
               <div>
-                <label className="text-sm font-medium mb-2 block">Category</label>
+                <label className="text-sm font-medium mb-2 block text-text-secondary">Category</label>
                 <Select
                   value={filters.category || ''}
                   onValueChange={(value) =>
                     setFilters({ ...filters, category: value || undefined })
                   }
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-secondary-bg border-accent-brown/30 text-text-primary">
                     <SelectValue placeholder="All Categories" />
                   </SelectTrigger>
                   <SelectContent>
@@ -298,14 +299,14 @@ export default function TicketList({ projectId }: TicketListProps) {
               </div>
 
               <div>
-                <label className="text-sm font-medium mb-2 block">Type</label>
+                <label className="text-sm font-medium mb-2 block text-text-secondary">Type</label>
                 <Select
                   value={filters.ticket_type || ''}
                   onValueChange={(value) =>
                     setFilters({ ...filters, ticket_type: value || undefined })
                   }
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="bg-secondary-bg border-accent-brown/30 text-text-primary">
                     <SelectValue placeholder="All Types" />
                   </SelectTrigger>
                   <SelectContent>
@@ -327,6 +328,7 @@ export default function TicketList({ projectId }: TicketListProps) {
                   setFilters({});
                   setSearchQuery('');
                 }}
+                className="border-accent-brown/50 text-text-secondary hover:bg-accent-primary/20 hover:text-accent-primary"
               >
                 Clear Filters
               </Button>
@@ -335,17 +337,17 @@ export default function TicketList({ projectId }: TicketListProps) {
         </Card>
       )}
 
-      {/* Tickets List */}
+      {/* Issues List */}
       {filteredTickets.length === 0 ? (
-        <Card>
+        <Card className="bg-secondary-bg/95 border-accent-brown/40 shadow-lg backdrop-blur-sm">
           <CardContent className="flex flex-col items-center justify-center py-12">
-            <p className="text-gray-500">No tickets found</p>
+            <p className="text-text-secondary">No issues found</p>
             <Button
               variant="link"
               onClick={() => setShowCreateDialog(true)}
-              className="mt-2"
+              className="mt-2 text-accent-primary hover:text-accent-primary/80"
             >
-              Create your first ticket
+              Create your first issue
             </Button>
           </CardContent>
         </Card>
@@ -354,7 +356,7 @@ export default function TicketList({ projectId }: TicketListProps) {
           {filteredTickets.map((ticket) => (
             <Card
               key={ticket.id}
-              className="cursor-pointer hover:shadow-md transition-shadow"
+              className="cursor-pointer hover:shadow-lg transition-shadow bg-secondary-bg/95 border-accent-brown/40 shadow-lg backdrop-blur-sm hover:border-accent-primary/50"
               onClick={() => handleTicketClick(ticket)}
             >
               <CardContent className="pt-6">
@@ -362,28 +364,28 @@ export default function TicketList({ projectId }: TicketListProps) {
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
                       {getStatusIcon(ticket.status)}
-                      <span className="text-xs font-mono text-gray-500">
+                      <span className="text-xs font-mono text-text-secondary">
                         {ticket.ticket_number}
                       </span>
                       <Badge className={getPriorityColor(ticket.priority)}>
                         {ticket.priority}
                       </Badge>
                       {ticket.category && (
-                        <Badge variant="outline">{ticket.category}</Badge>
+                        <Badge className="bg-accent-secondary/20 text-accent-secondary border-accent-secondary/40">{ticket.category}</Badge>
                       )}
                       {ticket.due_date && isOverdue(ticket.due_date) && (
-                        <Badge className="bg-red-100 text-red-800">Overdue</Badge>
+                        <Badge className="bg-red-500/20 text-red-400 border-red-500/40">Overdue</Badge>
                       )}
                     </div>
 
-                    <h3 className="font-semibold text-lg mb-1">{ticket.title}</h3>
+                    <h3 className="font-semibold text-lg mb-1 text-text-primary">{ticket.title}</h3>
                     {ticket.description && (
-                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">
+                      <p className="text-sm text-text-secondary mb-3 line-clamp-2">
                         {ticket.description}
                       </p>
                     )}
 
-                    <div className="flex items-center gap-4 text-xs text-gray-500">
+                    <div className="flex items-center gap-4 text-xs text-text-secondary">
                       {ticket.creator && (
                         <span>Created by {ticket.creator.full_name || ticket.creator.username}</span>
                       )}
@@ -392,7 +394,7 @@ export default function TicketList({ projectId }: TicketListProps) {
                       )}
                       <span>{formatDate(ticket.created_at)}</span>
                       {ticket.due_date && (
-                        <span className={isOverdue(ticket.due_date) ? 'text-red-500' : ''}>
+                        <span className={isOverdue(ticket.due_date) ? 'text-red-400' : ''}>
                           Due {formatDate(ticket.due_date)}
                         </span>
                       )}
@@ -401,7 +403,7 @@ export default function TicketList({ projectId }: TicketListProps) {
                     {ticket.tags && ticket.tags.length > 0 && (
                       <div className="flex gap-1 mt-2">
                         {ticket.tags.map((tag, idx) => (
-                          <Badge key={idx} variant="secondary" className="text-xs">
+                          <Badge key={idx} className="bg-accent-brown/20 text-accent-secondary border-accent-brown/40 text-xs">
                             {tag}
                           </Badge>
                         ))}
@@ -410,16 +412,16 @@ export default function TicketList({ projectId }: TicketListProps) {
                   </div>
 
                   <div className="text-right">
-                    <div className="text-sm font-medium mb-1">
+                    <div className="text-sm font-medium mb-1 text-accent-secondary">
                       {STATUSES.find((s) => s.value === ticket.status)?.label}
                     </div>
                     {ticket.source_department && (
-                      <div className="text-xs text-gray-500">
+                      <div className="text-xs text-text-secondary">
                         From: {ticket.source_department}
                       </div>
                     )}
                     {ticket.target_department && (
-                      <div className="text-xs text-gray-500">
+                      <div className="text-xs text-text-secondary">
                         To: {ticket.target_department}
                       </div>
                     )}
