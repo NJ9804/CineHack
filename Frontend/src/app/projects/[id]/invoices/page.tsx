@@ -6,7 +6,8 @@ import { InvoiceUploadForm, InvoiceList } from '@/services/invoiceUploadService'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { AlertCircle, CheckCircle, Clock, FileText } from 'lucide-react';
+import { AlertCircle, CheckCircle, Clock, FileText, DollarSign, Upload, Zap } from 'lucide-react';
+import Layout from '@/components/layout/Layout';
 
 export default function ProjectInvoicesPage() {
   const params = useParams();
@@ -26,201 +27,263 @@ export default function ProjectInvoicesPage() {
   };
 
   return (
-    <div className="container mx-auto p-6">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold mb-2">Invoice Management</h1>
-        <p className="text-gray-600">
-          Upload and manage invoices for this project with AI-powered extraction
-        </p>
-      </div>
+    <Layout title="📄 Invoice Management" subtitle="AI-powered invoice processing for your film production">
+      <div className="container mx-auto px-4 space-y-6 max-w-7xl">
+        <div className="text-center py-4">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-accent-secondary mb-2 break-words">
+            📄 Invoice Management
+          </h1>
+          <p className="text-text-secondary text-base md:text-lg px-4">
+            Upload and manage invoices for this project with AI-powered extraction
+          </p>
+        </div>
 
-      {/* Stats Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Invoices</CardTitle>
-            <FileText className="h-4 w-4 text-gray-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">0</div>
-            <p className="text-xs text-gray-500">All time</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Pending Approval</CardTitle>
-            <Clock className="h-4 w-4 text-yellow-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-yellow-600">0</div>
-            <p className="text-xs text-gray-500">Needs attention</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Approved</CardTitle>
-            <CheckCircle className="h-4 w-4 text-green-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-green-600">0</div>
-            <p className="text-xs text-gray-500">Ready for payment</p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Amount</CardTitle>
-            <AlertCircle className="h-4 w-4 text-blue-500" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">₹0</div>
-            <p className="text-xs text-gray-500">This month</p>
-          </CardContent>
-        </Card>
-      </div>
-
-      <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="grid w-full grid-cols-3 mb-6">
-          <TabsTrigger value="list">
-            📋 All Invoices
-          </TabsTrigger>
-          <TabsTrigger value="upload">
-            📤 Upload New
-          </TabsTrigger>
-          <TabsTrigger value="pending">
-            ⏳ Pending Approval
-          </TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="list">
-          <Card>
-            <CardHeader>
-              <CardTitle>All Invoices</CardTitle>
-              <CardDescription>
-                View and manage all uploaded invoices for this project
-              </CardDescription>
+        {/* Stats Overview */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          <Card className="bg-gradient-to-br from-secondary-bg to-accent-brown/10 border-accent-brown shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
+              <div className="flex-1 min-w-0">
+                <CardTitle className="text-sm font-medium text-accent-secondary truncate">📄 Total Invoices</CardTitle>
+                <p className="text-xs text-text-secondary mt-1 line-clamp-2">All time</p>
+              </div>
+              <div className="p-2 bg-accent-primary/20 rounded-full group-hover:bg-accent-primary/30 transition-colors flex-shrink-0 ml-2">
+                <FileText className="h-5 w-5 text-accent-primary" />
+              </div>
             </CardHeader>
-            <CardContent>
-              <InvoiceList key={refreshKey} projectId={projectId} />
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="upload">
-          <Card>
-            <CardHeader>
-              <CardTitle>Upload New Invoice</CardTitle>
-              <CardDescription>
-                Upload an invoice image (JPG, PNG, or PDF) and our AI will automatically extract all the details
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <InvoiceUploadForm 
-                    projectId={projectId}
-                    userId={userId}
-                    onSuccess={handleUploadSuccess}
-                  />
-                </div>
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-6 rounded-lg">
-                  <h3 className="font-semibold mb-4 text-lg">🤖 How AI Processing Works</h3>
-                  <ol className="space-y-3 text-sm">
-                    <li className="flex items-start">
-                      <span className="bg-blue-500 text-white rounded-full w-7 h-7 flex items-center justify-center mr-3 flex-shrink-0 font-semibold">1</span>
-                      <div>
-                        <div className="font-medium">Upload Invoice</div>
-                        <div className="text-gray-600">Select your invoice image or PDF file</div>
-                      </div>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-blue-500 text-white rounded-full w-7 h-7 flex items-center justify-center mr-3 flex-shrink-0 font-semibold">2</span>
-                      <div>
-                        <div className="font-medium">AI Extraction</div>
-                        <div className="text-gray-600">Google Gemini AI extracts vendor, amounts, dates, and line items</div>
-                      </div>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-blue-500 text-white rounded-full w-7 h-7 flex items-center justify-center mr-3 flex-shrink-0 font-semibold">3</span>
-                      <div>
-                        <div className="font-medium">Smart Routing</div>
-                        <div className="text-gray-600">System checks approval requirements based on amount</div>
-                      </div>
-                    </li>
-                    <li className="flex items-start">
-                      <span className="bg-blue-500 text-white rounded-full w-7 h-7 flex items-center justify-center mr-3 flex-shrink-0 font-semibold">4</span>
-                      <div>
-                        <div className="font-medium">Approval Workflow</div>
-                        <div className="text-gray-600">Auto-approved or routed to appropriate approver</div>
-                      </div>
-                    </li>
-                  </ol>
-                  
-                  <div className="mt-6 pt-4 border-t border-blue-200">
-                    <h4 className="font-semibold text-sm mb-3">💰 Approval Thresholds:</h4>
-                    <div className="space-y-2 text-xs">
-                      <div className="flex items-center justify-between bg-white/50 p-2 rounded">
-                        <div className="flex items-center">
-                          <Badge variant="outline" className="mr-2 bg-green-100">Auto</Badge>
-                          <span className="font-medium">₹0 - ₹5,000</span>
-                        </div>
-                        <span className="text-gray-500">Instant</span>
-                      </div>
-                      <div className="flex items-center justify-between bg-white/50 p-2 rounded">
-                        <div className="flex items-center">
-                          <Badge variant="outline" className="mr-2 bg-yellow-100">Manager</Badge>
-                          <span className="font-medium">₹5,000 - ₹25,000</span>
-                        </div>
-                        <span className="text-gray-500">~2-4 hrs</span>
-                      </div>
-                      <div className="flex items-center justify-between bg-white/50 p-2 rounded">
-                        <div className="flex items-center">
-                          <Badge variant="outline" className="mr-2 bg-orange-100">Director</Badge>
-                          <span className="font-medium">₹25,000 - ₹1,00,000</span>
-                        </div>
-                        <span className="text-gray-500">~1 day</span>
-                      </div>
-                      <div className="flex items-center justify-between bg-white/50 p-2 rounded">
-                        <div className="flex items-center">
-                          <Badge variant="outline" className="mr-2 bg-red-100">Dual</Badge>
-                          <span className="font-medium">&gt; ₹1,00,000</span>
-                        </div>
-                        <span className="text-gray-500">~2-3 days</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 p-3 bg-blue-100 rounded-lg text-xs">
-                    <div className="font-semibold mb-1">💡 Pro Tips:</div>
-                    <ul className="space-y-1 text-gray-700">
-                      <li>• Ensure invoice image is clear and well-lit</li>
-                      <li>• All text should be readable</li>
-                      <li>• Supported formats: JPG, PNG, PDF (max 10MB)</li>
-                      <li>• Add notes for better tracking</li>
-                    </ul>
-                  </div>
-                </div>
+            <CardContent className="px-4 pb-4">
+              <div className="text-2xl md:text-3xl font-bold text-accent-primary mb-1">0</div>
+              <div className="flex items-center text-xs md:text-sm text-text-secondary">
+                <span className="mr-1 flex-shrink-0">📊</span>
+                <span className="truncate">Uploaded documents</span>
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
 
-        <TabsContent value="pending">
-          <Card>
-            <CardHeader>
-              <CardTitle>Pending Approvals</CardTitle>
-              <CardDescription>
-                Invoices waiting for approval in this project
-              </CardDescription>
+          <Card className="bg-gradient-to-br from-secondary-bg to-accent-secondary/10 border-accent-brown shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
+              <div className="flex-1 min-w-0">
+                <CardTitle className="text-sm font-medium text-accent-secondary truncate">⏳ Pending Approval</CardTitle>
+                <p className="text-xs text-text-secondary mt-1 line-clamp-2">Needs attention</p>
+              </div>
+              <div className="p-2 bg-yellow-500/20 rounded-full group-hover:bg-yellow-500/30 transition-colors flex-shrink-0 ml-2">
+                <Clock className="h-5 w-5 text-yellow-500" />
+              </div>
             </CardHeader>
-            <CardContent>
-              <InvoiceList key={refreshKey} projectId={projectId} />
+            <CardContent className="px-4 pb-4">
+              <div className="text-2xl md:text-3xl font-bold text-yellow-500 mb-1">0</div>
+              <div className="flex items-center text-xs md:text-sm text-text-secondary">
+                <span className="mr-1 flex-shrink-0">🔍</span>
+                <span className="truncate">Awaiting review</span>
+              </div>
             </CardContent>
           </Card>
-        </TabsContent>
-      </Tabs>
-    </div>
+
+          <Card className="bg-gradient-to-br from-secondary-bg to-green-500/10 border-accent-brown shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
+              <div className="flex-1 min-w-0">
+                <CardTitle className="text-sm font-medium text-accent-secondary truncate">✅ Approved</CardTitle>
+                <p className="text-xs text-text-secondary mt-1 line-clamp-2">Ready for payment</p>
+              </div>
+              <div className="p-2 bg-green-500/20 rounded-full group-hover:bg-green-500/30 transition-colors flex-shrink-0 ml-2">
+                <CheckCircle className="h-5 w-5 text-green-500" />
+              </div>
+            </CardHeader>
+            <CardContent className="px-4 pb-4">
+              <div className="text-2xl md:text-3xl font-bold text-green-500 mb-1">0</div>
+              <div className="flex items-center text-xs md:text-sm text-text-secondary">
+                <span className="mr-1 flex-shrink-0">💳</span>
+                <span className="truncate">Payment ready</span>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-secondary-bg to-accent-primary/10 border-accent-brown shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
+              <div className="flex-1 min-w-0">
+                <CardTitle className="text-sm font-medium text-accent-secondary truncate">💰 Total Amount</CardTitle>
+                <p className="text-xs text-text-secondary mt-1 line-clamp-2">This month</p>
+              </div>
+              <div className="p-2 bg-accent-primary/20 rounded-full group-hover:bg-accent-primary/30 transition-colors flex-shrink-0 ml-2">
+                <DollarSign className="h-5 w-5 text-accent-primary" />
+              </div>
+            </CardHeader>
+            <CardContent className="px-4 pb-4">
+              <div className="text-2xl md:text-3xl font-bold text-accent-primary mb-1">₹0</div>
+              <div className="flex items-center text-xs md:text-sm text-text-secondary">
+                <span className="mr-1 flex-shrink-0">📈</span>
+                <span className="truncate">Invoice value</span>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <div className="overflow-x-auto">
+            <TabsList className="grid w-full min-w-[600px] grid-cols-3 bg-secondary-bg border border-accent-brown/30">
+              <TabsTrigger 
+                value="list" 
+                className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium text-xs md:text-sm px-4 py-2"
+              >
+                <span className="hidden sm:inline">📋 All Invoices</span>
+                <span className="sm:hidden">📋</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="upload" 
+                className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium text-xs md:text-sm px-4 py-2"
+              >
+                <span className="hidden sm:inline">📤 Upload New</span>
+                <span className="sm:hidden">📤</span>
+              </TabsTrigger>
+              <TabsTrigger 
+                value="pending" 
+                className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium text-xs md:text-sm px-4 py-2"
+              >
+                <span className="hidden sm:inline">⏳ Pending Approval</span>
+                <span className="sm:hidden">⏳</span>
+              </TabsTrigger>
+            </TabsList>
+          </div>
+
+          <TabsContent value="list" className="mt-4 md:mt-6">
+            <Card className="bg-gradient-to-br from-secondary-bg/80 to-primary-bg/60 border-accent-brown shadow-lg">
+              <CardHeader>
+                <CardTitle className="text-accent-secondary flex items-center">
+                  <FileText className="w-6 h-6 mr-3 text-accent-primary" />
+                  📋 All Invoices
+                </CardTitle>
+                <CardDescription className="text-text-secondary">
+                  View and manage all uploaded invoices for this project
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <InvoiceList key={refreshKey} projectId={projectId} />
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="upload" className="mt-4 md:mt-6">
+            <Card className="bg-gradient-to-br from-secondary-bg/80 to-primary-bg/60 border-accent-brown shadow-lg">
+              <CardHeader>
+                <CardTitle className="text-accent-secondary flex items-center">
+                  <Upload className="w-6 h-6 mr-3 text-accent-primary" />
+                  📤 Upload New Invoice
+                </CardTitle>
+                <CardDescription className="text-text-secondary">
+                  Upload an invoice image (JPG, PNG, or PDF) and our AI will automatically extract all the details
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+                  <div>
+                    <InvoiceUploadForm 
+                      projectId={projectId}
+                      userId={userId}
+                      onSuccess={handleUploadSuccess}
+                    />
+                  </div>
+                  <div className="bg-gradient-to-br from-accent-primary/10 to-accent-secondary/10 p-4 md:p-6 rounded-lg border border-accent-brown/20">
+                    <h3 className="font-semibold mb-4 text-lg text-accent-secondary flex items-center">
+                      <Zap className="w-5 h-5 mr-2 text-accent-primary" />
+                      🤖 How AI Processing Works
+                    </h3>
+                    <ol className="space-y-3 text-sm">
+                      <li className="flex items-start">
+                        <span className="bg-accent-primary text-primary-bg rounded-full w-7 h-7 flex items-center justify-center mr-3 flex-shrink-0 font-semibold">1</span>
+                        <div>
+                          <div className="font-medium text-accent-secondary">Upload Invoice</div>
+                          <div className="text-text-secondary">Select your invoice image or PDF file</div>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="bg-accent-primary text-primary-bg rounded-full w-7 h-7 flex items-center justify-center mr-3 flex-shrink-0 font-semibold">2</span>
+                        <div>
+                          <div className="font-medium text-accent-secondary">AI Extraction</div>
+                          <div className="text-text-secondary">Google Gemini AI extracts vendor, amounts, dates, and line items</div>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="bg-accent-primary text-primary-bg rounded-full w-7 h-7 flex items-center justify-center mr-3 flex-shrink-0 font-semibold">3</span>
+                        <div>
+                          <div className="font-medium text-accent-secondary">Smart Routing</div>
+                          <div className="text-text-secondary">System checks approval requirements based on amount</div>
+                        </div>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="bg-accent-primary text-primary-bg rounded-full w-7 h-7 flex items-center justify-center mr-3 flex-shrink-0 font-semibold">4</span>
+                        <div>
+                          <div className="font-medium text-accent-secondary">Approval Workflow</div>
+                          <div className="text-text-secondary">Auto-approved or routed to appropriate approver</div>
+                        </div>
+                      </li>
+                    </ol>
+                    
+                    <div className="mt-6 pt-4 border-t border-accent-brown/20">
+                      <h4 className="font-semibold text-sm mb-3 text-accent-secondary">💰 Approval Thresholds:</h4>
+                      <div className="space-y-2 text-xs">
+                        <div className="flex items-center justify-between bg-primary-bg/50 p-2 rounded border border-accent-brown/10">
+                          <div className="flex items-center">
+                            <Badge variant="outline" className="mr-2 bg-green-500/20 text-green-500 border-green-500/30">Auto</Badge>
+                            <span className="font-medium text-accent-secondary">₹0 - ₹5,000</span>
+                          </div>
+                          <span className="text-text-secondary">Instant</span>
+                        </div>
+                        <div className="flex items-center justify-between bg-primary-bg/50 p-2 rounded border border-accent-brown/10">
+                          <div className="flex items-center">
+                            <Badge variant="outline" className="mr-2 bg-yellow-500/20 text-yellow-500 border-yellow-500/30">Manager</Badge>
+                            <span className="font-medium text-accent-secondary">₹5,000 - ₹25,000</span>
+                          </div>
+                          <span className="text-text-secondary">~2-4 hrs</span>
+                        </div>
+                        <div className="flex items-center justify-between bg-primary-bg/50 p-2 rounded border border-accent-brown/10">
+                          <div className="flex items-center">
+                            <Badge variant="outline" className="mr-2 bg-orange-500/20 text-orange-500 border-orange-500/30">Director</Badge>
+                            <span className="font-medium text-accent-secondary">₹25,000 - ₹1,00,000</span>
+                          </div>
+                          <span className="text-text-secondary">~1 day</span>
+                        </div>
+                        <div className="flex items-center justify-between bg-primary-bg/50 p-2 rounded border border-accent-brown/10">
+                          <div className="flex items-center">
+                            <Badge variant="outline" className="mr-2 bg-red-500/20 text-red-500 border-red-500/30">Dual</Badge>
+                            <span className="font-medium text-accent-secondary">&gt; ₹1,00,000</span>
+                          </div>
+                          <span className="text-text-secondary">~2-3 days</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 p-3 bg-accent-primary/10 rounded-lg text-xs border border-accent-primary/20">
+                      <div className="font-semibold mb-1 text-accent-primary">💡 Pro Tips:</div>
+                      <ul className="space-y-1 text-text-secondary">
+                        <li>• Ensure invoice image is clear and well-lit</li>
+                        <li>• All text should be readable</li>
+                        <li>• Supported formats: JPG, PNG, PDF (max 10MB)</li>
+                        <li>• Add notes for better tracking</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="pending" className="mt-4 md:mt-6">
+            <Card className="bg-gradient-to-br from-secondary-bg/80 to-primary-bg/60 border-accent-brown shadow-lg">
+              <CardHeader>
+                <CardTitle className="text-accent-secondary flex items-center">
+                  <Clock className="w-6 h-6 mr-3 text-yellow-500" />
+                  ⏳ Pending Approvals
+                </CardTitle>
+                <CardDescription className="text-text-secondary">
+                  Invoices waiting for approval in this project
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <InvoiceList key={refreshKey} projectId={projectId} />
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </Layout>
   );
 }

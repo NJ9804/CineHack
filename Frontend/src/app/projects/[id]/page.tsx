@@ -225,40 +225,40 @@ export default function ProjectDetailPage() {
 
   return (
     <Layout title={`🎬 ${project.title}`} subtitle={`${project.year} • ${project.status.replace('-', ' ')}`}>
-      <div className="space-y-8">
+      <div className="container mx-auto px-4 space-y-6 max-w-7xl">
         {/* Project Header */}
-        <div className="text-center py-6">
-          <h1 className="text-3xl md:text-4xl font-bold text-accent-secondary mb-2">
+        <div className="text-center py-4">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-accent-secondary mb-2 break-words">
             🎭 {project.title}
           </h1>
-          <p className="text-text-secondary text-lg">
+          <p className="text-text-secondary text-base md:text-lg px-4">
             {project.year} Production • {project.status === 'in-progress' ? '🎬 Currently Filming' : 
              project.status === 'planning' ? '📋 In Planning' : 
              project.status === 'completed' ? '✅ Completed' : project.status}
           </p>
           {project.synopsis && (
-            <p className="text-text-secondary/80 mt-2 max-w-2xl mx-auto">
+            <p className="text-text-secondary/80 mt-2 max-w-2xl mx-auto text-sm md:text-base px-4">
               {project.synopsis}
             </p>
           )}
         </div>
 
         {/* Quick Access Banners */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-4 gap-4 md:gap-6">
           <Card className="bg-gradient-to-r from-accent-primary/10 via-accent-secondary/10 to-accent-brown/10 border-accent-primary/30 backdrop-blur-sm">
-            <CardContent className="py-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <Target className="w-8 h-8 text-accent-primary" />
-                  <div>
-                    <h3 className="text-xl font-bold text-accent-secondary">🎯 Production Stages</h3>
-                    <p className="text-text-secondary">Track production timeline</p>
+            <CardContent className="p-4 md:p-6">
+              <div className="flex flex-col space-y-4">
+                <div className="flex items-center gap-3">
+                  <Target className="w-6 h-6 md:w-8 md:h-8 text-accent-primary flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base md:text-lg font-bold text-accent-secondary truncate">🎯 Production Stages</h3>
+                    <p className="text-text-secondary text-xs md:text-sm line-clamp-2">Track production timeline</p>
                   </div>
                 </div>
-                <Link href={`/projects/${projectId}/production-stages`}>
-                  <Button variant="cinematic" size="lg" className="hover:scale-105 transition-transform">
-                    <Clock className="w-5 h-5 mr-2" />
-                    View Timeline
+                <Link href={`/projects/${projectId}/production-stages`} className="w-full">
+                  <Button variant="cinematic" size="sm" className="w-full hover:scale-[1.02] transition-transform text-xs md:text-sm">
+                    <Clock className="w-4 h-4 mr-2 flex-shrink-0" />
+                    <span className="truncate">View Timeline</span>
                   </Button>
                 </Link>
               </div>
@@ -266,19 +266,19 @@ export default function ProjectDetailPage() {
           </Card>
 
           <Card className="bg-gradient-to-r from-green-500/10 via-blue-500/10 to-purple-500/10 border-green-500/30 backdrop-blur-sm">
-            <CardContent className="py-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <Film className="w-8 h-8 text-green-500" />
-                  <div>
-                    <h3 className="text-xl font-bold text-accent-secondary">🎬 Operations</h3>
-                    <p className="text-text-secondary">Rentals, Hotels, Catering & More</p>
+            <CardContent className="p-4 md:p-6">
+              <div className="flex flex-col space-y-4">
+                <div className="flex items-center gap-3">
+                  <Film className="w-6 h-6 md:w-8 md:h-8 text-green-500 flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base md:text-lg font-bold text-accent-secondary truncate">🎬 Operations</h3>
+                    <p className="text-text-secondary text-xs md:text-sm line-clamp-2">Rentals, Hotels, Catering & More</p>
                   </div>
                 </div>
-                <Link href={`/projects/${projectId}/operations`}>
-                  <Button variant="cinematic" size="lg" className="hover:scale-105 transition-transform bg-green-600 hover:bg-green-700">
-                    <Target className="w-5 h-5 mr-2" />
-                    Manage Operations
+                <Link href={`/projects/${projectId}/operations`} className="w-full">
+                  <Button variant="cinematic" size="sm" className="w-full hover:scale-[1.02] transition-transform bg-green-600 hover:bg-green-700 text-xs md:text-sm">
+                    <Target className="w-4 h-4 mr-2 flex-shrink-0" />
+                    <span className="truncate">Manage Operations</span>
                   </Button>
                 </Link>
               </div>
@@ -286,19 +286,19 @@ export default function ProjectDetailPage() {
           </Card>
 
           <Card className="bg-gradient-to-r from-yellow-500/10 via-orange-500/10 to-red-500/10 border-yellow-500/30 backdrop-blur-sm">
-            <CardContent className="py-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <Clock className="w-8 h-8 text-yellow-500" />
-                  <div>
-                    <h3 className="text-xl font-bold text-accent-secondary">⚡ Smart Schedule</h3>
-                    <p className="text-text-secondary">AI-Powered Scheduling</p>
+            <CardContent className="p-4 md:p-6">
+              <div className="flex flex-col space-y-4">
+                <div className="flex items-center gap-3">
+                  <Clock className="w-6 h-6 md:w-8 md:h-8 text-yellow-500 flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base md:text-lg font-bold text-accent-secondary truncate">⚡ Smart Schedule</h3>
+                    <p className="text-text-secondary text-xs md:text-sm line-clamp-2">AI-Powered Scheduling</p>
                   </div>
                 </div>
-                <Link href={`/projects/${projectId}/schedule`}>
-                  <Button variant="cinematic" size="lg" className="hover:scale-105 transition-transform bg-yellow-600 hover:bg-yellow-700">
-                    <Film className="w-5 h-5 mr-2" />
-                    Auto-Schedule
+                <Link href={`/projects/${projectId}/schedule`} className="w-full">
+                  <Button variant="cinematic" size="sm" className="w-full hover:scale-[1.02] transition-transform bg-yellow-600 hover:bg-yellow-700 text-xs md:text-sm">
+                    <Film className="w-4 h-4 mr-2 flex-shrink-0" />
+                    <span className="truncate">Auto-Schedule</span>
                   </Button>
                 </Link>
               </div>
@@ -306,19 +306,19 @@ export default function ProjectDetailPage() {
           </Card>
 
           <Card className="bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 border-blue-500/30 backdrop-blur-sm">
-            <CardContent className="py-6">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <DollarSign className="w-8 h-8 text-blue-500" />
-                  <div>
-                    <h3 className="text-xl font-bold text-accent-secondary">📄 Invoices</h3>
-                    <p className="text-text-secondary">AI-Powered Invoice Processing</p>
+            <CardContent className="p-4 md:p-6">
+              <div className="flex flex-col space-y-4">
+                <div className="flex items-center gap-3">
+                  <DollarSign className="w-6 h-6 md:w-8 md:h-8 text-blue-500 flex-shrink-0" />
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base md:text-lg font-bold text-accent-secondary truncate">📄 Invoices</h3>
+                    <p className="text-text-secondary text-xs md:text-sm line-clamp-2">AI-Powered Invoice Processing</p>
                   </div>
                 </div>
-                <Link href={`/projects/${projectId}/invoices`}>
-                  <Button variant="cinematic" size="lg" className="hover:scale-105 transition-transform bg-blue-600 hover:bg-blue-700">
-                    <DollarSign className="w-5 h-5 mr-2" />
-                    Manage Invoices
+                <Link href={`/projects/${projectId}/invoices`} className="w-full">
+                  <Button variant="cinematic" size="sm" className="w-full hover:scale-[1.02] transition-transform bg-blue-600 hover:bg-blue-700 text-xs md:text-sm">
+                    <DollarSign className="w-4 h-4 mr-2 flex-shrink-0" />
+                    <span className="truncate">Manage Invoices</span>
                   </Button>
                 </Link>
               </div>
@@ -327,79 +327,79 @@ export default function ProjectDetailPage() {
         </div>
 
         {/* Enhanced Project Overview Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="bg-gradient-to-br from-secondary-bg to-accent-brown/10 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-              <div>
-                <CardTitle className="text-sm font-medium text-accent-secondary">🎬 Total Scenes</CardTitle>
-                <p className="text-xs text-text-secondary mt-1">Script breakdown</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+          <Card className="bg-gradient-to-br from-secondary-bg to-accent-brown/10 border-accent-brown shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
+              <div className="flex-1 min-w-0">
+                <CardTitle className="text-sm font-medium text-accent-secondary truncate">🎬 Total Scenes</CardTitle>
+                <p className="text-xs text-text-secondary mt-1 line-clamp-2">Script breakdown</p>
               </div>
-              <div className="p-3 bg-accent-primary/20 rounded-full group-hover:bg-accent-primary/30 transition-colors">
-                <Film className="h-6 w-6 text-accent-primary" />
+              <div className="p-2 bg-accent-primary/20 rounded-full group-hover:bg-accent-primary/30 transition-colors flex-shrink-0 ml-2">
+                <Film className="h-5 w-5 text-accent-primary" />
               </div>
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-accent-primary mb-1">{dashboard?.summary?.total_scenes || scenes.length}</div>
-              <div className="flex items-center text-sm text-text-secondary">
-                <span className="mr-2">✅</span>
-                {completedScenes} completed scenes
+            <CardContent className="px-4 pb-4">
+              <div className="text-2xl md:text-3xl font-bold text-accent-primary mb-1 truncate">{dashboard?.summary?.total_scenes || scenes.length}</div>
+              <div className="flex items-center text-xs md:text-sm text-text-secondary">
+                <span className="mr-1 flex-shrink-0">✅</span>
+                <span className="truncate">{completedScenes} completed scenes</span>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-secondary-bg to-accent-secondary/10 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-              <div>
-                <CardTitle className="text-sm font-medium text-accent-secondary">💰 Budget Usage</CardTitle>
-                <p className="text-xs text-text-secondary mt-1">Financial tracking</p>
+          <Card className="bg-gradient-to-br from-secondary-bg to-accent-secondary/10 border-accent-brown shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
+              <div className="flex-1 min-w-0">
+                <CardTitle className="text-sm font-medium text-accent-secondary truncate">💰 Budget Usage</CardTitle>
+                <p className="text-xs text-text-secondary mt-1 line-clamp-2">Financial tracking</p>
               </div>
-              <div className="p-3 bg-accent-secondary/20 rounded-full group-hover:bg-accent-secondary/30 transition-colors">
-                <DollarSign className="h-6 w-6 text-accent-secondary" />
+              <div className="p-2 bg-accent-secondary/20 rounded-full group-hover:bg-accent-secondary/30 transition-colors flex-shrink-0 ml-2">
+                <DollarSign className="h-5 w-5 text-accent-secondary" />
               </div>
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-accent-secondary mb-1">{budgetPercentage}%</div>
-              <div className="flex items-center text-sm text-text-secondary">
-                <span className="mr-2">💸</span>
-                {formatCurrency(budgetUsed)} of {formatCurrency(budgetTotal)}
+            <CardContent className="px-4 pb-4">
+              <div className="text-2xl md:text-3xl font-bold text-accent-secondary mb-1 truncate">{budgetPercentage}%</div>
+              <div className="flex items-center text-xs md:text-sm text-text-secondary">
+                <span className="mr-1 flex-shrink-0">💸</span>
+                <span className="truncate">{formatCurrency(budgetUsed)} of {formatCurrency(budgetTotal)}</span>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-secondary-bg to-accent-primary/10 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-              <div>
-                <CardTitle className="text-sm font-medium text-accent-secondary">🎭 Characters</CardTitle>
-                <p className="text-xs text-text-secondary mt-1">Cast & crew</p>
+          <Card className="bg-gradient-to-br from-secondary-bg to-accent-primary/10 border-accent-brown shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
+              <div className="flex-1 min-w-0">
+                <CardTitle className="text-sm font-medium text-accent-secondary truncate">🎭 Characters</CardTitle>
+                <p className="text-xs text-text-secondary mt-1 line-clamp-2">Cast & crew</p>
               </div>
-              <div className="p-3 bg-accent-brown/20 rounded-full group-hover:bg-accent-brown/30 transition-colors">
-                <Users className="h-6 w-6 text-accent-primary" />
+              <div className="p-2 bg-accent-brown/20 rounded-full group-hover:bg-accent-brown/30 transition-colors flex-shrink-0 ml-2">
+                <Users className="h-5 w-5 text-accent-primary" />
               </div>
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-accent-primary mb-1">{dashboard?.summary?.characters?.length || characters.length}</div>
-              <div className="flex items-center text-sm text-text-secondary">
-                <span className="mr-2">🎪</span>
-                {characters.filter(c => c.actorId).length} actors cast
+            <CardContent className="px-4 pb-4">
+              <div className="text-2xl md:text-3xl font-bold text-accent-primary mb-1 truncate">{dashboard?.summary?.characters?.length || characters.length}</div>
+              <div className="flex items-center text-xs md:text-sm text-text-secondary">
+                <span className="mr-1 flex-shrink-0">🎪</span>
+                <span className="truncate">{characters.filter(c => c.actorId).length} actors cast</span>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-secondary-bg to-accent-brown/10 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 group">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
-              <div>
-                <CardTitle className="text-sm font-medium text-accent-secondary">📍 Locations</CardTitle>
-                <p className="text-xs text-text-secondary mt-1">Filming sites</p>
+          <Card className="bg-gradient-to-br from-secondary-bg to-accent-brown/10 border-accent-brown shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] group">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 px-4 pt-4">
+              <div className="flex-1 min-w-0">
+                <CardTitle className="text-sm font-medium text-accent-secondary truncate">📍 Locations</CardTitle>
+                <p className="text-xs text-text-secondary mt-1 line-clamp-2">Filming sites</p>
               </div>
-              <div className="p-3 bg-accent-secondary/20 rounded-full group-hover:bg-accent-secondary/30 transition-colors">
-                <MapPin className="h-6 w-6 text-accent-secondary" />
+              <div className="p-2 bg-accent-secondary/20 rounded-full group-hover:bg-accent-secondary/30 transition-colors flex-shrink-0 ml-2">
+                <MapPin className="h-5 w-5 text-accent-secondary" />
               </div>
             </CardHeader>
-            <CardContent>
-              <div className="text-3xl font-bold text-accent-secondary mb-1">{dashboard?.summary?.locations?.length || 0}</div>
-              <div className="flex items-center text-sm text-text-secondary">
-                <span className="mr-2">🗺️</span>
-                unique locations
+            <CardContent className="px-4 pb-4">
+              <div className="text-2xl md:text-3xl font-bold text-accent-secondary mb-1 truncate">{dashboard?.summary?.locations?.length || 0}</div>
+              <div className="flex items-center text-xs md:text-sm text-text-secondary">
+                <span className="mr-1 flex-shrink-0">🗺️</span>
+                <span className="truncate">unique locations</span>
               </div>
             </CardContent>
           </Card>
@@ -407,42 +407,53 @@ export default function ProjectDetailPage() {
 
         {/* Enhanced Project Tabs */}
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full grid-cols-9 bg-gray-900 border border-gray-700">
-            <TabsTrigger value="overview" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400">
-              Overview
-            </TabsTrigger>
-            <TabsTrigger value="scenes" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
-              🎬 Scenes
-            </TabsTrigger>
-            <TabsTrigger value="catalog" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
-              📋 Catalog
-            </TabsTrigger>
-            <TabsTrigger value="schedule" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
-              📅 Schedule
-            </TabsTrigger>
-            <TabsTrigger value="budget" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
-              💰 Budget
-            </TabsTrigger>
-            <TabsTrigger value="characters" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
-              👥 Characters
-            </TabsTrigger>
-            <TabsTrigger value="promotions" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400">
-              Promotions
-            </TabsTrigger>
-            <TabsTrigger value="tickets" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium">
-              🎫 Tickets
-            </TabsTrigger>
-            <TabsTrigger value="risks" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400">
-              Risks
-            </TabsTrigger>
-          </TabsList>
+          <div className="overflow-x-auto">
+            <TabsList className="grid w-full min-w-[800px] grid-cols-9 bg-gray-900 border border-gray-700">
+              <TabsTrigger value="overview" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400 text-xs md:text-sm px-2 py-2">
+                <span className="hidden sm:inline">Overview</span>
+                <span className="sm:hidden">📊</span>
+              </TabsTrigger>
+              <TabsTrigger value="scenes" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium text-xs md:text-sm px-2 py-2">
+                <span className="hidden sm:inline">🎬 Scenes</span>
+                <span className="sm:hidden">🎬</span>
+              </TabsTrigger>
+              <TabsTrigger value="catalog" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium text-xs md:text-sm px-2 py-2">
+                <span className="hidden sm:inline">📋 Catalog</span>
+                <span className="sm:hidden">📋</span>
+              </TabsTrigger>
+              <TabsTrigger value="schedule" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium text-xs md:text-sm px-2 py-2">
+                <span className="hidden sm:inline">📅 Schedule</span>
+                <span className="sm:hidden">📅</span>
+              </TabsTrigger>
+              <TabsTrigger value="budget" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium text-xs md:text-sm px-2 py-2">
+                <span className="hidden sm:inline">💰 Budget</span>
+                <span className="sm:hidden">💰</span>
+              </TabsTrigger>
+              <TabsTrigger value="characters" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium text-xs md:text-sm px-2 py-2">
+                <span className="hidden sm:inline">👥 Characters</span>
+                <span className="sm:hidden">👥</span>
+              </TabsTrigger>
+              <TabsTrigger value="promotions" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400 text-xs md:text-sm px-2 py-2">
+                <span className="hidden sm:inline">Promotions</span>
+                <span className="sm:hidden">📢</span>
+              </TabsTrigger>
+              <TabsTrigger value="tickets" className="data-[state=active]:bg-accent-primary/30 data-[state=active]:text-accent-primary text-text-secondary font-medium text-xs md:text-sm px-2 py-2">
+                <span className="hidden sm:inline">🎫 Tickets</span>
+                <span className="sm:hidden">🎫</span>
+              </TabsTrigger>
+              <TabsTrigger value="risks" className="data-[state=active]:bg-amber-500/20 data-[state=active]:text-amber-400 text-xs md:text-sm px-2 py-2">
+                <span className="hidden sm:inline">Risks</span>
+                <span className="sm:hidden">⚠️</span>
+              </TabsTrigger>
+            </TabsList>
+          </div>
 
           {/* Overview Tab */}
-          <TabsContent value="overview" className="mt-6 space-y-6">
+          <TabsContent value="overview" className="mt-4 md:mt-6 space-y-4 md:space-y-6">
             {/* Enhanced Project Overview Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-6">
               {/* Script Analysis Status */}
-              <Card className="bg-gradient-to-br from-secondary-bg to-accent-primary/10 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+              <Card className="bg-gradient-to-br from-secondary-bg to-accent-primary/10 border-accent-brown shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
                 <CardHeader>
                   <CardTitle className="text-accent-secondary flex items-center">
                     <Film className="w-6 h-6 mr-3 text-accent-primary" />
@@ -470,7 +481,7 @@ export default function ProjectDetailPage() {
               </Card>
 
               {/* Locations Summary */}
-              <Card className="bg-gradient-to-br from-secondary-bg to-accent-secondary/10 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+              <Card className="bg-gradient-to-br from-secondary-bg to-accent-secondary/10 border-accent-brown shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
                 <CardHeader>
                   <CardTitle className="text-accent-secondary flex items-center">
                     <MapPin className="w-6 h-6 mr-3 text-accent-secondary" />
@@ -498,7 +509,7 @@ export default function ProjectDetailPage() {
               </Card>
 
               {/* Characters Summary */}
-              <Card className="bg-gradient-to-br from-secondary-bg to-accent-brown/10 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+              <Card className="bg-gradient-to-br from-secondary-bg to-accent-brown/10 border-accent-brown shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
                 <CardHeader>
                   <CardTitle className="text-accent-secondary flex items-center">
                     <Users className="w-6 h-6 mr-3 text-accent-brown" />
@@ -526,9 +537,9 @@ export default function ProjectDetailPage() {
               </Card>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
               {/* Enhanced Script Files */}
-              <Card className="bg-gradient-to-br from-secondary-bg/80 to-primary-bg/60 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300">
+              <Card className="bg-gradient-to-br from-secondary-bg/80 to-primary-bg/60 border-accent-brown shadow-lg hover:shadow-xl transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="text-accent-secondary flex items-center">
                     <Film className="w-6 h-6 mr-3 text-accent-primary" />
@@ -539,12 +550,12 @@ export default function ProjectDetailPage() {
                   {dashboard?.scripts?.length > 0 ? (
                     <div className="space-y-4">
                       {dashboard.scripts.map((script: any) => (
-                        <div key={script.id} className="p-4 bg-primary-bg/50 rounded-lg border border-accent-brown/20 hover:border-accent-primary/30 transition-colors">
-                          <div className="flex items-center justify-between mb-3">
-                            <p className="text-accent-secondary font-semibold truncate flex items-center">
+                        <div key={script.id} className="p-3 md:p-4 bg-primary-bg/50 rounded-lg border border-accent-brown/20 hover:border-accent-primary/30 transition-colors">
+                          <div className="flex items-center justify-between gap-2 mb-3">
+                            <p className="text-accent-secondary font-semibold truncate flex items-center text-sm md:text-base">
                               📄 {script.filename}
                             </p>
-                            <span className="text-xs text-accent-primary bg-accent-primary/20 px-3 py-1 rounded-full font-medium">
+                            <span className="text-xs text-accent-primary bg-accent-primary/20 px-2 py-1 rounded-full font-medium flex-shrink-0">
                               {script.total_scenes} scenes
                             </span>
                           </div>
@@ -574,7 +585,7 @@ export default function ProjectDetailPage() {
               </Card>
 
               {/* Enhanced Recent Scenes */}
-              <Card className="bg-gradient-to-br from-secondary-bg/80 to-primary-bg/60 border-accent-brown shadow-lg hover:shadow-2xl transition-all duration-300">
+              <Card className="bg-gradient-to-br from-secondary-bg/80 to-primary-bg/60 border-accent-brown shadow-lg hover:shadow-xl transition-all duration-300">
                 <CardHeader>
                   <CardTitle className="text-accent-secondary flex items-center">
                     <Clock className="w-6 h-6 mr-3 text-accent-secondary" />
@@ -585,23 +596,23 @@ export default function ProjectDetailPage() {
                   {dashboard?.scenes?.length > 0 ? (
                     <div className="space-y-3">
                       {dashboard.scenes.slice(0, 5).map((scene: any) => (
-                        <div key={scene.id} className="flex items-center justify-between p-3 bg-primary-bg/50 rounded-lg border border-accent-brown/20 hover:border-accent-primary/30 transition-colors">
+                        <div key={scene.id} className="flex items-start justify-between gap-3 p-3 bg-primary-bg/50 rounded-lg border border-accent-brown/20 hover:border-accent-primary/30 transition-colors">
                           <div className="flex-1 min-w-0">
-                            <p className="text-accent-secondary font-medium truncate">
+                            <p className="text-accent-secondary font-medium truncate text-sm md:text-base">
                               🎬 Scene {scene.scene_number}: {scene.scene_heading}
                             </p>
-                            <div className="flex items-center text-sm text-text-secondary mt-1">
-                              <MapPin className="w-4 h-4 mr-1 flex-shrink-0 text-accent-primary" />
+                            <div className="flex items-center text-xs md:text-sm text-text-secondary mt-1">
+                              <MapPin className="w-3 h-3 md:w-4 md:h-4 mr-1 flex-shrink-0 text-accent-primary" />
                               <span className="truncate">{scene.location_name}</span>
                               {scene.time_of_day && (
                                 <>
-                                  <span className="mx-2">•</span>
-                                  <span>🕐 {scene.time_of_day}</span>
+                                  <span className="mx-1 md:mx-2">•</span>
+                                  <span className="hidden sm:inline">🕐 {scene.time_of_day}</span>
                                 </>
                               )}
                             </div>
                           </div>
-                          <div className="ml-3 flex flex-col items-end">
+                          <div className="flex flex-col items-end flex-shrink-0">
                             <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                               scene.status === 'completed' ? 'bg-accent-primary/20 text-accent-primary border border-accent-primary/30' :
                               scene.status === 'in_progress' ? 'bg-accent-secondary/20 text-accent-secondary border border-accent-secondary/30' :

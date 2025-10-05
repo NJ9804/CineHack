@@ -234,6 +234,113 @@ export async function addInvoiceComment(
 /**
  * Invoice Upload Component
  */
+// Invoice Success Modal Component
+function InvoiceSuccessModal({ result, onClose }: {
+  result: {
+    success: boolean;
+    invoice_number: string;
+    amount: number;
+    currency: string;
+    vendor_name: string;
+    invoice_date: string;
+    category: string;
+    confidence_score: number;
+    approval_required: boolean;
+    approval_status: string;
+  } | null;
+  onClose: () => void;
+}) {
+  if (!result) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+      <div className="bg-secondary-bg border border-accent-brown/30 rounded-2xl shadow-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+        <div className="p-6">
+          {/* Header */}
+          <div className="text-center mb-6">
+            <div className="text-6xl mb-3">✅</div>
+            <h2 className="text-2xl font-bold text-accent-secondary mb-2">
+              Invoice Uploaded Successfully!
+            </h2>
+            <p className="text-text-secondary">
+              AI has processed your invoice with high accuracy
+            </p>
+          </div>
+
+          {/* Invoice Details */}
+          <div className="space-y-4">
+            <div className="bg-primary-bg/50 p-4 rounded-lg border border-accent-brown/20">
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <p className="text-text-secondary">Invoice Number</p>
+                  <p className="font-semibold text-accent-primary">📄 {result.invoice_number}</p>
+                </div>
+                <div>
+                  <p className="text-text-secondary">Amount</p>
+                  <p className="font-semibold text-accent-primary">💰 {result.currency}{result.amount.toLocaleString()}</p>
+                </div>
+                <div>
+                  <p className="text-text-secondary">Vendor</p>
+                  <p className="font-semibold text-accent-secondary">🏢 {result.vendor_name}</p>
+                </div>
+                <div>
+                  <p className="text-text-secondary">Date</p>
+                  <p className="font-semibold text-accent-secondary">📅 {result.invoice_date}</p>
+                </div>
+                <div>
+                  <p className="text-text-secondary">Category</p>
+                  <p className="font-semibold text-accent-secondary">📂 {result.category}</p>
+                </div>
+                <div>
+                  <p className="text-text-secondary">AI Confidence</p>
+                  <p className="font-semibold text-accent-primary">🤖 {(result.confidence_score * 100).toFixed(0)}%</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Approval Status */}
+            <div className={`p-4 rounded-lg border ${
+              result.approval_required 
+                ? 'bg-yellow-500/10 border-yellow-500/30' 
+                : 'bg-green-500/10 border-green-500/30'
+            }`}>
+              <div className="flex items-start gap-3">
+                <div className="text-2xl">
+                  {result.approval_required ? '⚠️' : '✅'}
+                </div>
+                <div>
+                  <h3 className="font-semibold text-accent-secondary mb-1">
+                    {result.approval_required ? 'Approval Required' : 'Auto-Approved'}
+                  </h3>
+                  <p className="text-sm text-text-secondary">
+                    {result.approval_required 
+                      ? 'This invoice needs manager approval before processing.'
+                      : 'Invoice is below the approval threshold and ready for payment.'
+                    }
+                  </p>
+                  <p className="text-xs text-accent-primary mt-2 font-medium">
+                    Status: {result.approval_status.toUpperCase()}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Close Button */}
+          <div className="mt-6 pt-4 border-t border-accent-brown/20">
+            <button
+              onClick={onClose}
+              className="w-full bg-accent-primary text-primary-bg font-semibold py-3 px-4 rounded-lg hover:bg-accent-secondary transition-colors"
+            >
+              🎬 Continue Managing Invoices
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function InvoiceUploadForm({ projectId, userId, onSuccess }: {
   projectId: number;
   userId: number;
@@ -245,6 +352,18 @@ export function InvoiceUploadForm({ projectId, userId, onSuccess }: {
   const [department, setDepartment] = React.useState('');
   const [purpose, setPurpose] = React.useState('');
   const [notes, setNotes] = React.useState('');
+  const [uploadResult, setUploadResult] = React.useState<{
+    success: boolean;
+    invoice_number: string;
+    amount: number;
+    currency: string;
+    vendor_name: string;
+    invoice_date: string;
+    category: string;
+    confidence_score: number;
+    approval_required: boolean;
+    approval_status: string;
+  } | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -259,27 +378,20 @@ export function InvoiceUploadForm({ projectId, userId, onSuccess }: {
         notes: notes || undefined,
       });
 
-      // Show detailed extraction results
+      // Show detailed extraction results in a modal
       const extracted = response.extracted_data || {};
-      const details = `
-✅ Invoice Uploaded Successfully!
-
-📄 Invoice Number: ${response.invoice_number}
-💰 Amount: ${extracted.currency || ''} ${extracted.total_amount?.toLocaleString() || 'N/A'}
-🏢 Vendor: ${extracted.vendor_name || 'N/A'}
-📅 Date: ${extracted.invoice_date || 'N/A'}
-📂 Category: ${extracted.category || 'Uncategorized'}
-🤖 AI Confidence: ${extracted.confidence_score ? (extracted.confidence_score * 100).toFixed(0) + '%' : 'N/A'}
-
-${response.approval_required ? 
-  '⚠️ APPROVAL REQUIRED\nThis invoice needs manager approval before processing.' : 
-  '✓ AUTO-APPROVED\nInvoice is below the approval threshold.'
-}
-
-Status: ${response.approval_status.toUpperCase()}
-      `.trim();
-      
-      alert(details);
+      setUploadResult({
+        success: true,
+        invoice_number: response.invoice_number,
+        amount: extracted.total_amount || 0,
+        currency: extracted.currency || '₹',
+        vendor_name: extracted.vendor_name || 'N/A',
+        invoice_date: extracted.invoice_date || 'N/A',
+        category: extracted.category || 'Uncategorized',
+        confidence_score: extracted.confidence_score || 0,
+        approval_required: response.approval_required,
+        approval_status: response.approval_status
+      });
       
       // Reset form
       setFile(null);
@@ -291,85 +403,115 @@ Status: ${response.approval_status.toUpperCase()}
       if (onSuccess) onSuccess(response);
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Upload failed';
-      alert(`Upload failed: ${errorMessage}`);
+      // Show error in a styled alert instead of browser alert
+      setUploadResult({
+        success: false,
+        invoice_number: 'ERROR',
+        amount: 0,
+        currency: '₹',
+        vendor_name: errorMessage,
+        invoice_date: 'N/A',
+        category: 'Error',
+        confidence_score: 0,
+        approval_required: false,
+        approval_status: 'failed'
+      });
     } finally {
       setUploading(false);
     }
   };
 
+  const handleCloseModal = () => {
+    setUploadResult(null);
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label className="block text-sm font-medium mb-2">Invoice Image/PDF *</label>
-        <input
-          type="file"
-          accept="image/jpeg,image/png,application/pdf"
-          onChange={(e) => setFile(e.target.files?.[0] || null)}
-          required
-          className="block w-full border border-gray-300 rounded-md p-2"
-        />
-        <p className="text-xs text-gray-500 mt-1">Supported: JPG, PNG, PDF (max 10MB)</p>
-      </div>
+    <>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium mb-2 text-accent-secondary">📄 Invoice Image/PDF *</label>
+          <input
+            type="file"
+            accept="image/jpeg,image/png,application/pdf"
+            onChange={(e) => setFile(e.target.files?.[0] || null)}
+            required
+            className="block w-full border border-accent-brown/30 bg-primary-bg/50 text-text-primary rounded-md p-3 hover:border-accent-primary/50 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/20 transition-colors"
+          />
+          <p className="text-xs text-text-secondary mt-1">Supported: JPG, PNG, PDF (max 10MB)</p>
+        </div>
 
-      <div>
-        <label className="block text-sm font-medium mb-2">Category</label>
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          className="block w-full border border-gray-300 rounded-md p-2"
+        <div>
+          <label className="block text-sm font-medium mb-2 text-accent-secondary">📂 Category</label>
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+            className="block w-full border border-accent-brown/30 bg-white text-gray-900 rounded-md p-3 hover:border-accent-primary/50 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/20 transition-colors font-medium [&>option]:bg-white [&>option]:text-gray-900 [&>option]:font-medium"
+          >
+            <option value="" className="text-gray-500">Select category...</option>
+            <option value="catering" className="text-gray-900 font-medium">🍽️ Catering</option>
+            <option value="equipment" className="text-gray-900 font-medium">📹 Equipment</option>
+            <option value="props" className="text-gray-900 font-medium">🎭 Props</option>
+            <option value="accommodation" className="text-gray-900 font-medium">🏨 Accommodation</option>
+            <option value="transport" className="text-gray-900 font-medium">🚐 Transport</option>
+            <option value="services" className="text-gray-900 font-medium">🛠️ Services</option>
+            <option value="utilities" className="text-gray-900 font-medium">⚡ Utilities</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-2 text-accent-secondary">🏢 Department</label>
+          <input
+            type="text"
+            value={department}
+            onChange={(e) => setDepartment(e.target.value)}
+            placeholder="e.g., Production, Camera, Art"
+            className="block w-full border border-accent-brown/30 bg-primary-bg/50 text-text-primary rounded-md p-3 hover:border-accent-primary/50 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/20 transition-colors placeholder-text-secondary/60"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-2 text-accent-secondary">🎯 Purpose</label>
+          <input
+            type="text"
+            value={purpose}
+            onChange={(e) => setPurpose(e.target.value)}
+            placeholder="e.g., Lunch catering for shoot day 5"
+            className="block w-full border border-accent-brown/30 bg-primary-bg/50 text-text-primary rounded-md p-3 hover:border-accent-primary/50 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/20 transition-colors placeholder-text-secondary/60"
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-2 text-accent-secondary">📝 Notes</label>
+          <textarea
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            rows={3}
+            placeholder="Additional notes..."
+            className="block w-full border border-accent-brown/30 bg-primary-bg/50 text-text-primary rounded-md p-3 hover:border-accent-primary/50 focus:border-accent-primary focus:ring-1 focus:ring-accent-primary/20 transition-colors placeholder-text-secondary/60 resize-none"
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={!file || uploading}
+          className="w-full bg-gradient-to-r from-accent-primary to-accent-secondary text-primary-bg font-semibold py-3 px-4 rounded-lg hover:from-accent-secondary hover:to-accent-primary disabled:from-gray-600 disabled:to-gray-700 disabled:text-gray-400 transition-all duration-300 hover:scale-[1.02] disabled:hover:scale-100 flex items-center justify-center gap-2"
         >
-          <option value="">Select category...</option>
-          <option value="catering">Catering</option>
-          <option value="equipment">Equipment</option>
-          <option value="props">Props</option>
-          <option value="accommodation">Accommodation</option>
-          <option value="transport">Transport</option>
-          <option value="services">Services</option>
-          <option value="utilities">Utilities</option>
-        </select>
-      </div>
+          {uploading ? (
+            <>
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-primary-bg"></div>
+              Uploading & Processing...
+            </>
+          ) : (
+            <>
+              📤 Upload Invoice
+            </>
+          )}
+        </button>
+      </form>
 
-      <div>
-        <label className="block text-sm font-medium mb-2">Department</label>
-        <input
-          type="text"
-          value={department}
-          onChange={(e) => setDepartment(e.target.value)}
-          placeholder="e.g., Production, Camera, Art"
-          className="block w-full border border-gray-300 rounded-md p-2"
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium mb-2">Purpose</label>
-        <input
-          type="text"
-          value={purpose}
-          onChange={(e) => setPurpose(e.target.value)}
-          placeholder="e.g., Lunch catering for shoot day 5"
-          className="block w-full border border-gray-300 rounded-md p-2"
-        />
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium mb-2">Notes</label>
-        <textarea
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          rows={3}
-          placeholder="Additional notes..."
-          className="block w-full border border-gray-300 rounded-md p-2"
-        />
-      </div>
-
-      <button
-        type="submit"
-        disabled={!file || uploading}
-        className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 disabled:bg-gray-400"
-      >
-        {uploading ? 'Uploading...' : 'Upload Invoice'}
-      </button>
-    </form>
+      {/* Success/Error Modal */}
+      <InvoiceSuccessModal result={uploadResult} onClose={handleCloseModal} />
+    </>
   );
 }
 
@@ -398,22 +540,37 @@ export function InvoiceList({ projectId }: { projectId: number }) {
     }
   };
 
-  if (loading) return <div>Loading invoices...</div>;
+  if (loading) return (
+    <div className="flex items-center justify-center py-8">
+      <div className="flex items-center gap-3 text-accent-secondary">
+        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-accent-primary"></div>
+        <span className="font-medium">Loading invoices...</span>
+      </div>
+    </div>
+  );
 
   return (
     <div>
       <div className="mb-4 flex gap-2">
         <button
           onClick={() => setFilter('all')}
-          className={`px-4 py-2 rounded ${filter === 'all' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+          className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+            filter === 'all' 
+              ? 'bg-gradient-to-r from-accent-primary to-accent-secondary text-primary-bg shadow-lg' 
+              : 'bg-secondary-bg/60 text-text-secondary hover:bg-accent-brown/20 hover:text-accent-secondary'
+          }`}
         >
-          All Invoices
+          📋 All Invoices
         </button>
         <button
           onClick={() => setFilter('pending')}
-          className={`px-4 py-2 rounded ${filter === 'pending' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+          className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+            filter === 'pending' 
+              ? 'bg-gradient-to-r from-accent-primary to-accent-secondary text-primary-bg shadow-lg' 
+              : 'bg-secondary-bg/60 text-text-secondary hover:bg-accent-brown/20 hover:text-accent-secondary'
+          }`}
         >
-          Pending Approval
+          ⏳ Pending Approval
         </button>
       </div>
 
@@ -431,10 +588,10 @@ export function InvoiceList({ projectId }: { projectId: number }) {
  */
 function InvoiceCard({ invoice, onUpdate }: { invoice: Invoice; onUpdate: () => void }) {
   const statusColors: Record<string, string> = {
-    pending: 'bg-yellow-100 text-yellow-800',
-    approved: 'bg-green-100 text-green-800',
-    rejected: 'bg-red-100 text-red-800',
-    auto_approved: 'bg-blue-100 text-blue-800',
+    pending: 'bg-yellow-500/20 text-yellow-300',
+    approved: 'bg-green-500/20 text-green-300',
+    rejected: 'bg-red-500/20 text-red-300',
+    auto_approved: 'bg-blue-500/20 text-blue-300',
   };
 
   const formatDate = (dateStr: string | null) => {
@@ -447,33 +604,33 @@ function InvoiceCard({ invoice, onUpdate }: { invoice: Invoice; onUpdate: () => 
   };
 
   return (
-    <div className="border rounded-lg p-5 hover:shadow-lg transition-shadow bg-white">
+    <div className="border border-accent-brown/30 rounded-lg p-5 hover:shadow-xl transition-all duration-300 hover:scale-[1.01] bg-gradient-to-br from-secondary-bg/80 to-primary-bg/60">
       {/* Header Section */}
       <div className="flex justify-between items-start mb-4">
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-1">
-            <h3 className="font-bold text-lg text-gray-900">{invoice.invoice_number}</h3>
+            <h3 className="font-bold text-lg text-accent-primary">{invoice.invoice_number}</h3>
             {invoice.approval_required && (
-              <span className="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded">
+              <span className="text-xs bg-accent-primary/20 text-accent-primary px-2 py-0.5 rounded">
                 Requires Approval
               </span>
             )}
           </div>
-          <p className="text-gray-700 font-medium">{invoice.vendor_name}</p>
-          <div className="flex gap-3 mt-2 text-sm text-gray-600">
-            <span className="flex items-center gap-1">
+          <p className="text-white font-medium">{invoice.vendor_name}</p>
+          <div className="flex gap-3 mt-2 text-sm text-gray-200">
+            <span className="flex items-center gap-1 font-medium">
               📂 {invoice.category || 'Uncategorized'}
             </span>
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-1 font-medium">
               🏢 {invoice.department || 'General'}
             </span>
           </div>
         </div>
         <div className="text-right">
-          <p className="text-3xl font-bold text-gray-900">
+          <p className="text-3xl font-bold text-accent-primary">
             {invoice.currency} {invoice.total_amount.toLocaleString()}
           </p>
-          <span className={`inline-block mt-2 px-3 py-1 rounded-full text-xs font-semibold ${statusColors[invoice.approval_status] || 'bg-gray-100'}`}>
+          <span className={`inline-block mt-2 px-3 py-1 rounded-full text-xs font-semibold ${statusColors[invoice.approval_status] || 'bg-accent-brown/20 text-accent-brown'}`}>
             {invoice.approval_status.replace('_', ' ').toUpperCase()}
           </span>
         </div>
@@ -482,37 +639,37 @@ function InvoiceCard({ invoice, onUpdate }: { invoice: Invoice; onUpdate: () => 
       {/* Details Grid */}
       <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
         <div>
-          <span className="text-gray-500">Invoice Date:</span>
-          <span className="ml-2 text-gray-900 font-medium">{formatDate(invoice.invoice_date)}</span>
+          <span className="text-gray-300">Invoice Date:</span>
+          <span className="ml-2 text-white font-medium">{formatDate(invoice.invoice_date)}</span>
         </div>
         <div>
-          <span className="text-gray-500">Submitted:</span>
-          <span className="ml-2 text-gray-900 font-medium">{formatDate(invoice.created_at)}</span>
+          <span className="text-gray-300">Submitted:</span>
+          <span className="ml-2 text-white font-medium">{formatDate(invoice.created_at)}</span>
         </div>
         <div>
-          <span className="text-gray-500">AI Confidence:</span>
-          <span className={`ml-2 font-medium ${invoice.ai_confidence_score >= 0.8 ? 'text-green-600' : 'text-orange-600'}`}>
+          <span className="text-gray-300">AI Confidence:</span>
+          <span className={`ml-2 font-medium ${invoice.ai_confidence_score >= 0.8 ? 'text-green-300' : 'text-orange-300'}`}>
             {(invoice.ai_confidence_score * 100).toFixed(0)}%
           </span>
         </div>
         <div>
-          <span className="text-gray-500">Status:</span>
-          <span className="ml-2 text-gray-900 font-medium">{invoice.status}</span>
+          <span className="text-gray-300">Status:</span>
+          <span className="ml-2 text-white font-medium">{invoice.status}</span>
         </div>
       </div>
 
       {/* Warnings */}
       {invoice.ai_confidence_score < 0.8 && (
-        <div className="mb-3 p-3 bg-orange-50 border border-orange-200 rounded text-sm text-orange-800">
+        <div className="mb-3 p-3 bg-orange-500/20 border border-orange-400/30 rounded text-sm text-orange-200">
           ⚠️ <strong>Low AI Confidence:</strong> Please verify all extracted details manually
         </div>
       )}
 
       {/* Action Buttons */}
-      <div className="flex gap-2 pt-3 border-t">
+      <div className="flex gap-2 pt-3 border-t border-accent-brown/30">
         <button
           onClick={() => window.open(`${API_BASE}/invoice/invoice/${invoice.id}/download`, '_blank')}
-          className="flex-1 px-4 py-2 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 font-medium"
+          className="flex-1 px-4 py-2 text-sm bg-accent-primary text-primary-bg rounded-lg hover:bg-accent-secondary font-medium transition-colors"
         >
           📄 View Invoice
         </button>
@@ -524,7 +681,7 @@ function InvoiceCard({ invoice, onUpdate }: { invoice: Invoice; onUpdate: () => 
                 await approveInvoice(invoice.id, userId, 'Approved via review');
                 onUpdate();
               }}
-              className="px-4 py-2 text-sm bg-green-500 text-white rounded hover:bg-green-600 font-medium"
+              className="px-4 py-2 text-sm bg-green-500 text-white rounded-lg hover:bg-green-600 font-medium transition-colors"
             >
               ✓ Approve
             </button>
@@ -537,7 +694,7 @@ function InvoiceCard({ invoice, onUpdate }: { invoice: Invoice; onUpdate: () => 
                   onUpdate();
                 }
               }}
-              className="px-4 py-2 text-sm bg-red-500 text-white rounded hover:bg-red-600 font-medium"
+              className="px-4 py-2 text-sm bg-red-500 text-white rounded-lg hover:bg-red-600 font-medium transition-colors"
             >
               ✗ Reject
             </button>
